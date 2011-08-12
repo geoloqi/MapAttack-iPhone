@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GeoloqiSocketClient.h"
 
 @interface MapAttackAppDelegate : NSObject <UIApplicationDelegate, UITabBarControllerDelegate> {
     UIWindow *window;
     UITabBarController *tabBarController;
+	GeoloqiSocketClient *geoloqi;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;

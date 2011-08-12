@@ -7,6 +7,24 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0F128EF813F4A29D007AAB66 /* AsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F128EF713F4A29D007AAB66 /* AsyncSocket.m */; };
+		0F128EFE13F4A2BB007AAB66 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F128EFD13F4A2BB007AAB66 /* CFNetwork.framework */; };
+		0F128FAD13F4A92E007AAB66 /* GeoloqiSocketClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F128FAC13F4A92E007AAB66 /* GeoloqiSocketClient.m */; };
+		0F128FC713F4A9C1007AAB66 /* CDataScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F128FB213F4A9C1007AAB66 /* CDataScanner.m */; };
+		0F128FC813F4A9C1007AAB66 /* CDataScanner_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F128FB513F4A9C1007AAB66 /* CDataScanner_Extensions.m */; };
+		0F128FC913F4A9C1007AAB66 /* NSCharacterSet_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F128FB713F4A9C1007AAB66 /* NSCharacterSet_Extensions.m */; };
+		0F128FCA13F4A9C1007AAB66 /* NSDictionary_JSONExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F128FB913F4A9C1007AAB66 /* NSDictionary_JSONExtensions.m */; };
+		0F128FCB13F4A9C1007AAB66 /* NSScanner_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F128FBB13F4A9C1007AAB66 /* NSScanner_Extensions.m */; };
+		0F128FCC13F4A9C1007AAB66 /* CJSONDataSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F128FBE13F4A9C1007AAB66 /* CJSONDataSerializer.m */; };
+		0F128FCD13F4A9C1007AAB66 /* CJSONDeserializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F128FC013F4A9C1007AAB66 /* CJSONDeserializer.m */; };
+		0F128FCE13F4A9C1007AAB66 /* CJSONScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F128FC213F4A9C1007AAB66 /* CJSONScanner.m */; };
+		0F128FCF13F4A9C1007AAB66 /* CJSONSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F128FC413F4A9C1007AAB66 /* CJSONSerializer.m */; };
+		0F128FD013F4A9C1007AAB66 /* CSerializedJSONData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F128FC613F4A9C1007AAB66 /* CSerializedJSONData.m */; };
+		0F1290E113F4C2EB007AAB66 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F1290E013F4C2EB007AAB66 /* CoreLocation.framework */; };
+		0F12915213F4C664007AAB66 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F12915113F4C664007AAB66 /* MapKit.framework */; };
+		0F12916613F4C809007AAB66 /* fakeLocations.kml in Resources */ = {isa = PBXBuildFile; fileRef = 0F12916013F4C809007AAB66 /* fakeLocations.kml */; };
+		0F12916713F4C809007AAB66 /* FTLocationSimulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F12916213F4C809007AAB66 /* FTLocationSimulator.m */; };
+		0F12916813F4C809007AAB66 /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F12916513F4C809007AAB66 /* RegexKitLite.m */; };
 		1D3623260D0F684500981E51 /* MapAttackAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* MapAttackAppDelegate.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
@@ -19,6 +37,40 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0F128EF613F4A29D007AAB66 /* AsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncSocket.h; sourceTree = "<group>"; };
+		0F128EF713F4A29D007AAB66 /* AsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsyncSocket.m; sourceTree = "<group>"; };
+		0F128EFD13F4A2BB007AAB66 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		0F128FAB13F4A92E007AAB66 /* GeoloqiSocketClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeoloqiSocketClient.h; sourceTree = "<group>"; };
+		0F128FAC13F4A92E007AAB66 /* GeoloqiSocketClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeoloqiSocketClient.m; sourceTree = "<group>"; };
+		0F128FB113F4A9C1007AAB66 /* CDataScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDataScanner.h; sourceTree = "<group>"; };
+		0F128FB213F4A9C1007AAB66 /* CDataScanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDataScanner.m; sourceTree = "<group>"; };
+		0F128FB413F4A9C1007AAB66 /* CDataScanner_Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDataScanner_Extensions.h; sourceTree = "<group>"; };
+		0F128FB513F4A9C1007AAB66 /* CDataScanner_Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDataScanner_Extensions.m; sourceTree = "<group>"; };
+		0F128FB613F4A9C1007AAB66 /* NSCharacterSet_Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSCharacterSet_Extensions.h; sourceTree = "<group>"; };
+		0F128FB713F4A9C1007AAB66 /* NSCharacterSet_Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSCharacterSet_Extensions.m; sourceTree = "<group>"; };
+		0F128FB813F4A9C1007AAB66 /* NSDictionary_JSONExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDictionary_JSONExtensions.h; sourceTree = "<group>"; };
+		0F128FB913F4A9C1007AAB66 /* NSDictionary_JSONExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDictionary_JSONExtensions.m; sourceTree = "<group>"; };
+		0F128FBA13F4A9C1007AAB66 /* NSScanner_Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSScanner_Extensions.h; sourceTree = "<group>"; };
+		0F128FBB13F4A9C1007AAB66 /* NSScanner_Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSScanner_Extensions.m; sourceTree = "<group>"; };
+		0F128FBD13F4A9C1007AAB66 /* CJSONDataSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJSONDataSerializer.h; sourceTree = "<group>"; };
+		0F128FBE13F4A9C1007AAB66 /* CJSONDataSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJSONDataSerializer.m; sourceTree = "<group>"; };
+		0F128FBF13F4A9C1007AAB66 /* CJSONDeserializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJSONDeserializer.h; sourceTree = "<group>"; };
+		0F128FC013F4A9C1007AAB66 /* CJSONDeserializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJSONDeserializer.m; sourceTree = "<group>"; };
+		0F128FC113F4A9C1007AAB66 /* CJSONScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJSONScanner.h; sourceTree = "<group>"; };
+		0F128FC213F4A9C1007AAB66 /* CJSONScanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJSONScanner.m; sourceTree = "<group>"; };
+		0F128FC313F4A9C1007AAB66 /* CJSONSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJSONSerializer.h; sourceTree = "<group>"; };
+		0F128FC413F4A9C1007AAB66 /* CJSONSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJSONSerializer.m; sourceTree = "<group>"; };
+		0F128FC513F4A9C1007AAB66 /* CSerializedJSONData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSerializedJSONData.h; sourceTree = "<group>"; };
+		0F128FC613F4A9C1007AAB66 /* CSerializedJSONData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSerializedJSONData.m; sourceTree = "<group>"; };
+		0F128FD913F4AA03007AAB66 /* LQConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LQConstants.h; sourceTree = "<group>"; };
+		0F1290E013F4C2EB007AAB66 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		0F12915113F4C664007AAB66 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		0F12916013F4C809007AAB66 /* fakeLocations.kml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = fakeLocations.kml; sourceTree = "<group>"; };
+		0F12916113F4C809007AAB66 /* FTLocationSimulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTLocationSimulator.h; sourceTree = "<group>"; };
+		0F12916213F4C809007AAB66 /* FTLocationSimulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTLocationSimulator.m; sourceTree = "<group>"; };
+		0F12916313F4C809007AAB66 /* FTSynthesizeSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTSynthesizeSingleton.h; sourceTree = "<group>"; };
+		0F12916413F4C809007AAB66 /* RegexKitLite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegexKitLite.h; sourceTree = "<group>"; };
+		0F12916513F4C809007AAB66 /* RegexKitLite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegexKitLite.m; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D3623240D0F684500981E51 /* MapAttackAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapAttackAppDelegate.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* MapAttackAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapAttackAppDelegate.m; sourceTree = "<group>"; };
@@ -43,6 +95,9 @@
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				288765080DF74369002DB57D /* CoreGraphics.framework in Frameworks */,
+				0F128EFE13F4A2BB007AAB66 /* CFNetwork.framework in Frameworks */,
+				0F1290E113F4C2EB007AAB66 /* CoreLocation.framework in Frameworks */,
+				0F12915213F4C664007AAB66 /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -52,12 +107,82 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				0F128FAB13F4A92E007AAB66 /* GeoloqiSocketClient.h */,
+				0F128FAC13F4A92E007AAB66 /* GeoloqiSocketClient.m */,
 				28216C950DB411BC00E5133A /* FirstViewController.h */,
 				28216C960DB411BC00E5133A /* FirstViewController.m */,
 				1D3623240D0F684500981E51 /* MapAttackAppDelegate.h */,
 				1D3623250D0F684500981E51 /* MapAttackAppDelegate.m */,
+				0F128FD913F4AA03007AAB66 /* LQConstants.h */,
 			);
 			path = Classes;
+			sourceTree = "<group>";
+		};
+		0F128D4E13F4A207007AAB66 /* Externals */ = {
+			isa = PBXGroup;
+			children = (
+				0F12915F13F4C809007AAB66 /* FTLocationSimulator */,
+				0F128FB013F4A9C1007AAB66 /* TouchJSON */,
+				0F128EF613F4A29D007AAB66 /* AsyncSocket.h */,
+				0F128EF713F4A29D007AAB66 /* AsyncSocket.m */,
+			);
+			name = Externals;
+			sourceTree = "<group>";
+		};
+		0F128FB013F4A9C1007AAB66 /* TouchJSON */ = {
+			isa = PBXGroup;
+			children = (
+				0F128FB113F4A9C1007AAB66 /* CDataScanner.h */,
+				0F128FB213F4A9C1007AAB66 /* CDataScanner.m */,
+				0F128FB313F4A9C1007AAB66 /* Extensions */,
+				0F128FBC13F4A9C1007AAB66 /* JSON */,
+			);
+			path = TouchJSON;
+			sourceTree = "<group>";
+		};
+		0F128FB313F4A9C1007AAB66 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				0F128FB413F4A9C1007AAB66 /* CDataScanner_Extensions.h */,
+				0F128FB513F4A9C1007AAB66 /* CDataScanner_Extensions.m */,
+				0F128FB613F4A9C1007AAB66 /* NSCharacterSet_Extensions.h */,
+				0F128FB713F4A9C1007AAB66 /* NSCharacterSet_Extensions.m */,
+				0F128FB813F4A9C1007AAB66 /* NSDictionary_JSONExtensions.h */,
+				0F128FB913F4A9C1007AAB66 /* NSDictionary_JSONExtensions.m */,
+				0F128FBA13F4A9C1007AAB66 /* NSScanner_Extensions.h */,
+				0F128FBB13F4A9C1007AAB66 /* NSScanner_Extensions.m */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		0F128FBC13F4A9C1007AAB66 /* JSON */ = {
+			isa = PBXGroup;
+			children = (
+				0F128FBD13F4A9C1007AAB66 /* CJSONDataSerializer.h */,
+				0F128FBE13F4A9C1007AAB66 /* CJSONDataSerializer.m */,
+				0F128FBF13F4A9C1007AAB66 /* CJSONDeserializer.h */,
+				0F128FC013F4A9C1007AAB66 /* CJSONDeserializer.m */,
+				0F128FC113F4A9C1007AAB66 /* CJSONScanner.h */,
+				0F128FC213F4A9C1007AAB66 /* CJSONScanner.m */,
+				0F128FC313F4A9C1007AAB66 /* CJSONSerializer.h */,
+				0F128FC413F4A9C1007AAB66 /* CJSONSerializer.m */,
+				0F128FC513F4A9C1007AAB66 /* CSerializedJSONData.h */,
+				0F128FC613F4A9C1007AAB66 /* CSerializedJSONData.m */,
+			);
+			path = JSON;
+			sourceTree = "<group>";
+		};
+		0F12915F13F4C809007AAB66 /* FTLocationSimulator */ = {
+			isa = PBXGroup;
+			children = (
+				0F12916013F4C809007AAB66 /* fakeLocations.kml */,
+				0F12916113F4C809007AAB66 /* FTLocationSimulator.h */,
+				0F12916213F4C809007AAB66 /* FTLocationSimulator.m */,
+				0F12916313F4C809007AAB66 /* FTSynthesizeSingleton.h */,
+				0F12916413F4C809007AAB66 /* RegexKitLite.h */,
+				0F12916513F4C809007AAB66 /* RegexKitLite.m */,
+			);
+			path = FTLocationSimulator;
 			sourceTree = "<group>";
 		};
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
@@ -71,6 +196,7 @@
 		29B97314FDCFA39411CA2CEA /* MapAttack */ = {
 			isa = PBXGroup;
 			children = (
+				0F128D4E13F4A207007AAB66 /* Externals */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -106,6 +232,9 @@
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 				288765070DF74369002DB57D /* CoreGraphics.framework */,
+				0F128EFD13F4A2BB007AAB66 /* CFNetwork.framework */,
+				0F1290E013F4C2EB007AAB66 /* CoreLocation.framework */,
+				0F12915113F4C664007AAB66 /* MapKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -144,6 +273,7 @@
 				Japanese,
 				French,
 				German,
+				en,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* MapAttack */;
 			projectDirPath = "";
@@ -162,6 +292,7 @@
 				28AD73880D9D96C1002E5188 /* MainWindow.xib in Resources */,
 				282CCBFE0DB6C98000C4EA27 /* SecondView.xib in Resources */,
 				2840D7CE1179279E00D7F93C /* FirstView.xib in Resources */,
+				0F12916613F4C809007AAB66 /* fakeLocations.kml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -175,6 +306,20 @@
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				1D3623260D0F684500981E51 /* MapAttackAppDelegate.m in Sources */,
 				28216C970DB411BC00E5133A /* FirstViewController.m in Sources */,
+				0F128EF813F4A29D007AAB66 /* AsyncSocket.m in Sources */,
+				0F128FAD13F4A92E007AAB66 /* GeoloqiSocketClient.m in Sources */,
+				0F128FC713F4A9C1007AAB66 /* CDataScanner.m in Sources */,
+				0F128FC813F4A9C1007AAB66 /* CDataScanner_Extensions.m in Sources */,
+				0F128FC913F4A9C1007AAB66 /* NSCharacterSet_Extensions.m in Sources */,
+				0F128FCA13F4A9C1007AAB66 /* NSDictionary_JSONExtensions.m in Sources */,
+				0F128FCB13F4A9C1007AAB66 /* NSScanner_Extensions.m in Sources */,
+				0F128FCC13F4A9C1007AAB66 /* CJSONDataSerializer.m in Sources */,
+				0F128FCD13F4A9C1007AAB66 /* CJSONDeserializer.m in Sources */,
+				0F128FCE13F4A9C1007AAB66 /* CJSONScanner.m in Sources */,
+				0F128FCF13F4A9C1007AAB66 /* CJSONSerializer.m in Sources */,
+				0F128FD013F4A9C1007AAB66 /* CSerializedJSONData.m in Sources */,
+				0F12916713F4C809007AAB66 /* FTLocationSimulator.m in Sources */,
+				0F12916813F4C809007AAB66 /* RegexKitLite.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -191,6 +336,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = MapAttack_Prefix.pch;
 				INFOPLIST_FILE = "MapAttack-Info.plist";
+				OTHER_LDFLAGS = "-licucore";
 				PRODUCT_NAME = MapAttack;
 			};
 			name = Debug;

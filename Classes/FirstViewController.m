@@ -11,6 +11,7 @@
 
 @implementation FirstViewController
 
+@synthesize map;
 
 /*
 // The designated initializer. Override to perform setup that is required before the view is loaded.
@@ -44,6 +45,37 @@
 }
 */
 
+- (void)zoomMapToLocation:(CLLocation *)location
+{
+    MKCoordinateSpan span;
+    span.latitudeDelta  = 0.03;
+    span.longitudeDelta = 0.03;
+    
+    MKCoordinateRegion region;
+    
+    [map setCenterCoordinate:location.coordinate animated:YES];
+    
+    region.center = location.coordinate;
+    region.span   = span;
+    
+    [map setRegion:region animated:YES];
+}
+
+- (IBAction)tappedLocate:(id)sender
+{
+    CLLocation *location;
+    
+	//    if(location = [[Geoloqi sharedInstance] currentLocation])
+	//    {
+	//        [self zoomMapToLocation:location];
+	//    }
+	//    else if(mapView.userLocationVisible)
+	//    {
+	location = map.userLocation.location;
+	[self zoomMapToLocation:location];
+	//    }
+}
+
 - (void)didReceiveMemoryWarning {
 	// Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
@@ -58,6 +90,7 @@
 
 
 - (void)dealloc {
+	[map release];
     [super dealloc];
 }
 

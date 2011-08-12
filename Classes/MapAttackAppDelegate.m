@@ -8,7 +8,6 @@
 
 #import "MapAttackAppDelegate.h"
 
-
 @implementation MapAttackAppDelegate
 
 @synthesize window;
@@ -26,9 +25,10 @@
     [self.window addSubview:tabBarController.view];
     [self.window makeKeyAndVisible];
 
+	geoloqi = [[GeoloqiSocketClient alloc] init];
+	
     return YES;
 }
-
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     /*
@@ -95,6 +95,7 @@
 
 
 - (void)dealloc {
+	[geoloqi release];
     [tabBarController release];
     [window release];
     [super dealloc];
