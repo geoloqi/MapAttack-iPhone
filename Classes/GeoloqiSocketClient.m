@@ -233,7 +233,7 @@
 //			 postNotificationName:LQLocationUpdateManagerDidUpdateLocationNotification
 //			 object:self];
 
-			NSData *data = [self locationToLQData:newLocation];
+			NSData *data = [self dataFromLocation:newLocation];
 			NSLog(@"Writing device id: %@", data);
 			[asyncSocket writeData:data withTimeout:TIMEOUT_SEC tag:TAG_DEVICE_ID_SENT];
 			
@@ -244,11 +244,17 @@
 		}
 }
 
-- (NSData *)locationToLQData:(CLLocation *)location {
+- (NSData *)dataFromLocation:(CLLocation *)location {
+	// See documentation at https://developers.geoloqi.com/api/Streaming_API
+	
+	// Create a new byte array
 	char update[28];
+	
+	// Zero out all the elements of the array
 	for(int i=0; i<28; i++) 
 		update[i] = 0;
 	
+	// Command
 	update[0] = 0;
 	update[1] = 65;
 
@@ -283,11 +289,15 @@
 	update[17] = (char)((char)(lng2) & 0xFF);
 	
 	NSLog(@"Speed: %i", location.speed);
-	int spd = (int)(location.speed * 3.6); // convert meters/sec to km/h
+	int spd = 0;
+	if(location.speed > 0)
+		spd = (int)(location.speed * 3.6); // convert meters/sec to km/h
 	update[18] = (char)((char)(spd >> 8) & 0xFF);
 	update[19] = (char)((char)(spd) & 0xFF);
 
-	int hdg = (int)(location.course);
+	int hdg = 0;
+	if(location.course > 0)
+		hdg = (int)(location.course);
 	update[20] = (char)((char)(hdg >> 8) & 0xFF);
 	update[21] = (char)((char)(hdg) & 0xFF);
 
@@ -299,9 +309,12 @@
 	update[24] = (char)((char)(acc >> 8) & 0xFF);
 	update[25] = (char)((char)(acc) & 0xFF);
 	
-//	int bat = lastBatteryLevel;
-//	update[22] = (char)((char)(bat >> 8) & 0xFF);
-//	update[23] = (char)((char)(bat) & 0xFF);
+	int bat = 0;
+	int bat2 = 0;
+	if((bat2=round([UIDevice currentDevice].batteryLevel * 100)) > 0)
+		bat = bat2;
+	update[26] = (char)((char)(bat >> 8) & 0xFF);
+	update[27] = (char)((char)(bat) & 0xFF);
 
 	return [NSData dataWithBytes:update length:28];
 }

@@ -30,7 +30,7 @@
 }
 
 - (void) normalConnect;
-- (NSData *)locationToLQData:(CLLocation *)location;
+- (NSData *)dataFromLocation:(CLLocation *)location;
 - (void)startMonitoringLocation;
 - (void)stopMonitoringLocation;
 
