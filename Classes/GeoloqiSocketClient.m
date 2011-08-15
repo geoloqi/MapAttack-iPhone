@@ -19,11 +19,12 @@
 {
     if (self = [super init])
     {
-        asyncSocket = [[AsyncSocket alloc] initWithDelegate:self];
+		// Change to use UDP
+        asyncSocket = [[AsyncUdpSocket alloc] initWithDelegate:self];
         distanceFilterDistance = 1.0;
 		trackingFrequency = 1;
 		sendingFrequency = 1;
-        [self normalConnect];    
+        // [self normalConnect];    
 		[self startMonitoringLocation];
     }
     
@@ -39,6 +40,7 @@
 	
     NSLog(@"Connecting to %@:%i", host, port);
     
+	// Change to use UDP
 	if (![asyncSocket connectToHost:host onPort:port withTimeout:1 error:&error])
 	{
 		NSLog(@"Error connecting: %@", error);
@@ -203,7 +205,7 @@
 	//[[NSNotificationCenter defaultCenter] postNotificationName:LQTrackingStoppedNotification object:self];
 }
 
-
+// This is the method called by the OS when a new location update is received
 - (void)locationManager:(CLLocationManager *)manager
 	didUpdateToLocation:(CLLocation *)newLocation
 		   fromLocation:(CLLocation *)oldLocation {
@@ -224,10 +226,6 @@
 			// currentLocation is always the point that was last accepted into the queue.
 			currentLocation = newLocation;
 			
-#if LQ_LOCMAN_DEBUG
-			NSLog(@"Updated to location %@ from %@", newLocation, oldLocation);
-#endif
-			
 			// Notify observers about the location change
 //			[[NSNotificationCenter defaultCenter]
 //			 postNotificationName:LQLocationUpdateManagerDidUpdateLocationNotification
@@ -235,6 +233,7 @@
 
 			NSData *data = [self dataFromLocation:newLocation];
 			NSLog(@"Writing device id: %@", data);
+			// Change to use UDP
 			[asyncSocket writeData:data withTimeout:TIMEOUT_SEC tag:TAG_DEVICE_ID_SENT];
 			
 		} else {

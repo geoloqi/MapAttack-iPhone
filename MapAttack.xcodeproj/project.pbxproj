@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0F007A6313F9A8DA00057C53 /* AsyncUdpSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F007A6213F9A8DA00057C53 /* AsyncUdpSocket.m */; };
 		0F128EF813F4A29D007AAB66 /* AsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F128EF713F4A29D007AAB66 /* AsyncSocket.m */; };
 		0F128EFE13F4A2BB007AAB66 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F128EFD13F4A2BB007AAB66 /* CFNetwork.framework */; };
 		0F128FAD13F4A92E007AAB66 /* GeoloqiSocketClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F128FAC13F4A92E007AAB66 /* GeoloqiSocketClient.m */; };
@@ -37,6 +38,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0F007A6113F9A8DA00057C53 /* AsyncUdpSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncUdpSocket.h; sourceTree = "<group>"; };
+		0F007A6213F9A8DA00057C53 /* AsyncUdpSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsyncUdpSocket.m; sourceTree = "<group>"; };
 		0F128EF613F4A29D007AAB66 /* AsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncSocket.h; sourceTree = "<group>"; };
 		0F128EF713F4A29D007AAB66 /* AsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsyncSocket.m; sourceTree = "<group>"; };
 		0F128EFD13F4A2BB007AAB66 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -125,6 +128,8 @@
 				0F128FB013F4A9C1007AAB66 /* TouchJSON */,
 				0F128EF613F4A29D007AAB66 /* AsyncSocket.h */,
 				0F128EF713F4A29D007AAB66 /* AsyncSocket.m */,
+				0F007A6113F9A8DA00057C53 /* AsyncUdpSocket.h */,
+				0F007A6213F9A8DA00057C53 /* AsyncUdpSocket.m */,
 			);
 			name = Externals;
 			sourceTree = "<group>";
@@ -320,6 +325,7 @@
 				0F128FD013F4A9C1007AAB66 /* CSerializedJSONData.m in Sources */,
 				0F12916713F4C809007AAB66 /* FTLocationSimulator.m in Sources */,
 				0F12916813F4C809007AAB66 /* RegexKitLite.m in Sources */,
+				0F007A6313F9A8DA00057C53 /* AsyncUdpSocket.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

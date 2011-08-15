@@ -13,6 +13,7 @@
 #define LQ_SOCKET_HOST @"loki.geoloqi.com"
 #define LQ_SOCKET_PORT 40000
 
+// class GeoloqiSocketClient extends NSObject implements CLLocationManagerDelegate
 @interface GeoloqiSocketClient : NSObject <CLLocationManagerDelegate>
 {
 	AsyncSocket *asyncSocket;
