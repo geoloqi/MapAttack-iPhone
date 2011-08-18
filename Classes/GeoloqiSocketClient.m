@@ -8,12 +8,37 @@
 #import "GeoloqiSocketClient.h"
 #import "CJSONDeserializer.h"
 #import "LQConstants.h"
+#import "AsyncUdpSocket.h"
 
 #define TIMEOUT_SEC 6.0
 #define TAG_DEVICE_ID_SENT 1
 
-@implementation GeoloqiSocketClient
+#if LITTLE_ENDIAN
 
+#pragma pack(push)  /* push current alignment to stack */
+#pragma pack(1)     /* set alignment to 1 byte boundary */
+
+typedef union {
+	struct {
+		unsigned char command;
+		uint32_t date;
+		uint32_t lat;
+		uint32_t lon;
+		uint16_t speed;
+		uint16_t heading;
+		uint16_t altitude;
+		uint16_t accuracy;
+		uint16_t batteryPercent;
+		unsigned char uuid[16];
+	} f;
+	char bytes[39];
+} LQUpdatePacket;
+
+#pragma pack(pop)  /* push current alignment to stack */
+
+#endif
+
+@implementation GeoloqiSocketClient
 
 - (id) init
 {
@@ -26,6 +51,7 @@
 		sendingFrequency = 1;
         // [self normalConnect];    
 		[self startMonitoringLocation];
+		
     }
     
     return self;
@@ -41,128 +67,13 @@
     NSLog(@"Connecting to %@:%i", host, port);
     
 	// Change to use UDP
-	if (![asyncSocket connectToHost:host onPort:port withTimeout:1 error:&error])
+	if (![asyncSocket connectToHost:LQ_SOCKET_HOST onPort:LQ_SOCKET_PORT error:&error])
 	{
 		NSLog(@"Error connecting: %@", error);
 	}
-    else
-    {
-		NSData *data = [[UIDevice currentDevice].uniqueIdentifier dataUsingEncoding:NSASCIIStringEncoding];
-		NSLog(@"Writing device id: %@", data);
-		[asyncSocket writeData:data withTimeout:TIMEOUT_SEC tag:TAG_DEVICE_ID_SENT];
-    }	
 }
 
 #pragma mark  -
-
-- (void) socket:(AsyncSocket *)sock didConnectToHost:(NSString *)host port:(UInt16)port
-{
-    NSLog(@"localHost:%@ port:%hu", [sock localHost], [sock localPort]);	
-}
-
-- (void) socketDidSecure:(AsyncSocket *)sock
-{
-	NSLog(@"socketDidSecure:%p", sock);
-}
-
-- (void) socketDidDisconnect:(AsyncSocket *)sock withError:(NSError *)err
-{
-	NSLog(@"socketDidDisconnect:%p withError: %@", sock, err);
-    
-    // TODO: reconnect
-}
-
-- (void) readPacket:(NSData *)data
-{
-    NSString *packet = [[[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding] autorelease];    
-    NSLog(@"Read packet:\n\n'%@'\n\n", packet);
-}
-
-- (void) socket:(AsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
-{
-    NSLog(@"\n\nINCOMING!!\n\ndidReadData with length %i, tag %i: %@", [data length], tag, data);
-}
-
-
-/**
- * Called when a socket has read in data, but has not yet completed the read.
- * This would occur if using readToData: or readToLength: methods.
- * It may be used to for things such as updating progress bars.
- **/
-- (void)socket:(AsyncSocket *)sock didReadPartialDataOfLength:(NSUInteger)partialLength tag:(long)tag
-{
-    NSLog(@"socketDidReadPartialDataOfLength %i with tag %i", partialLength, tag);
-}
-
-
-/**
- * Called when a socket has completed writing the requested data. Not called if there is an error.
- **/
-- (void)socket:(AsyncSocket *)sock didWriteDataWithTag:(long)tag
-{
-    NSLog(@"socketDidWriteDataWithTag: %i", tag);
-}
-
-
-/**
- * Called when a socket has written some data, but has not yet completed the entire write.
- * It may be used to for things such as updating progress bars.
- **/
-- (void)socket:(AsyncSocket *)sock didWritePartialDataOfLength:(NSUInteger)partialLength tag:(long)tag
-{
-    NSLog(@"socketDidWritePartialDataOfLength: %i", partialLength);
-}
-
-
-/**
- * Called if a read operation has reached its timeout without completing.
- * This method allows you to optionally extend the timeout.
- * If you return a positive time interval (> 0) the read's timeout will be extended by the given amount.
- * If you don't implement this method, or return a non-positive time interval (<= 0) the read will timeout as usual.
- * 
- * The elapsed parameter is the sum of the original timeout, plus any additions previously added via this method.
- * The length parameter is the number of bytes that have been read so far for the read operation.
- * 
- * Note that this method may be called multiple times for a single read if you return positive numbers.
- **/
-- (NSTimeInterval)socket:(AsyncSocket *)sock shouldTimeoutReadWithTag:(long)tag
-				 elapsed:(NSTimeInterval)elapsed
-			   bytesDone:(NSUInteger)length
-{
-	NSLog(@"readTimedOut tag %i", tag);
-	return 0;
-}
-
-/**
- * Called if a write operation has reached its timeout without completing.
- * This method allows you to optionally extend the timeout.
- * If you return a positive time interval (> 0) the write's timeout will be extended by the given amount.
- * If you don't implement this method, or return a non-positive time interval (<= 0) the write will timeout as usual.
- * 
- * The elapsed parameter is the sum of the original timeout, plus any additions previously added via this method.
- * The length parameter is the number of bytes that have been written so far for the write operation.
- * 
- * Note that this method may be called multiple times for a single write if you return positive numbers.
- **/
-/*
- - (NSTimeInterval)socket:(GCDAsyncSocket *)sock shouldTimeoutWriteWithTag:(long)tag
- elapsed:(NSTimeInterval)elapsed
- bytesDone:(NSUInteger)length
- {
- 
- }
- */
-
-/**
- * Conditionally called if the read stream closes, but the write stream may still be writeable.
- * 
- * This delegate method is only called if autoDisconnectOnClosedReadStream has been set to NO.
- * See the discussion on the autoDisconnectOnClosedReadStream method for more information.
- **/
-- (void)socketDidCloseReadStream:(AsyncSocket *)sock
-{
-    NSLog(@"socketDidCloseReadStream");
-}
 
 
 
@@ -233,8 +144,9 @@
 
 			NSData *data = [self dataFromLocation:newLocation];
 			NSLog(@"Writing device id: %@", data);
-			// Change to use UDP
-			[asyncSocket writeData:data withTimeout:TIMEOUT_SEC tag:TAG_DEVICE_ID_SENT];
+			[asyncSocket sendData:data toHost:LQ_SOCKET_HOST port:LQ_SOCKET_PORT withTimeout:10.0 tag:TAG_DEVICE_ID_SENT];
+			//Look for ack back
+			[asyncSocket receiveWithTimeout:30.0 tag:TAG_DEVICE_ID_SENT];
 			
 		} else {
 #if LQ_LOCMAN_DEBUG
@@ -243,79 +155,73 @@
 		}
 }
 
+- (void)onUdpSocket:(AsyncUdpSocket *)sock didSendDataWithTag:(long)tag;
+{
+	NSLog(@"did send");
+}
+
+- (void)onUdpSocket:(AsyncUdpSocket *)sock didNotSendDataWithTag:(long)tag dueToError:(NSError *)error;
+{
+	NSLog(@"did not get ack back");
+}
+
+- (BOOL)onUdpSocket:(AsyncUdpSocket *)sock didReceiveData:(NSData *)data withTag:(long)tag fromHost:(NSString *)host port:(UInt16)port;
+{
+	//TODO: determine if this is a valid packet
+	NSLog(@"Recieved packet back from server: %@", data);
+	
+	if (data.length == sizeof(uint32_t)) {
+		uint32_t time = OSSwapBigToHostInt32(*(uint32_t *)data.bytes);
+		NSLog(@"Accepted packet with timestamp: %u", time);
+		return YES;
+	} else {
+		NSLog(@"packet invalid size: %d", data.length);
+		return NO;
+	}
+}
+
 - (NSData *)dataFromLocation:(CLLocation *)location {
 	// See documentation at https://developers.geoloqi.com/api/Streaming_API
 	
 	// Create a new byte array
-	char update[28];
+	LQUpdatePacket update;
+		
+	update.f.command = 65;
 	
-	// Zero out all the elements of the array
-	for(int i=0; i<28; i++) 
-		update[i] = 0;
+	update.f.date = (uint32_t)[[NSDate date] timeIntervalSince1970];
+	//Scale to [0, 1), then scale to [0, 2^32)
+	update.f.lat  = (uint32_t)(((location.coordinate.latitude  + 90.0) / 180.0) * 0xffffffff);
+	update.f.lon  = (uint32_t)(((location.coordinate.longitude + 180.0) / 360.0) * 0xffffffff);
 	
-	// Command
-	update[0] = 0;
-	update[1] = 65;
+	// convert meters/sec to km/h
+	update.f.speed = location.speed > 0 ? (uint16_t)location.speed * 3.6: 0;
+	//Represent heading as unsigned 0...360
+	update.f.heading = (uint16_t)(MAX(0, location.course)); 
+	
+	update.f.altitude = MAX(0, (int)(location.altitude));
+	update.f.accuracy = (uint16_t)(MAX(0, (int)(location.horizontalAccuracy)));
+	//battery percent
+	update.f.batteryPercent = (uint16_t)(round(MAX(0.0f, [UIDevice currentDevice].batteryLevel) * 100.0));
+	
+	memset(update.f.uuid, 0x0, sizeof(update.f.uuid));
+	
+//	NSLog(@"Size of packet: %lu", sizeof(LQUpdatePacket));
+//	NSLog(@"Offset of command: %lu", offsetof(LQUpdatePacket, f.command));
+//	NSLog(@"Offset of date: %lu", offsetof(LQUpdatePacket, f.date));
+	
+	NSLog(@"Sending timestamp: %d", update.f.date);
+	
+	//Swap endianness of each 16 bit int
+	update.f.date           = OSSwapHostToBigInt32(update.f.date);
+	update.f.lat            = OSSwapHostToBigInt32(update.f.lat);
+	update.f.lon            = OSSwapHostToBigInt32(update.f.lon);
+	update.f.speed          = OSSwapHostToBigInt16(update.f.speed);
+	update.f.heading        = OSSwapHostToBigInt16(update.f.heading);
+	update.f.altitude       = OSSwapHostToBigInt16(update.f.altitude);
+	update.f.accuracy       = OSSwapHostToBigInt16(update.f.accuracy);
+	update.f.batteryPercent = OSSwapHostToBigInt16(update.f.batteryPercent);	
 
-	int datestamp = [[NSDate date] timeIntervalSince1970];
-	update[2] = (char)((char)(datestamp >> 24) & 0xFF);
-	update[3] = (char)((char)(datestamp >> 16) & 0xFF);
-	update[4] = (char)((char)(datestamp >> 8) & 0xFF);
-	update[5] = (char)((char)(datestamp) & 0xFF);
-	
-	int lat1 = (int)(location.coordinate.latitude) + 90;
-	update[6] = (char)((char)(lat1 >> 8) & 0xFF);
-	update[7] = (char)((char)(lat1) & 0xFF);
-	
-	double lat = fabs(location.coordinate.latitude);
-	lat = lat - (int)lat;
-	int lat2 = (int)(lat * 1000000);
-	update[8] = (char)((char)(lat2 >> 24) & 0xFF);
-	update[9] = (char)((char)(lat2 >> 16) & 0xFF);
-	update[10] = (char)((char)(lat2 >> 8) & 0xFF);
-	update[11] = (char)((char)(lat2) & 0xFF);
-	
-	int lng1 = (int)(location.coordinate.longitude) + 180;
-	update[12] = (char)((char)(lng1 >> 8) & 0xFF);
-	update[13] = (char)((char)(lng1) & 0xFF);
-	
-	double lng = fabs(location.coordinate.longitude);
-	lng = lng - (int)lng;
-	int lng2 = (int)(lng * 1000000);
-	update[14] = (char)((char)(lng2 >> 24) & 0xFF);
-	update[15] = (char)((char)(lng2 >> 16) & 0xFF);
-	update[16] = (char)((char)(lng2 >> 8) & 0xFF);
-	update[17] = (char)((char)(lng2) & 0xFF);
-	
-	NSLog(@"Speed: %i", location.speed);
-	int spd = 0;
-	if(location.speed > 0)
-		spd = (int)(location.speed * 3.6); // convert meters/sec to km/h
-	update[18] = (char)((char)(spd >> 8) & 0xFF);
-	update[19] = (char)((char)(spd) & 0xFF);
-
-	int hdg = 0;
-	if(location.course > 0)
-		hdg = (int)(location.course);
-	update[20] = (char)((char)(hdg >> 8) & 0xFF);
-	update[21] = (char)((char)(hdg) & 0xFF);
-
-	int alt = (int)(location.altitude);
-	update[22] = (char)((char)(alt >> 8) & 0xFF);
-	update[23] = (char)((char)(alt) & 0xFF);
-	
-	int acc = (int)(location.horizontalAccuracy);
-	update[24] = (char)((char)(acc >> 8) & 0xFF);
-	update[25] = (char)((char)(acc) & 0xFF);
-	
-	int bat = 0;
-	int bat2 = 0;
-	if((bat2=round([UIDevice currentDevice].batteryLevel * 100)) > 0)
-		bat = bat2;
-	update[26] = (char)((char)(bat >> 8) & 0xFF);
-	update[27] = (char)((char)(bat) & 0xFF);
-
-	return [NSData dataWithBytes:update length:28];
+	return [NSData dataWithBytes:update.bytes length:sizeof(update.bytes)];
 }
 
 @end

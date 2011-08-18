@@ -7,21 +7,21 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
-#import "AsyncSocket.h"
 #include "FTLocationSimulator.h"
 
 #define LQ_SOCKET_HOST @"loki.geoloqi.com"
 #define LQ_SOCKET_PORT 40000
 
+@class AsyncUdpSocket;
 // class GeoloqiSocketClient extends NSObject implements CLLocationManagerDelegate
 @interface GeoloqiSocketClient : NSObject <CLLocationManagerDelegate>
 {
-	AsyncSocket *asyncSocket;
+	AsyncUdpSocket *asyncSocket;
     GeoloqiSocketClient *geoloqiClient;
 #ifdef FAKE_CORE_LOCATION
-	CLLocationManager *locationManager;
-#else
 	FTLocationSimulator *locationManager;
+#else
+	CLLocationManager *locationManager;
 #endif
 	CLLocation *currentLocation;
 	BOOL locationUpdatesOn;
@@ -30,7 +30,7 @@
 	NSTimeInterval sendingFrequency;
 }
 
-- (void) normalConnect;
+- (void)normalConnect;
 - (NSData *)dataFromLocation:(CLLocation *)location;
 - (void)startMonitoringLocation;
 - (void)stopMonitoringLocation;
