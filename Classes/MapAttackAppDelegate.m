@@ -25,9 +25,64 @@
     [self.window addSubview:tabBarController.view];
     [self.window makeKeyAndVisible];
 
+	[MapAttackAppDelegate getUUID];
+	
 	geoloqi = [[GeoloqiSocketClient alloc] init];
 	
+	[[UIApplication sharedApplication]
+	 registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge |
+										 UIRemoteNotificationTypeSound |
+										 UIRemoteNotificationTypeAlert)];
+
     return YES;
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+	NSLog(@"Received Push! %@", userInfo);
+	
+	// Push was received while the app was in the foreground
+	if(application.applicationState == UIApplicationStateActive) {
+		NSDictionary *data = [userInfo valueForKeyPath:@"mapattack"];
+		if(data) {
+			NSLog(@"Got some location data! Yeah!!");
+			
+			[[NSNotificationCenter defaultCenter] postNotificationName:LQMapAttackDataNotification
+																object:self
+															  userInfo:userInfo];
+			return;
+		}
+	}
+	
+}
+
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)_deviceToken {
+    // Get a hex string from the device token with no spaces or < >
+    deviceToken = [[[[_deviceToken description]
+						  stringByReplacingOccurrencesOfString: @"<" withString: @""] 
+						 stringByReplacingOccurrencesOfString: @">" withString: @""] 
+						stringByReplacingOccurrencesOfString: @" " withString: @""];
+	
+	NSLog(@"Device Token: %@", deviceToken);
+	
+	if ([application enabledRemoteNotificationTypes] == UIRemoteNotificationTypeNone) {
+		NSLog(@"Notifications are disabled for this application. Not registering.");
+		return;
+	}
+}
+
++ (NSString *)getUUID {
+	if([[NSUserDefaults standardUserDefaults] stringForKey:@"uuid"] == nil) {
+		CFUUIDRef theUUID = CFUUIDCreate(NULL);
+		CFStringRef string = CFUUIDCreateString(NULL, theUUID);
+		CFRelease(theUUID);
+		[[NSUserDefaults standardUserDefaults] setObject:(NSString *)string forKey:@"uuid"];
+		[[NSUserDefaults standardUserDefaults] synchronize];
+		NSLog(@"Generating new UUID: %@", string);
+		return [(NSString *)string autorelease];
+	} else {
+		NSLog(@"Returning existing UUID: %@", [[NSUserDefaults standardUserDefaults] stringForKey:@"uuid"]);
+		return [[NSUserDefaults standardUserDefaults] stringForKey:@"uuid"];
+	}
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

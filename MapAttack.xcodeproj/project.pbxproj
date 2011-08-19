@@ -40,6 +40,7 @@
 /* Begin PBXFileReference section */
 		0F007A6113F9A8DA00057C53 /* AsyncUdpSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncUdpSocket.h; sourceTree = "<group>"; };
 		0F007A6213F9A8DA00057C53 /* AsyncUdpSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsyncUdpSocket.m; sourceTree = "<group>"; };
+		0F007B2913FEED6B00057C53 /* MapAttack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapAttack.h; sourceTree = "<group>"; };
 		0F128EF613F4A29D007AAB66 /* AsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncSocket.h; sourceTree = "<group>"; };
 		0F128EF713F4A29D007AAB66 /* AsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsyncSocket.m; sourceTree = "<group>"; };
 		0F128EFD13F4A2BB007AAB66 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -117,6 +118,7 @@
 				1D3623240D0F684500981E51 /* MapAttackAppDelegate.h */,
 				1D3623250D0F684500981E51 /* MapAttackAppDelegate.m */,
 				0F128FD913F4AA03007AAB66 /* LQConstants.h */,
+				0F007B2913FEED6B00057C53 /* MapAttack.h */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -364,11 +366,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Aaron Parecki (UR6C55S2E6)";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "CF7AE5F7-6348-4BEE-B4CD-499DC0FB6C89";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;

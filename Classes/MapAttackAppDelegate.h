@@ -8,14 +8,18 @@
 
 #import <UIKit/UIKit.h>
 #import "GeoloqiSocketClient.h"
+#import "MapAttack.h"
 
 @interface MapAttackAppDelegate : NSObject <UIApplicationDelegate, UITabBarControllerDelegate> {
     UIWindow *window;
     UITabBarController *tabBarController;
 	GeoloqiSocketClient *geoloqi;
+	NSString *deviceToken;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
 @property (nonatomic, retain) IBOutlet UITabBarController *tabBarController;
+
++(NSString *)getUUID;
 
 @end

@@ -8,12 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
+#import "MapAttack.h"
 
 
-@interface FirstViewController : UIViewController <MKMapViewDelegate> {
-	MKMapView *map;
+@interface FirstViewController : UIViewController {
+	UIWebView *webView;
 }
 
-@property (nonatomic, retain) IBOutlet MKMapView *map;
+@property (nonatomic, retain) IBOutlet UIWebView *webView;
 
 @end

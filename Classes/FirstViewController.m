@@ -7,11 +7,12 @@
 //
 
 #import "FirstViewController.h"
-
+#import "CJSONSerializer.h"
 
 @implementation FirstViewController
 
-@synthesize map;
+@synthesize webView;
+
 
 /*
 // The designated initializer. Override to perform setup that is required before the view is loaded.
@@ -30,12 +31,28 @@
 }
 */
 
-/*
+
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
     [super viewDidLoad];
+	[webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://geoloqi.com/test-js.php"]]];
+
+	[[NSNotificationCenter defaultCenter] addObserver:self
+											 selector:@selector(mapAttackDataBroadcastReceived:)
+												 name:LQMapAttackDataNotification
+											   object:nil];
 }
-*/
+
+- (void)mapAttackDataBroadcastReceived:(NSNotification *)notification {
+	NSLog(@"got data broadcast");
+	
+//	[[CJSONSerializer serializer] serializeDictionary:[notification userInfo]];
+	
+	NSLog(@"%@", [NSString stringWithFormat:@"if(typeof LQHandlePushData != \"undefined\") { "
+		   "LQHandlePushData(%@); }", [[CJSONSerializer serializer] serializeDictionary:[notification userInfo]]]);
+	[webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"if(typeof LQHandlePushData != \"undefined\") { "
+													 "LQHandlePushData(%@); }", [[CJSONSerializer serializer] serializeDictionary:[notification userInfo]]]];
+}
 
 /*
 // Override to allow orientations other than the default portrait orientation.
@@ -45,6 +62,7 @@
 }
 */
 
+/*
 - (void)zoomMapToLocation:(CLLocation *)location
 {
     MKCoordinateSpan span;
@@ -75,6 +93,7 @@
 	[self zoomMapToLocation:location];
 	//    }
 }
+*/
 
 - (void)didReceiveMemoryWarning {
 	// Releases the view if it doesn't have a superview.
@@ -90,7 +109,7 @@
 
 
 - (void)dealloc {
-	[map release];
+	[webView release];
     [super dealloc];
 }
 
