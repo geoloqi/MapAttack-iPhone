@@ -7,6 +7,7 @@
 //
 
 #import "MapAttackAppDelegate.h"
+#import "CJSONSerializer.h"
 
 @implementation MapAttackAppDelegate
 
@@ -27,7 +28,7 @@
 
 	[MapAttackAppDelegate getUUID];
 	
-	geoloqi = [[GeoloqiSocketClient alloc] init];
+	// geoloqi = [[GeoloqiSocketClient alloc] init];
 	
 	[[UIApplication sharedApplication]
 	 registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge |
@@ -46,9 +47,13 @@
 		if(data) {
 			NSLog(@"Got some location data! Yeah!!");
 			
+			// The data in the push notification is already an NSDictionary, we need to serialize it to JSON
+			// format to pass to the web view.
+			
+			NSDictionary *json = [NSDictionary dictionaryWithObject:[[CJSONSerializer serializer] serializeObject:userInfo] forKey:@"json"];
 			[[NSNotificationCenter defaultCenter] postNotificationName:LQMapAttackDataNotification
 																object:self
-															  userInfo:userInfo];
+															  userInfo:json];
 			return;
 		}
 	}

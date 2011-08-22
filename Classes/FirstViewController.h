@@ -9,10 +9,12 @@
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
 #import "MapAttack.h"
+#import "GeoloqiReadClient.h"
 
 
 @interface FirstViewController : UIViewController {
 	UIWebView *webView;
+	GeoloqiReadClient *read;
 }
 
 @property (nonatomic, retain) IBOutlet UIWebView *webView;

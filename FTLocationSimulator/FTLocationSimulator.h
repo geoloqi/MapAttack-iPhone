@@ -19,7 +19,7 @@
 #define FAKE_CORE_LOCATION 1
 #endif
 
-#define FAKE_CORE_LOCATION_UPDATE_INTERVAL 0.7
+#define FAKE_CORE_LOCATION_UPDATE_INTERVAL 2.7
 
 @interface FTLocationSimulator : NSObject {
 @private

@@ -35,7 +35,9 @@
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
     [super viewDidLoad];
-	[webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://geoloqi.com/test-js.php"]]];
+	[webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:LQMapAttackWebURL]]];
+
+	read = [[GeoloqiReadClient alloc] init];
 
 	[[NSNotificationCenter defaultCenter] addObserver:self
 											 selector:@selector(mapAttackDataBroadcastReceived:)
@@ -47,11 +49,17 @@
 	NSLog(@"got data broadcast");
 	
 //	[[CJSONSerializer serializer] serializeDictionary:[notification userInfo]];
-	
+
 	NSLog(@"%@", [NSString stringWithFormat:@"if(typeof LQHandlePushData != \"undefined\") { "
-		   "LQHandlePushData(%@); }", [[CJSONSerializer serializer] serializeDictionary:[notification userInfo]]]);
+				  "LQHandlePushData(%@); }", [[notification userInfo] objectForKey:@"json"]]);
 	[webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"if(typeof LQHandlePushData != \"undefined\") { "
-													 "LQHandlePushData(%@); }", [[CJSONSerializer serializer] serializeDictionary:[notification userInfo]]]];
+													 "LQHandlePushData(%@); }", [[notification userInfo] objectForKey:@"json"]]];
+	
+	
+//	NSLog(@"%@", [NSString stringWithFormat:@"if(typeof LQHandlePushData != \"undefined\") { "
+//		   "LQHandlePushData(%@); }", [[CJSONSerializer serializer] serializeDictionary:[notification userInfo]]]);
+//	[webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"if(typeof LQHandlePushData != \"undefined\") { "
+//													 "LQHandlePushData(%@); }", [[CJSONSerializer serializer] serializeDictionary:[notification userInfo]]]];
 }
 
 /*
@@ -105,11 +113,13 @@
 - (void)viewDidUnload {
 	// Release any retained subviews of the main view.
 	// e.g. self.myOutlet = nil;
+	[read disconnect];
 }
 
 
 - (void)dealloc {
 	[webView release];
+	[read release];
     [super dealloc];
 }
 

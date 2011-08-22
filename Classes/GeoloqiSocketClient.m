@@ -143,7 +143,7 @@ typedef union {
 //			 object:self];
 
 			NSData *data = [self dataFromLocation:newLocation];
-			NSLog(@"Writing device id: %@", data);
+			NSLog(@"Sending location data: %@", data);
 			[asyncSocket sendData:data toHost:LQ_SOCKET_HOST port:LQ_SOCKET_PORT withTimeout:10.0 tag:TAG_DEVICE_ID_SENT];
 			//Look for ack back
 			[asyncSocket receiveWithTimeout:30.0 tag:TAG_DEVICE_ID_SENT];

@@ -6,5 +6,8 @@
 //  Copyright 2011 Geoloqi.com. All rights reserved.
 //
 
-static NSString *const LQMapAttackDataNotification = @"LQMapAttackDataNotification";
+#define LQMapAttackWebURL @"http://localhost/index2.html"
 
+// @"http://geoloqi.com/test-js.php"
+
+static NSString *const LQMapAttackDataNotification = @"LQMapAttackDataNotification";
