@@ -10,6 +10,7 @@
 #import "CJSONDeserializer.h"
 #import "CJSONSerializer.h"
 #import "MapAttack.h"
+#import "LQConfig.h"
 
 #define TIMEOUT_SEC 6.0
 #define TAG_DEVICE_ID_SENT 1

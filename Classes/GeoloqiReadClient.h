@@ -9,9 +9,6 @@
 #import <Foundation/Foundation.h>
 #import "AsyncSocket.h"
 
-#define LQ_READ_SOCKET_HOST @"localhost"
-#define LQ_READ_SOCKET_PORT 40001
-
 @interface GeoloqiReadClient : NSObject {
 	AsyncSocket *asyncSocket;
 

@@ -7,8 +7,9 @@
 
 #import "GeoloqiSocketClient.h"
 #import "CJSONDeserializer.h"
-#import "LQConstants.h"
+#import "LQConfig.h"
 #import "AsyncUdpSocket.h"
+#import "MapAttackAppDelegate.h"
 
 #define TIMEOUT_SEC 6.0
 #define TAG_DEVICE_ID_SENT 1
@@ -49,9 +50,7 @@ typedef union {
         distanceFilterDistance = 1.0;
 		trackingFrequency = 1;
 		sendingFrequency = 1;
-        // [self normalConnect];    
-		[self startMonitoringLocation];
-		
+        // [self normalConnect];
     }
     
     return self;
@@ -61,13 +60,13 @@ typedef union {
 {
 	NSError *error = nil;
 	
-	NSString *host = LQ_SOCKET_HOST;
-    UInt16 port = LQ_SOCKET_PORT;
+	NSString *host = LQ_WRITE_SOCKET_HOST;
+    UInt16 port = LQ_WRITE_SOCKET_PORT;
 	
     NSLog(@"Connecting to %@:%i", host, port);
     
 	// Change to use UDP
-	if (![asyncSocket connectToHost:LQ_SOCKET_HOST onPort:LQ_SOCKET_PORT error:&error])
+	if (![asyncSocket connectToHost:LQ_WRITE_SOCKET_HOST onPort:LQ_WRITE_SOCKET_PORT error:&error])
 	{
 		NSLog(@"Error connecting: %@", error);
 	}
@@ -144,7 +143,7 @@ typedef union {
 
 			NSData *data = [self dataFromLocation:newLocation];
 			NSLog(@"Sending location data: %@", data);
-			[asyncSocket sendData:data toHost:LQ_SOCKET_HOST port:LQ_SOCKET_PORT withTimeout:10.0 tag:TAG_DEVICE_ID_SENT];
+			[asyncSocket sendData:data toHost:LQ_WRITE_SOCKET_HOST port:LQ_WRITE_SOCKET_PORT withTimeout:10.0 tag:TAG_DEVICE_ID_SENT];
 			//Look for ack back
 			[asyncSocket receiveWithTimeout:30.0 tag:TAG_DEVICE_ID_SENT];
 			
@@ -203,7 +202,8 @@ typedef union {
 	//battery percent
 	update.f.batteryPercent = (uint16_t)(round(MAX(0.0f, [UIDevice currentDevice].batteryLevel) * 100.0));
 	
-	memset(update.f.uuid, 0x0, sizeof(update.f.uuid));
+	// memset(update.f.uuid, 0x0, sizeof(update.f.uuid));
+	memcpy(update.f.uuid, [uuid bytes], 16);
 	
 //	NSLog(@"Size of packet: %lu", sizeof(LQUpdatePacket));
 //	NSLog(@"Offset of command: %lu", offsetof(LQUpdatePacket, f.command));

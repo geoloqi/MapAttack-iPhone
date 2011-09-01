@@ -7,7 +7,6 @@
 //
 
 #define LQMapAttackWebURL @"http://localhost/index2.html"
-
 // @"http://geoloqi.com/test-js.php"
 
 static NSString *const LQMapAttackDataNotification = @"LQMapAttackDataNotification";

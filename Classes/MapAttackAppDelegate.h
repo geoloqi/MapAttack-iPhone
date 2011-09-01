@@ -9,16 +9,21 @@
 #import <UIKit/UIKit.h>
 #import "GeoloqiSocketClient.h"
 #import "MapAttack.h"
+#import "LQClient.h"
+#import "AuthView.h"
 
 @interface MapAttackAppDelegate : NSObject <UIApplicationDelegate, UITabBarControllerDelegate> {
     UIWindow *window;
     UITabBarController *tabBarController;
-	GeoloqiSocketClient *geoloqi;
+	GeoloqiSocketClient *socketClient;
+	LQClient *geoloqi;
 	NSString *deviceToken;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
+@property (nonatomic, retain) IBOutlet AuthView *authViewController;
 @property (nonatomic, retain) IBOutlet UITabBarController *tabBarController;
+@property (nonatomic, retain) LQClient *geoloqi;
 
 +(NSString *)getUUID;
 

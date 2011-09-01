@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
 #import "MapAttack.h"
+#import "LQConfig.h"
 #import "GeoloqiReadClient.h"
 
 

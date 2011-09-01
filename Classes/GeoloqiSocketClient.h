@@ -9,9 +9,6 @@
 #import <CoreLocation/CoreLocation.h>
 #include "FTLocationSimulator.h"
 
-#define LQ_SOCKET_HOST @"loki.geoloqi.com"
-#define LQ_SOCKET_PORT 40000
-
 @class AsyncUdpSocket;
 // class GeoloqiSocketClient extends NSObject implements CLLocationManagerDelegate
 @interface GeoloqiSocketClient : NSObject <CLLocationManagerDelegate>
@@ -28,6 +25,7 @@
 	CLLocationDistance distanceFilterDistance;
 	NSTimeInterval trackingFrequency;
 	NSTimeInterval sendingFrequency;
+	NSData *uuid;
 }
 
 - (void)normalConnect;
