@@ -12,6 +12,7 @@
 static NSString *const LQAuthenticationSucceededNotification = @"LQAuthenticationSucceededNotification";
 static NSString *const LQAuthenticationFailedNotification = @"LQAuthenticationFailedNotification";
 static NSString *const LQRefreshTokenKey = @"LQRefreshToken";
+static NSString *const LQAPIBaseURL = @"https://api.geoloqi.com/";
 
 typedef void (^LQHTTPRequestCallback)(NSError *error, NSDictionary *response);
 

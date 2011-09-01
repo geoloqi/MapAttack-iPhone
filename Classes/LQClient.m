@@ -8,6 +8,7 @@
 
 #import "LQClient.h"
 #import "LQConfig.h"
+#import "MapAttack.h"
 #import "CJSONDeserializer.h"
 
 static LQClient *singleton = nil;
@@ -44,6 +45,10 @@ static LQClient *singleton = nil;
 	return res;
 }
 
+- (NSURL *)urlWithPath:(NSString *)path {
+	return [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", LQAPIBaseURL, path]];
+}
+
 #pragma mark public methods
 
 - (BOOL)isLoggedIn {
@@ -55,7 +60,7 @@ static LQClient *singleton = nil;
 }
 
 - (void)createNewAccountWithEmail:(NSString *)email initials:(NSString *)initials callback:(LQHTTPRequestCallback)callback {
-	NSURL *url = [NSURL URLWithString:@"https://api.geoloqi.com/1/account/create_anon"];
+	NSURL *url = [self urlWithPath:@"account/create_anon"];
 	__block ASIHTTPRequest *request = [self appRequestWithURL:url];
 	[request setCompletionBlock:^{
 		callback(nil, [self dictionaryFromResponse:[request responseString]]);
@@ -64,8 +69,8 @@ static LQClient *singleton = nil;
 }
 
 - (void)getNearbyLayers:(LQHTTPRequestCallback)callback {
-	NSURL *url = [NSURL URLWithString:@"https://api.geoloqi.com/1/layer/nearby?latitude=45.5246&longitude=-122.6843"];
-	__block ASIHTTPRequest *request = [self userRequestWithURL:url];
+	NSURL *url = [self urlWithPath:[NSString stringWithFormat:@"layer/nearby?latitude=45.5246&longitude=-122.6843&application_id=%@", MapAttackAppID]];
+	__block ASIHTTPRequest *request = [self appRequestWithURL:url];
 	[request setCompletionBlock:^{
 		callback(nil, [self dictionaryFromResponse:[request responseString]]);
 	}];

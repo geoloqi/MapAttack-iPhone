@@ -29,16 +29,7 @@
 	socketClient = [[GeoloqiSocketClient alloc] init];
 	self.geoloqi = [[LQClient alloc] init];
 
-	// Creates a new anonymous account or sets the authentication for the current account
-	if(![[LQClient single] isLoggedIn])
-    {
-        [[NSNotificationCenter defaultCenter] addObserver:self 
-                                                 selector:@selector(authenticationDidSucceed:) 
-                                                     name:LQAuthenticationSucceededNotification 
-                                                   object:nil];
-		
-        [tabBarController presentModalViewController:authViewController animated:YES];
-    } else {
+	if([[LQClient single] isLoggedIn]) {
 		// Start sending location updates
 		[socketClient startMonitoringLocation];
 	}

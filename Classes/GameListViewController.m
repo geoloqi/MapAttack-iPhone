@@ -13,7 +13,7 @@
 
 @implementation GameListViewController
 
-@synthesize text;
+@synthesize text, reloadBtn;
 
 // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 /*
@@ -37,12 +37,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
-	[[LQClient single] getNearbyLayers:^(NSError *error, NSDictionary *response){
-		NSLog(@"Callback: %@", response);
-	}];
-	
+	[self getNearbyLayers];
 }
 
+- (IBAction)reloadBtnPressed {
+	[self getNearbyLayers];
+}
+
+- (void)getNearbyLayers {
+	[[LQClient single] getNearbyLayers:^(NSError *error, NSDictionary *response){
+		NSLog(@"Callback: %@", response);
+		text.text = [response description];
+	}];
+}
 
 /*
 // Override to allow orientations other than the default portrait orientation.

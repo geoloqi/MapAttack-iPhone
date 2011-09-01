@@ -9,8 +9,10 @@
 #import <UIKit/UIKit.h>
 
 
-@interface AuthView : UIViewController {
-
+@interface AuthView : UIViewController <UIPickerViewDelegate, UIPickerViewDataSource> {
+	NSString *alphabet;
 }
+
+@property (nonatomic, retain) IBOutlet UIPickerView *initialPicker;
 
 @end

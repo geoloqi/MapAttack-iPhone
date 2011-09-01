@@ -11,6 +11,8 @@
 
 @implementation AuthView
 
+@synthesize initialPicker;
+
 // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 /*
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
@@ -22,12 +24,11 @@
 }
 */
 
-/*
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
     [super viewDidLoad];
+	alphabet = [[NSString alloc] initWithString:@"ABCDEFGHIJKLMNOPQRSTUVWXYZ"];
 }
-*/
 
 /*
 // Override to allow orientations other than the default portrait orientation.
@@ -36,6 +37,26 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 */
+
+#pragma mark -
+#pragma mark UIPickerView methods
+
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+	return 2;
+}
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+	return 26;
+}
+
+- (NSString *)pickerView:(UIPickerView *)pickerView
+             titleForRow:(NSInteger)row
+            forComponent:(NSInteger)component
+{
+	return [alphabet substringWithRange:NSMakeRange(row, 1)];
+}
+
+#pragma mark -
 
 - (void)didReceiveMemoryWarning {
     // Releases the view if it doesn't have a superview.

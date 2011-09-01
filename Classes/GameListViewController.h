@@ -14,5 +14,9 @@
 }
 
 @property (nonatomic, retain) IBOutlet UITextView *text;
+@property (nonatomic, retain) IBOutlet UIButton *reloadBtn;
+
+- (IBAction)reloadBtnPressed;
+- (void)getNearbyLayers;
 
 @end

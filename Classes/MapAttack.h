@@ -10,3 +10,4 @@
 // @"http://geoloqi.com/test-js.php"
 
 static NSString *const LQMapAttackDataNotification = @"LQMapAttackDataNotification";
+static NSString *const MapAttackAppID = @"R";
