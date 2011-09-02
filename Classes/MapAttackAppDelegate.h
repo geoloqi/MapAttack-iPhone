@@ -11,6 +11,7 @@
 #import "MapAttack.h"
 #import "LQClient.h"
 #import "AuthView.h"
+#import "MapViewController.h"
 
 @interface MapAttackAppDelegate : NSObject <UIApplicationDelegate, UITabBarControllerDelegate> {
     UIWindow *window;
@@ -24,7 +25,11 @@
 @property (nonatomic, retain) IBOutlet AuthView *authViewController;
 @property (nonatomic, retain) IBOutlet UITabBarController *tabBarController;
 @property (nonatomic, retain) LQClient *geoloqi;
+@property (nonatomic, retain) IBOutlet MapViewController *mapController;
 
 +(NSString *)getUUID;
+-(void)loadGameWithURL:(NSString *)url;
 
 @end
+
+extern MapAttackAppDelegate *lqAppDelegate;

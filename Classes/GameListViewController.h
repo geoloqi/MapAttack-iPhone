@@ -7,14 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GameCell.h"
 
-
-@interface GameListViewController : UIViewController {
-
+@interface GameListViewController : UIViewController <UITableViewDelegate> {
+	IBOutlet GameCell *gameCell;
+	NSMutableArray *games;
 }
 
-@property (nonatomic, retain) IBOutlet UITextView *text;
 @property (nonatomic, retain) IBOutlet UIButton *reloadBtn;
+@property (nonatomic, retain) IBOutlet UITableView *tableView;
+@property (nonatomic, retain) IBOutlet GameCell *gameCell;
+@property (nonatomic, retain) NSMutableArray *games;
 
 - (IBAction)reloadBtnPressed;
 - (void)getNearbyLayers;

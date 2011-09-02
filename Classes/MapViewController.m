@@ -6,10 +6,10 @@
 //  Copyright 2011 Geoloqi.com. All rights reserved.
 //
 
-#import "FirstViewController.h"
+#import "MapViewController.h"
 #import "CJSONSerializer.h"
 
-@implementation FirstViewController
+@implementation MapViewController
 
 @synthesize webView;
 
@@ -31,6 +31,10 @@
 }
 */
 
+- (void)loadURL:(NSString *)url {
+	NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[url stringByAppendingFormat:@"&oauth_token=%@", @"xxxx"]]];
+	[webView loadRequest:req];
+}
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {

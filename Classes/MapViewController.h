@@ -13,11 +13,13 @@
 #import "GeoloqiReadClient.h"
 
 
-@interface FirstViewController : UIViewController {
+@interface MapViewController : UIViewController {
 	UIWebView *webView;
 	GeoloqiReadClient *read;
 }
 
 @property (nonatomic, retain) IBOutlet UIWebView *webView;
+
+- (void)loadURL:(NSString *)url;
 
 @end

@@ -9,15 +9,20 @@
 #import "MapAttackAppDelegate.h"
 #import "CJSONSerializer.h"
 
+MapAttackAppDelegate *lqAppDelegate;
+
 @implementation MapAttackAppDelegate
 
 @synthesize window;
 @synthesize tabBarController, authViewController;
 @synthesize geoloqi;
+@synthesize mapController;
 
 #pragma mark Application launched
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
     
+	lqAppDelegate = self;
+	
     // Override point for customization after application launch.
 
     // Add the tab bar controller's view to the window and display.
@@ -104,6 +109,13 @@
 		}
 	}
 	
+}
+
+#pragma mark -
+
+-(void)loadGameWithURL:(NSString *)url {
+	[tabBarController setSelectedIndex:1];
+	[self.mapController loadURL:url];
 }
 
 #pragma mark -
