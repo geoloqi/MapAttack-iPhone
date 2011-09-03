@@ -51,6 +51,8 @@
 		0FFD615614100C17008BC18B /* bkg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FFD615414100C17008BC18B /* bkg@2x.png */; };
 		0FFD63401410397D008BC18B /* GameCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FFD633F1410397D008BC18B /* GameCell.m */; };
 		0FFD634C14103A16008BC18B /* GameCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0FFD634B14103A16008BC18B /* GameCell.xib */; };
+		0FFD65FA1412C718008BC18B /* initialFrame.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FFD65F81412C718008BC18B /* initialFrame.png */; };
+		0FFD65FB1412C718008BC18B /* initialFrame@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FFD65F91412C718008BC18B /* initialFrame@2x.png */; };
 		1D3623260D0F684500981E51 /* MapAttackAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* MapAttackAppDelegate.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
@@ -144,6 +146,8 @@
 		0FFD633E1410397D008BC18B /* GameCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameCell.h; sourceTree = "<group>"; };
 		0FFD633F1410397D008BC18B /* GameCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameCell.m; sourceTree = "<group>"; };
 		0FFD634B14103A16008BC18B /* GameCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GameCell.xib; sourceTree = "<group>"; };
+		0FFD65F81412C718008BC18B /* initialFrame.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = initialFrame.png; sourceTree = "<group>"; };
+		0FFD65F91412C718008BC18B /* initialFrame@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "initialFrame@2x.png"; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D3623240D0F684500981E51 /* MapAttackAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapAttackAppDelegate.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* MapAttackAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapAttackAppDelegate.m; sourceTree = "<group>"; };
@@ -361,6 +365,8 @@
 			children = (
 				0FFD5EB8140C25D6008BC18B /* Icon.png */,
 				0FFD5EB9140C25D6008BC18B /* Icon@2x.png */,
+				0FFD65F81412C718008BC18B /* initialFrame.png */,
+				0FFD65F91412C718008BC18B /* initialFrame@2x.png */,
 				0FFD615314100C17008BC18B /* bkg.png */,
 				0FFD615414100C17008BC18B /* bkg@2x.png */,
 				0FFD6082140FF95B008BC18B /* AuthView.xib */,
@@ -447,6 +453,8 @@
 				0FFD615514100C17008BC18B /* bkg.png in Resources */,
 				0FFD615614100C17008BC18B /* bkg@2x.png in Resources */,
 				0FFD634C14103A16008BC18B /* GameCell.xib in Resources */,
+				0FFD65FA1412C718008BC18B /* initialFrame.png in Resources */,
+				0FFD65FB1412C718008BC18B /* initialFrame@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

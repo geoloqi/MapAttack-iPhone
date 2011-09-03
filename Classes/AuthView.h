@@ -14,5 +14,10 @@
 }
 
 @property (nonatomic, retain) IBOutlet UIPickerView *initialPicker;
+@property (nonatomic, retain) IBOutlet UILabel *initial1;
+@property (nonatomic, retain) IBOutlet UILabel *initial2;
+@property (nonatomic, retain) IBOutlet UITextField *emailField;
+
+- (IBAction)tappedInitials;
 
 @end

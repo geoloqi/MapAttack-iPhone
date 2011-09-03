@@ -8,6 +8,9 @@
 
 #import "MapViewController.h"
 #import "CJSONSerializer.h"
+#import "LQClient.h"
+#import "AuthView.h"
+#import "MapAttackAppDelegate.h"
 
 @implementation MapViewController
 
@@ -32,8 +35,13 @@
 */
 
 - (void)loadURL:(NSString *)url {
-	NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[url stringByAppendingFormat:@"&oauth_token=%@", @"xxxx"]]];
-	[webView loadRequest:req];
+	// If we don't have authentication tokens here, then pop up the login page to get their email and initials
+	if(![[LQClient single] isLoggedIn]) {
+		[lqAppDelegate.tabBarController presentModalViewController:[[AuthView alloc] init] animated:YES];
+	} else {
+		NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[url stringByAppendingFormat:@"&oauth_token=%@", @"xxxx"]]];
+		[webView loadRequest:req];
+	}
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.

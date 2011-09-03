@@ -11,7 +11,7 @@
 
 @implementation AuthView
 
-@synthesize initialPicker;
+@synthesize initialPicker, initial1, initial2, emailField;
 
 // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 /*
@@ -38,6 +38,10 @@
 }
 */
 
+- (IBAction)tappedInitials {
+	[self.emailField resignFirstResponder];
+}
+
 #pragma mark -
 #pragma mark UIPickerView methods
 
@@ -54,6 +58,14 @@
             forComponent:(NSInteger)component
 {
 	return [alphabet substringWithRange:NSMakeRange(row, 1)];
+}
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+	if(component == 0) {
+		self.initial1.text = [alphabet substringWithRange:NSMakeRange(row, 1)];
+	} else {
+		self.initial2.text = [alphabet substringWithRange:NSMakeRange(row, 1)];
+	}
 }
 
 #pragma mark -
