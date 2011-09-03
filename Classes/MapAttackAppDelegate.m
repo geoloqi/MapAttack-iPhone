@@ -29,7 +29,7 @@ MapAttackAppDelegate *lqAppDelegate;
     [self.window addSubview:tabBarController.view];
     [self.window makeKeyAndVisible];
 
-	[MapAttackAppDelegate getUUID];
+	[MapAttackAppDelegate UUID];
 	
 	socketClient = [[GeoloqiSocketClient alloc] init];
 	self.geoloqi = [[LQClient alloc] init];
@@ -187,18 +187,19 @@ MapAttackAppDelegate *lqAppDelegate;
 #pragma mark -
 
 
-+ (NSString *)getUUID {
-	if([[NSUserDefaults standardUserDefaults] stringForKey:@"uuid"] == nil) {
++ (NSData *)UUID {
+	if([[NSUserDefaults standardUserDefaults] stringForKey:LQUUIDKey] == nil) {
 		CFUUIDRef theUUID = CFUUIDCreate(NULL);
-		CFStringRef string = CFUUIDCreateString(NULL, theUUID);
+		CFUUIDBytes bytes = CFUUIDGetUUIDBytes(theUUID);
+		NSData *dataUUID = [NSData dataWithBytes:&bytes length:sizeof(CFUUIDBytes)];
 		CFRelease(theUUID);
-		[[NSUserDefaults standardUserDefaults] setObject:(NSString *)string forKey:@"uuid"];
+		[[NSUserDefaults standardUserDefaults] setObject:dataUUID forKey:LQUUIDKey];
 		[[NSUserDefaults standardUserDefaults] synchronize];
-		NSLog(@"Generating new UUID: %@", string);
-		return [(NSString *)string autorelease];
+		NSLog(@"Generating new UUID: %@", dataUUID);
+		return dataUUID;
 	} else {
-		NSLog(@"Returning existing UUID: %@", [[NSUserDefaults standardUserDefaults] stringForKey:@"uuid"]);
-		return [[NSUserDefaults standardUserDefaults] stringForKey:@"uuid"];
+		NSLog(@"Returning existing UUID: %@", [[NSUserDefaults standardUserDefaults] dataForKey:LQUUIDKey]);
+		return [[NSUserDefaults standardUserDefaults] dataForKey:LQUUIDKey];
 	}
 }
 

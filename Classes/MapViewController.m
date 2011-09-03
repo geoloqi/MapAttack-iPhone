@@ -39,7 +39,7 @@
 	if(![[LQClient single] isLoggedIn]) {
 		[lqAppDelegate.tabBarController presentModalViewController:[[AuthView alloc] init] animated:YES];
 	} else {
-		NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[url stringByAppendingFormat:@"&oauth_token=%@", @"xxxx"]]];
+		NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[url stringByAppendingFormat:@"&oauth_token=%@", [[LQClient single] accessToken]]]];
 		[webView loadRequest:req];
 	}
 }

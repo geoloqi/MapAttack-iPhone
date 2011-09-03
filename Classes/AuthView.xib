@@ -57,7 +57,7 @@
 					<object class="IBUILabel" id="31595835">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{94, 58}, {132, 36}}</string>
+						<string key="NSFrame">{{94, 64}, {132, 36}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
@@ -67,7 +67,7 @@
 						<string key="IBUIText">Your Initials</string>
 						<object class="NSFont" key="IBUIFont">
 							<string key="NSName">Helvetica</string>
-							<double key="NSSize">24</double>
+							<double key="NSSize">17</double>
 							<int key="NSfFlags">16</int>
 						</object>
 						<object class="NSColor" key="IBUITextColor" id="387009935">
@@ -104,7 +104,8 @@
 						<bool key="IBUIAdjustsFontSizeToFit">YES</bool>
 						<float key="IBUIMinimumFontSize">17</float>
 						<object class="IBUITextInputTraits" key="IBUITextInputTraits">
-							<int key="IBUIReturnKeyType">1</int>
+							<int key="IBUIReturnKeyType">3</int>
+							<bool key="IBUIEnablesReturnKeyAutomatically">YES</bool>
 							<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						</object>
 						<int key="IBUIClearButtonMode">1</int>
@@ -148,7 +149,7 @@
 						<float key="IBUIMinimumFontSize">10</float>
 						<int key="IBUITextAlignment">1</int>
 					</object>
-					<object class="IBUIPickerView" id="748690652">
+					<object class="IBUIPickerView" id="23769366">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">290</int>
 						<string key="NSFrame">{{0, 244}, {320, 216}}</string>
@@ -156,7 +157,7 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<bool key="IBUIShowsSelectionIndicator">YES</bool>
 					</object>
-					<object class="IBUIImageView" id="90558986">
+					<object class="IBUIImageView" id="660485052">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{90, 93}, {140, 60}}</string>
@@ -168,7 +169,7 @@
 							<string key="NSResourceName">initialFrame.png</string>
 						</object>
 					</object>
-					<object class="IBUILabel" id="682107990">
+					<object class="IBUILabel" id="100780301">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{98, 97}, {60, 56}}</string>
@@ -178,8 +179,8 @@
 						<int key="IBUIContentMode">7</int>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<string key="IBUIText">P</string>
-						<object class="NSFont" key="IBUIFont" id="482481902">
+						<string key="IBUIText">A</string>
+						<object class="NSFont" key="IBUIFont" id="626756421">
 							<string key="NSName">Helvetica</string>
 							<double key="NSSize">48</double>
 							<int key="NSfFlags">16</int>
@@ -190,7 +191,7 @@
 						<float key="IBUIMinimumFontSize">10</float>
 						<int key="IBUITextAlignment">1</int>
 					</object>
-					<object class="IBUILabel" id="421930350">
+					<object class="IBUILabel" id="601000259">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{161, 97}, {60, 56}}</string>
@@ -200,15 +201,15 @@
 						<int key="IBUIContentMode">7</int>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<string key="IBUIText">K</string>
-						<reference key="IBUIFont" ref="482481902"/>
+						<string key="IBUIText">A</string>
+						<reference key="IBUIFont" ref="626756421"/>
 						<reference key="IBUITextColor" ref="387009935"/>
 						<reference key="IBUIHighlightedColor" ref="1040442898"/>
 						<int key="IBUIBaselineAdjustment">1</int>
 						<float key="IBUIMinimumFontSize">10</float>
 						<int key="IBUITextAlignment">1</int>
 					</object>
-					<object class="IBUIButton" id="885467144">
+					<object class="IBUIButton" id="1026802275">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{88, 87}, {144, 71}}</string>
@@ -259,14 +260,14 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">initialPicker</string>
 						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="748690652"/>
+						<reference key="destination" ref="23769366"/>
 					</object>
 					<int key="connectionID">18</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">dataSource</string>
-						<reference key="source" ref="748690652"/>
+						<reference key="source" ref="23769366"/>
 						<reference key="destination" ref="372490531"/>
 					</object>
 					<int key="connectionID">19</int>
@@ -274,7 +275,7 @@
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">delegate</string>
-						<reference key="source" ref="748690652"/>
+						<reference key="source" ref="23769366"/>
 						<reference key="destination" ref="372490531"/>
 					</object>
 					<int key="connectionID">20</int>
@@ -283,7 +284,7 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">initial1</string>
 						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="682107990"/>
+						<reference key="destination" ref="100780301"/>
 					</object>
 					<int key="connectionID">23</int>
 				</object>
@@ -291,14 +292,14 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">initial2</string>
 						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="421930350"/>
+						<reference key="destination" ref="601000259"/>
 					</object>
 					<int key="connectionID">24</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">tappedInitials</string>
-						<reference key="source" ref="885467144"/>
+						<reference key="source" ref="1026802275"/>
 						<reference key="destination" ref="372490531"/>
 						<int key="IBEventType">7</int>
 					</object>
@@ -311,6 +312,15 @@
 						<reference key="destination" ref="338268008"/>
 					</object>
 					<int key="connectionID">29</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">signIn</string>
+						<reference key="source" ref="338268008"/>
+						<reference key="destination" ref="372490531"/>
+						<int key="IBEventType">20</int>
+					</object>
+					<int key="connectionID">32</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -330,13 +340,13 @@
 							<reference ref="338268008"/>
 							<reference ref="74747312"/>
 							<reference ref="422711303"/>
-							<reference ref="748690652"/>
+							<reference ref="23769366"/>
 							<reference ref="974021917"/>
-							<reference ref="682107990"/>
-							<reference ref="421930350"/>
+							<reference ref="100780301"/>
+							<reference ref="601000259"/>
 							<reference ref="31595835"/>
-							<reference ref="90558986"/>
-							<reference ref="885467144"/>
+							<reference ref="660485052"/>
+							<reference ref="1026802275"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -378,27 +388,27 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">17</int>
-						<reference key="object" ref="748690652"/>
+						<reference key="object" ref="23769366"/>
 						<reference key="parent" ref="191373211"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">21</int>
-						<reference key="object" ref="682107990"/>
+						<reference key="object" ref="100780301"/>
 						<reference key="parent" ref="191373211"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">22</int>
-						<reference key="object" ref="421930350"/>
+						<reference key="object" ref="601000259"/>
 						<reference key="parent" ref="191373211"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">26</int>
-						<reference key="object" ref="90558986"/>
+						<reference key="object" ref="660485052"/>
 						<reference key="parent" ref="191373211"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">27</int>
-						<reference key="object" ref="885467144"/>
+						<reference key="object" ref="1026802275"/>
 						<reference key="parent" ref="191373211"/>
 					</object>
 				</object>
@@ -496,7 +506,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">29</int>
+			<int key="maxID">32</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -505,14 +515,35 @@
 					<string key="className">AuthView</string>
 					<string key="superclassName">UIViewController</string>
 					<object class="NSMutableDictionary" key="actions">
-						<string key="NS.key.0">tappedInitials</string>
-						<string key="NS.object.0">id</string>
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>signIn</string>
+							<string>tappedInitials</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
+							<string>id</string>
+						</object>
 					</object>
 					<object class="NSMutableDictionary" key="actionInfosByName">
-						<string key="NS.key.0">tappedInitials</string>
-						<object class="IBActionInfo" key="NS.object.0">
-							<string key="name">tappedInitials</string>
-							<string key="candidateClassName">id</string>
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>signIn</string>
+							<string>tappedInitials</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBActionInfo">
+								<string key="name">signIn</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">tappedInitials</string>
+								<string key="candidateClassName">id</string>
+							</object>
 						</object>
 					</object>
 					<object class="NSMutableDictionary" key="outlets">

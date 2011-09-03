@@ -8,11 +8,15 @@
 
 #import <Foundation/Foundation.h>
 #import "ASIHTTPRequest.h"
+#import "ASIFormDataRequest.h"
 
 static NSString *const LQAuthenticationSucceededNotification = @"LQAuthenticationSucceededNotification";
 static NSString *const LQAuthenticationFailedNotification = @"LQAuthenticationFailedNotification";
 static NSString *const LQRefreshTokenKey = @"LQRefreshToken";
+static NSString *const LQAuthEmailAddressKey = @"LQAuthEmailAddressKey";
+static NSString *const LQAuthInitialsKey = @"LQAuthInitialsKey";
 static NSString *const LQAPIBaseURL = @"https://api.geoloqi.com/1/";
+static NSString *const MapAttackAPIBaseURL = @"http://mapattack.org/";
 
 typedef void (^LQHTTPRequestCallback)(NSError *error, NSDictionary *response);
 
@@ -29,3 +33,4 @@ typedef void (^LQHTTPRequestCallback)(NSError *error, NSDictionary *response);
 - (void)createNewAccountWithEmail:(NSString *)email initials:(NSString *)initials callback:(LQHTTPRequestCallback)callback;
 
 @end
+

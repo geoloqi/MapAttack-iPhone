@@ -53,6 +53,7 @@
 		0FFD634C14103A16008BC18B /* GameCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0FFD634B14103A16008BC18B /* GameCell.xib */; };
 		0FFD65FA1412C718008BC18B /* initialFrame.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FFD65F81412C718008BC18B /* initialFrame.png */; };
 		0FFD65FB1412C718008BC18B /* initialFrame@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FFD65F91412C718008BC18B /* initialFrame@2x.png */; };
+		0FFD66AB1412D719008BC18B /* MapAttackAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FFD66AA1412D719008BC18B /* MapAttackAuth.m */; };
 		1D3623260D0F684500981E51 /* MapAttackAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* MapAttackAppDelegate.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
@@ -148,6 +149,8 @@
 		0FFD634B14103A16008BC18B /* GameCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GameCell.xib; sourceTree = "<group>"; };
 		0FFD65F81412C718008BC18B /* initialFrame.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = initialFrame.png; sourceTree = "<group>"; };
 		0FFD65F91412C718008BC18B /* initialFrame@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "initialFrame@2x.png"; sourceTree = "<group>"; };
+		0FFD66A91412D719008BC18B /* MapAttackAuth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapAttackAuth.h; sourceTree = "<group>"; };
+		0FFD66AA1412D719008BC18B /* MapAttackAuth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapAttackAuth.m; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D3623240D0F684500981E51 /* MapAttackAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapAttackAppDelegate.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* MapAttackAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapAttackAppDelegate.m; sourceTree = "<group>"; };
@@ -207,6 +210,8 @@
 				0FFD634B14103A16008BC18B /* GameCell.xib */,
 				0FFD6080140FF95B008BC18B /* AuthView.h */,
 				0FFD6081140FF95B008BC18B /* AuthView.m */,
+				0FFD66A91412D719008BC18B /* MapAttackAuth.h */,
+				0FFD66AA1412D719008BC18B /* MapAttackAuth.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -498,6 +503,7 @@
 				0FFD5FA4140F4396008BC18B /* GameListViewController.m in Sources */,
 				0FFD6083140FF95B008BC18B /* AuthView.m in Sources */,
 				0FFD63401410397D008BC18B /* GameCell.m in Sources */,
+				0FFD66AB1412D719008BC18B /* MapAttackAuth.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

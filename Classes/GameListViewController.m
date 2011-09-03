@@ -53,7 +53,7 @@
 	}];
 }
 
-- (NSURL *)urlForGameAtIndex:(NSInteger)index {
+- (NSString *)urlForGameAtIndex:(NSInteger)index {
 	return [[self.games objectAtIndex:index] objectForKey:@"url"];
 }
 

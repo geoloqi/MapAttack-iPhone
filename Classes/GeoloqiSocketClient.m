@@ -50,11 +50,22 @@ typedef union {
         distanceFilterDistance = 1.0;
 		trackingFrequency = 1;
 		sendingFrequency = 1;
+		uuid = [[MapAttackAppDelegate UUID] retain];
         // [self normalConnect];
     }
     
     return self;
 }
+
+- (void) dealloc
+{
+	[uuid release];
+	[asyncSocket release];
+	[locationManager release];
+	[geoloqiClient release];
+	[super dealloc];
+}
+
 
 - (void) normalConnect
 {
@@ -203,7 +214,11 @@ typedef union {
 	update.f.batteryPercent = (uint16_t)(round(MAX(0.0f, [UIDevice currentDevice].batteryLevel) * 100.0));
 	
 	// memset(update.f.uuid, 0x0, sizeof(update.f.uuid));
-	memcpy(update.f.uuid, [uuid bytes], 16);
+	if(uuid.length == 16)
+		memcpy(update.f.uuid, [uuid bytes], 16);
+	else
+		memset(update.f.uuid, 0x0, sizeof(update.f.uuid));
+
 	
 //	NSLog(@"Size of packet: %lu", sizeof(LQUpdatePacket));
 //	NSLog(@"Offset of command: %lu", offsetof(LQUpdatePacket, f.command));

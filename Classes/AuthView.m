@@ -7,7 +7,8 @@
 //
 
 #import "AuthView.h"
-
+#import "LQClient.h"
+#import "MapAttackAuth.h"
 
 @implementation AuthView
 
@@ -40,6 +41,15 @@
 
 - (IBAction)tappedInitials {
 	[self.emailField resignFirstResponder];
+}
+
+- (IBAction)signIn {
+	NSString *initials = [NSString stringWithFormat:@"%@%@", self.initial1.text, self.initial2.text];
+	[[LQClient single] createNewAccountWithEmail:self.emailField.text initials:initials callback:^(NSError *error, NSDictionary *response){
+//		NSLog(@"Hello! %@", response);
+//		MapAttackAuth *auth = [MapAttackAuth create];
+//		NSLog(@"Auth: %@", auth);
+	}];
 }
 
 #pragma mark -

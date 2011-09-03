@@ -19,5 +19,6 @@
 @property (nonatomic, retain) IBOutlet UITextField *emailField;
 
 - (IBAction)tappedInitials;
+- (IBAction)signIn;
 
 @end

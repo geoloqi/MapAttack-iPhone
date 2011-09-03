@@ -24,8 +24,21 @@ static LQClient *singleton = nil;
 	return singleton;
 }
 
+- (void)dealloc {
+	[accessToken release];
+	[super dealloc];
+}
+
 - (ASIHTTPRequest *)appRequestWithURL:(NSURL *)url {
 	ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
+	[request setAuthenticationScheme:(NSString *)kCFHTTPAuthenticationSchemeBasic];
+	[request setUsername:LQ_OAUTH_CLIENT_ID];
+	[request setPassword:LQ_OAUTH_SECRET];
+	return request;
+}
+
+- (id)appRequestWithURL:(NSURL *)url class:(NSString *)class {
+	id request = [NSClassFromString(class) requestWithURL:url];
 	[request setAuthenticationScheme:(NSString *)kCFHTTPAuthenticationSchemeBasic];
 	[request setUsername:LQ_OAUTH_CLIENT_ID];
 	[request setPassword:LQ_OAUTH_SECRET];
@@ -40,8 +53,7 @@ static LQClient *singleton = nil;
 
 - (NSDictionary *)dictionaryFromResponse:(NSString *)response {
 	NSError *err = nil;
-	NSDictionary *res = [[CJSONDeserializer deserializer] deserializeAsDictionary:[response dataUsingEncoding:NSUTF8StringEncoding]
-																			error:&err];
+	NSDictionary *res = [[CJSONDeserializer deserializer] deserializeAsDictionary:[response dataUsingEncoding:NSUTF8StringEncoding] error:&err];
 	return res;
 }
 
@@ -60,10 +72,17 @@ static LQClient *singleton = nil;
 }
 
 - (void)createNewAccountWithEmail:(NSString *)email initials:(NSString *)initials callback:(LQHTTPRequestCallback)callback {
-	NSURL *url = [self urlWithPath:@"account/create_anon"];
-	__block ASIHTTPRequest *request = [self appRequestWithURL:url];
+	NSURL *url = [self urlWithPath:@"user/create_anon"];
+	__block ASIFormDataRequest *request = [self appRequestWithURL:url class:@"ASIFormDataRequest"];
+	[request setPostValue:initials forKey:@"name"];
 	[request setCompletionBlock:^{
-		callback(nil, [self dictionaryFromResponse:[request responseString]]);
+		NSDictionary *responseDict = [self dictionaryFromResponse:[request responseString]];
+		[[NSUserDefaults standardUserDefaults] setObject:(NSString *)[responseDict objectForKey:@"refresh_token"] forKey:LQRefreshTokenKey];
+		[[NSUserDefaults standardUserDefaults] setObject:email forKey:LQAuthEmailAddressKey];
+		[[NSUserDefaults standardUserDefaults] setObject:initials forKey:LQAuthInitialsKey];
+		[[NSUserDefaults standardUserDefaults] synchronize];
+		self.accessToken = (NSString *)[responseDict objectForKey:@"access_token"];
+		callback(nil, responseDict);
 	}];
 	[request startAsynchronous];
 }
@@ -77,9 +96,6 @@ static LQClient *singleton = nil;
 	[request startAsynchronous];
 }
 
-- (void)dealloc {
-	[accessToken release];
-	[super dealloc];
-}
-
 @end
+
+

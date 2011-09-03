@@ -13,6 +13,8 @@
 #import "AuthView.h"
 #import "MapViewController.h"
 
+static NSString *const LQUUIDKey = @"LQUUID";
+
 @interface MapAttackAppDelegate : NSObject <UIApplicationDelegate, UITabBarControllerDelegate> {
     UIWindow *window;
     UITabBarController *tabBarController;
@@ -27,7 +29,7 @@
 @property (nonatomic, retain) LQClient *geoloqi;
 @property (nonatomic, retain) IBOutlet MapViewController *mapController;
 
-+(NSString *)getUUID;
++(NSData *)UUID;
 -(void)loadGameWithURL:(NSString *)url;
 
 @end
