@@ -15,7 +15,7 @@
 
 + (MapAttackAuth *)create {
 	MapAttackAuth *auth = [[MapAttackAuth alloc] init];
-	auth.refreshToken = [[NSUserDefaults standardUserDefaults] stringForKey:LQRefreshTokenKey];
+//	auth.refreshToken = [[NSUserDefaults standardUserDefaults] stringForKey:LQRefreshTokenKey];
 	auth.email = [[NSUserDefaults standardUserDefaults] stringForKey:LQAuthEmailAddressKey];
 	auth.initials = [[NSUserDefaults standardUserDefaults] stringForKey:LQAuthInitialsKey];
 	return [auth autorelease];

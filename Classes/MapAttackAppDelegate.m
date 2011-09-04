@@ -188,7 +188,7 @@ MapAttackAppDelegate *lqAppDelegate;
 
 
 + (NSData *)UUID {
-	if([[NSUserDefaults standardUserDefaults] stringForKey:LQUUIDKey] == nil) {
+	if([[NSUserDefaults standardUserDefaults] dataForKey:LQUUIDKey] == nil) {
 		CFUUIDRef theUUID = CFUUIDCreate(NULL);
 		CFUUIDBytes bytes = CFUUIDGetUUIDBytes(theUUID);
 		NSData *dataUUID = [NSData dataWithBytes:&bytes length:sizeof(CFUUIDBytes)];

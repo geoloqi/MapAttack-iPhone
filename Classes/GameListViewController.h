@@ -20,6 +20,7 @@
 @property (nonatomic, retain) NSMutableArray *games;
 
 - (IBAction)reloadBtnPressed;
+- (IBAction)logoutBtnPressed;
 - (void)getNearbyLayers;
 
 @end

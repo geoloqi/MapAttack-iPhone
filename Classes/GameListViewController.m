@@ -44,6 +44,10 @@
 	[self getNearbyLayers];
 }
 
+- (IBAction)logoutBtnPressed {
+	[[LQClient single] logout];
+}
+
 - (void)getNearbyLayers {
 	[[LQClient single] getNearbyLayers:^(NSError *error, NSDictionary *response){
 		self.games = [response objectForKey:@"nearby"];

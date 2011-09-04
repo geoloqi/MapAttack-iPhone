@@ -49,6 +49,7 @@
 //		NSLog(@"Hello! %@", response);
 //		MapAttackAuth *auth = [MapAttackAuth create];
 //		NSLog(@"Auth: %@", auth);
+		[[self parentViewController] dismissModalViewControllerAnimated:YES];
 	}];
 }
 
