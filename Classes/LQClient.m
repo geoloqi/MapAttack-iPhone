@@ -195,7 +195,7 @@ static NSString *const LQClientRequestNeedsAuthenticationUserInfoKey = @"LQClien
 #pragma mark public methods
 
 - (BOOL)isLoggedIn {
-	NSLog(@"Is logged in? %@", self.accessToken);
+	DLog(@"Is logged in? %@", self.accessToken);
 	return self.accessToken != nil;
 }
 
@@ -238,14 +238,14 @@ static NSString *const LQClientRequestNeedsAuthenticationUserInfoKey = @"LQClien
 
 - (void)joinGame:(NSString *)layer_id withToken:(NSString *)group_token {
 	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:MapAttackJoinURLFormat, layer_id]];
-	NSLog(@"Joining game... %@", url);
+	DLog(@"Joining game... %@", url);
 	__block ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
 	[request setPostValue:self.userInitials forKey:@"initials"];
 	[request setPostValue:self.emailAddress forKey:@"email"];
 	[request setPostValue:self.accessToken forKey:@"access_token"];
 	[request setCompletionBlock:^{
 //		NSDictionary *responseDict = [self dictionaryFromResponse:[request responseString]];
-		NSLog(@"Response from mapattack.org %@", [request responseString]);
+		DLog(@"Response from mapattack.org %@", [request responseString]);
 	}];
 	[request startAsynchronous];
 }
@@ -253,7 +253,7 @@ static NSString *const LQClientRequestNeedsAuthenticationUserInfoKey = @"LQClien
 - (void)sendPushToken:(NSString *)token withCallback:(LQHTTPRequestCallback)callback {
 	// TODO: Send this device token to the Geoloqi API
 	NSURL *url = [self urlWithPath:@"account/set_apn_token"];
-	NSLog(@"Sending push token %@ to %@", token, url);
+	DLog(@"Sending push token %@ to %@", token, url);
 	__block ASIFormDataRequest *request = (ASIFormDataRequest *)[self userRequestWithURL:url class:@"ASIFormDataRequest"];
 	[self addDeviceInfoToRequest:request];
 	[request setPostValue:token forKey:@"token"];

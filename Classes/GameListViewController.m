@@ -119,7 +119,7 @@
 }
 
 - (void)tableView:(UITableView *)t didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	NSLog(@"Selected game %d", indexPath.row);
+	DLog(@"Selected game %d", indexPath.row);
 	[t deselectRowAtIndexPath:indexPath animated:NO];
 	self.selectedIndex = indexPath;
 

@@ -39,11 +39,11 @@
 	NSString *host = LQ_READ_SOCKET_HOST;
     UInt16 port = LQ_READ_SOCKET_PORT;
 	
-    NSLog(@"[Read] Connecting to %@:%i", host, port);
+    DLog(@"[Read] Connecting to %@:%i", host, port);
     
 	if (![asyncSocket connectToHost:host onPort:port withTimeout:1 error:&error])
 	{
-		NSLog(@"[Read] Error connecting: %@", error);
+		DLog(@"[Read] Error connecting: %@", error);
 	}
     else
     {
@@ -52,7 +52,7 @@
 								 ntohl(tokenBytes[0]), ntohl(tokenBytes[1]), ntohl(tokenBytes[2]), ntohl(tokenBytes[3])];	
 
 		NSData *data = [hexDeviceID dataUsingEncoding:NSASCIIStringEncoding];
-		NSLog(@"[Read] Writing device id: %@", data);
+		DLog(@"[Read] Writing device id: %@", data);
 		[asyncSocket writeData:data withTimeout:TIMEOUT_SEC tag:TAG_DEVICE_ID_SENT];
     }	
 }
@@ -66,19 +66,19 @@
 // After the client finishes writing the UUID, start listening for new data
 - (void)onSocket:(AsyncSocket *)sock didWriteDataWithTag:(long)tag
 {
-	NSLog(@"[Read] Did write data with tag %d", tag);
+	DLog(@"[Read] Did write data with tag %d", tag);
 	[asyncSocket readDataToData:[AsyncSocket CRLFData] withTimeout:-1 tag:TAG_MESSAGE_RECEIVED];
 }
 
 
 - (void)onSocket:(AsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
 {
-	NSLog(@"[Read] Did read data with tag %d: %@", tag, data);
+	DLog(@"[Read] Did read data with tag %d: %@", tag, data);
 	NSError **err;
 	NSDictionary *dict;
 	
 	dict = [[CJSONDeserializer deserializer] deserialize:data error:err];
-	NSLog(@"[Read] Message: %@", dict);
+	DLog(@"[Read] Message: %@", dict);
 	
 	if([dict objectForKey:@"aps"] == nil) {
 		// Custom push data, pass off to the web view
@@ -122,7 +122,7 @@
 
 - (void) socket:(AsyncSocket *)sock didConnectToHost:(NSString *)host port:(UInt16)port
 {
-    NSLog(@"[Read] Connected on local host:%@ port:%hu", [sock localHost], [sock localPort]);
+    DLog(@"[Read] Connected on local host:%@ port:%hu", [sock localHost], [sock localPort]);
 }
 
 

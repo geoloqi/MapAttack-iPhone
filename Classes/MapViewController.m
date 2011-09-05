@@ -39,7 +39,7 @@
 	if(![[LQClient single] isLoggedIn]) {
 		[lqAppDelegate.tabBarController presentModalViewController:[[AuthView alloc] init] animated:YES];
 	} else {
-		NSLog(@"Loading URL in game view %@", url);
+		DLog(@"Loading URL in game view %@", url);
 		[webView loadRequest:[NSMutableURLRequest requestWithURL:[NSURL URLWithString:[url stringByAppendingFormat:@"?access_token=%@", [[LQClient single] accessToken]]]]];
 	}
 }
@@ -59,17 +59,17 @@
 }
 
 - (void)mapAttackDataBroadcastReceived:(NSNotification *)notification {
-	NSLog(@"got data broadcast");
+	DLog(@"got data broadcast");
 	
 //	[[CJSONSerializer serializer] serializeDictionary:[notification userInfo]];
 
-	NSLog(@"%@", [NSString stringWithFormat:@"if(typeof LQHandlePushData != \"undefined\") { "
+	DLog(@"%@", [NSString stringWithFormat:@"if(typeof LQHandlePushData != \"undefined\") { "
 				  "LQHandlePushData(%@); }", [[notification userInfo] objectForKey:@"json"]]);
 	[webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"if(typeof LQHandlePushData != \"undefined\") { "
 													 "LQHandlePushData(%@); }", [[notification userInfo] objectForKey:@"json"]]];
 	
 	
-//	NSLog(@"%@", [NSString stringWithFormat:@"if(typeof LQHandlePushData != \"undefined\") { "
+//	DLog(@"%@", [NSString stringWithFormat:@"if(typeof LQHandlePushData != \"undefined\") { "
 //		   "LQHandlePushData(%@); }", [[CJSONSerializer serializer] serializeDictionary:[notification userInfo]]]);
 //	[webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"if(typeof LQHandlePushData != \"undefined\") { "
 //													 "LQHandlePushData(%@); }", [[CJSONSerializer serializer] serializeDictionary:[notification userInfo]]]];

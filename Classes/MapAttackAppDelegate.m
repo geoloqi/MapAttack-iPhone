@@ -87,27 +87,27 @@ MapAttackAppDelegate *lqAppDelegate;
 					stringByReplacingOccurrencesOfString: @">" withString: @""] 
 				   stringByReplacingOccurrencesOfString: @" " withString: @""];
 	
-	NSLog(@"Device Token: %@", deviceToken);
+	DLog(@"Device Token: %@", deviceToken);
 	
 	[[LQClient single] sendPushToken:deviceToken withCallback:^(NSError *error, NSDictionary *response){
-		NSLog(@"Sent device token: %@", response);
+		DLog(@"Sent device token: %@", response);
 	}];
 	
 	if ([application enabledRemoteNotificationTypes] == UIRemoteNotificationTypeNone) {
-		NSLog(@"Notifications are disabled for this application. Not registering.");
+		DLog(@"Notifications are disabled for this application. Not registering.");
 		return;
 	}
 }
 
 #pragma mark Received push notification
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
-	NSLog(@"Received Push! %@", userInfo);
+	DLog(@"Received Push! %@", userInfo);
 	
 	// Push was received while the app was in the foreground
 	if(application.applicationState == UIApplicationStateActive) {
 		NSDictionary *data = [userInfo valueForKeyPath:@"mapattack"];
 		if(data) {
-			NSLog(@"Got some location data! Yeah!!");
+			DLog(@"Got some location data! Yeah!!");
 			
 			// The data in the push notification is already an NSDictionary, we need to serialize it to JSON
 			// format to pass to the web view.
@@ -126,7 +126,7 @@ MapAttackAppDelegate *lqAppDelegate;
 
 -(void)loadGameWithURL:(NSString *)url {
 	[tabBarController setSelectedIndex:1];
-	NSLog(@"MapAttackAppDelegate loadGameWithURL:%@", url);
+	DLog(@"MapAttackAppDelegate loadGameWithURL:%@", url);
 	[self.mapController loadURL:url];
 }
 
@@ -207,10 +207,10 @@ MapAttackAppDelegate *lqAppDelegate;
 		CFRelease(theUUID);
 		[[NSUserDefaults standardUserDefaults] setObject:dataUUID forKey:LQUUIDKey];
 		[[NSUserDefaults standardUserDefaults] synchronize];
-		NSLog(@"Generating new UUID: %@", dataUUID);
+		DLog(@"Generating new UUID: %@", dataUUID);
 		return dataUUID;
 	} else {
-		NSLog(@"Returning existing UUID: %@", [[NSUserDefaults standardUserDefaults] dataForKey:LQUUIDKey]);
+		DLog(@"Returning existing UUID: %@", [[NSUserDefaults standardUserDefaults] dataForKey:LQUUIDKey]);
 		return [[NSUserDefaults standardUserDefaults] dataForKey:LQUUIDKey];
 	}
 }

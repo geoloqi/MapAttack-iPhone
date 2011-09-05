@@ -74,12 +74,12 @@ typedef union {
 	NSString *host = LQ_WRITE_SOCKET_HOST;
     UInt16 port = LQ_WRITE_SOCKET_PORT;
 	
-    NSLog(@"[Write] Connecting to %@:%i", host, port);
+    DLog(@"[Write] Connecting to %@:%i", host, port);
     
 	// Change to use UDP
 	if (![asyncSocket connectToHost:LQ_WRITE_SOCKET_HOST onPort:LQ_WRITE_SOCKET_PORT error:&error])
 	{
-		NSLog(@"[Write] Error connecting: %@", error);
+		DLog(@"[Write] Error connecting: %@", error);
 	}
 }
 
@@ -108,10 +108,10 @@ typedef union {
 	/*
 	 [locationManager startMonitoringSignificantLocationChanges];
 	 if (significantUpdatesOnly) {
-	 NSLog(@"Significant updates on.");
+	 DLog(@"Significant updates on.");
 	 [locationManager stopUpdatingLocation];
 	 } else {
-	 NSLog(@"Starting location updates");
+	 DLog(@"Starting location updates");
 	 [locationManager startUpdatingLocation];
 	 }
 	 */
@@ -131,7 +131,7 @@ typedef union {
 	didUpdateToLocation:(CLLocation *)newLocation
 		   fromLocation:(CLLocation *)oldLocation {
 
-//	NSLog(@"Updated to location %@ from %@", newLocation, oldLocation);
+//	DLog(@"Updated to location %@ from %@", newLocation, oldLocation);
 	
 	// horizontalAccuracy is negative when the location is invalid, so completely ignore it in this case
 	if(newLocation.horizontalAccuracy < 0){
@@ -153,39 +153,39 @@ typedef union {
 //			 object:self];
 
 			NSData *data = [self dataFromLocation:newLocation];
-			NSLog(@"[Write] Sending location data: %@", data);
+			DLog(@"[Write] Sending location data: %@", data);
 			[asyncSocket sendData:data toHost:LQ_WRITE_SOCKET_HOST port:LQ_WRITE_SOCKET_PORT withTimeout:10.0 tag:TAG_DEVICE_ID_SENT];
 			//Look for ack back
 			[asyncSocket receiveWithTimeout:30.0 tag:TAG_DEVICE_ID_SENT];
 			
 		} else {
 #if LQ_LOCMAN_DEBUG
-			NSLog(@"[Write] Location update (to %@; from %@) rejected", newLocation, oldLocation);
+			DLog(@"[Write] Location update (to %@; from %@) rejected", newLocation, oldLocation);
 #endif
 		}
 }
 
 - (void)onUdpSocket:(AsyncUdpSocket *)sock didSendDataWithTag:(long)tag;
 {
-	NSLog(@"[Write] did send");
+	DLog(@"[Write] did send");
 }
 
 - (void)onUdpSocket:(AsyncUdpSocket *)sock didNotSendDataWithTag:(long)tag dueToError:(NSError *)error;
 {
-	NSLog(@"[Write] did not get ack back");
+	DLog(@"[Write] did not get ack back");
 }
 
 - (BOOL)onUdpSocket:(AsyncUdpSocket *)sock didReceiveData:(NSData *)data withTag:(long)tag fromHost:(NSString *)host port:(UInt16)port;
 {
 	//TODO: determine if this is a valid packet
-	NSLog(@"[Write] Recieved packet back from server: %@", data);
+	DLog(@"[Write] Recieved packet back from server: %@", data);
 	
 	if (data.length == sizeof(uint32_t)) {
 		uint32_t time = OSSwapBigToHostInt32(*(uint32_t *)data.bytes);
-		NSLog(@"[Write] Accepted packet with timestamp: %u", time);
+		DLog(@"[Write] Accepted packet with timestamp: %u", time);
 		return YES;
 	} else {
-		NSLog(@"[Write] packet invalid size: %d", data.length);
+		DLog(@"[Write] packet invalid size: %d", data.length);
 		return NO;
 	}
 }
@@ -220,11 +220,11 @@ typedef union {
 		memset(update.f.uuid, 0x0, sizeof(update.f.uuid));
 
 	
-//	NSLog(@"Size of packet: %lu", sizeof(LQUpdatePacket));
-//	NSLog(@"Offset of command: %lu", offsetof(LQUpdatePacket, f.command));
-//	NSLog(@"Offset of date: %lu", offsetof(LQUpdatePacket, f.date));
+//	DLog(@"Size of packet: %lu", sizeof(LQUpdatePacket));
+//	DLog(@"Offset of command: %lu", offsetof(LQUpdatePacket, f.command));
+//	DLog(@"Offset of date: %lu", offsetof(LQUpdatePacket, f.date));
 	
-	NSLog(@"[Write] Sending timestamp: %d", update.f.date);
+	DLog(@"[Write] Sending timestamp: %d", update.f.date);
 	
 	//Swap endianness of each 16 bit int
 	update.f.date           = OSSwapHostToBigInt32(update.f.date);

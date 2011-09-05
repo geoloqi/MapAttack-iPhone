@@ -1777,7 +1777,7 @@ static void MyCFSocketCallback(CFSocketRef, CFSocketCallBackType, CFDataRef, con
 	
 	if(theNativeSocket == 0)
 	{
-		NSLog(@"Error - Could not get CFSocketNativeHandle from CFSocketRef");
+		DLog(@"Error - Could not get CFSocketNativeHandle from CFSocketRef");
 		return NO;
 	} 
 	
@@ -2003,7 +2003,7 @@ static void MyCFSocketCallback(CFSocketRef, CFSocketCallBackType, CFDataRef, con
 	
 	if(theNativeSocket == 0)
 	{
-		NSLog(@"Error - Could not get CFSocketNativeHandle from CFSocketRef");
+		DLog(@"Error - Could not get CFSocketNativeHandle from CFSocketRef");
 		return NO;
 	} 
 	
