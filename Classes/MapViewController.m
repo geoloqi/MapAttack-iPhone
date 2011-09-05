@@ -14,7 +14,7 @@
 
 @implementation MapViewController
 
-@synthesize webView;
+@synthesize webView, activityIndicator;
 
 
 /*
@@ -39,15 +39,16 @@
 	if(![[LQClient single] isLoggedIn]) {
 		[lqAppDelegate.tabBarController presentModalViewController:[[AuthView alloc] init] animated:YES];
 	} else {
-		NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[url stringByAppendingFormat:@"&oauth_token=%@", [[LQClient single] accessToken]]]];
-		[webView loadRequest:req];
+		NSLog(@"Loading URL in game view %@", url);
+		[webView loadRequest:[NSMutableURLRequest requestWithURL:[NSURL URLWithString:[url stringByAppendingFormat:@"?access_token=%@", [[LQClient single] accessToken]]]]];
 	}
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
     [super viewDidLoad];
-	[webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:LQMapAttackWebURL]]];
+	[webView loadRequest:[NSURLRequest requestWithURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"BlankGame" ofType:@"html"]isDirectory:NO]]];
+//	[webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:LQMapAttackWebURL]]];
 
 	read = [[GeoloqiReadClient alloc] init];
 
@@ -114,6 +115,15 @@
 	//    }
 }
 */
+
+- (void)webViewDidFinishLoad:(UIWebView *)w {
+	self.activityIndicator.alpha = 0.0;
+}
+
+- (void)webViewDidStartLoad:(UIWebView *)webView {     
+	self.activityIndicator.alpha = 1.0;
+}
+
 
 - (void)didReceiveMemoryWarning {
 	// Releases the view if it doesn't have a superview.

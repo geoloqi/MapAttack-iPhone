@@ -16,5 +16,6 @@
 
 - (void)normalConnect;
 - (void)disconnect;
+- (void)reconnect;
 
 @end

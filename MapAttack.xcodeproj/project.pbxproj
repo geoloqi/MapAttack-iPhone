@@ -27,6 +27,7 @@
 		0F12916613F4C809007AAB66 /* fakeLocations.kml in Resources */ = {isa = PBXBuildFile; fileRef = 0F12916013F4C809007AAB66 /* fakeLocations.kml */; };
 		0F12916713F4C809007AAB66 /* FTLocationSimulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F12916213F4C809007AAB66 /* FTLocationSimulator.m */; };
 		0F12916813F4C809007AAB66 /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F12916513F4C809007AAB66 /* RegexKitLite.m */; };
+		0F78A72B141553E000029E9C /* DebugLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F78A72A141553E000029E9C /* DebugLog.m */; };
 		0FFD5EBA140C25D6008BC18B /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FFD5EB8140C25D6008BC18B /* Icon.png */; };
 		0FFD5EBB140C25D6008BC18B /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FFD5EB9140C25D6008BC18B /* Icon@2x.png */; };
 		0FFD5ECA140F218D008BC18B /* LQClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FFD5EC9140F218D008BC18B /* LQClient.m */; };
@@ -54,6 +55,15 @@
 		0FFD65FA1412C718008BC18B /* initialFrame.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FFD65F81412C718008BC18B /* initialFrame.png */; };
 		0FFD65FB1412C718008BC18B /* initialFrame@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FFD65F91412C718008BC18B /* initialFrame@2x.png */; };
 		0FFD66AB1412D719008BC18B /* MapAttackAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FFD66AA1412D719008BC18B /* MapAttackAuth.m */; };
+		0FFD682A1413F1E5008BC18B /* BlankGame.html in Resources */ = {isa = PBXBuildFile; fileRef = 0FFD68291413F1E5008BC18B /* BlankGame.html */; };
+		0FFD68581413F3F8008BC18B /* HowToPlay.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FFD68561413F3F8008BC18B /* HowToPlay.m */; };
+		0FFD68591413F3F8008BC18B /* HowToPlay.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0FFD68571413F3F8008BC18B /* HowToPlay.xib */; };
+		0FFD68E5141402F4008BC18B /* how-to-play-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FFD68DF141402F4008BC18B /* how-to-play-icon.png */; };
+		0FFD68E6141402F4008BC18B /* how-to-play-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FFD68E0141402F4008BC18B /* how-to-play-icon@2x.png */; };
+		0FFD68E7141402F4008BC18B /* map-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FFD68E1141402F4008BC18B /* map-icon.png */; };
+		0FFD68E8141402F4008BC18B /* map-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FFD68E2141402F4008BC18B /* map-icon@2x.png */; };
+		0FFD68E9141402F4008BC18B /* nearby-games-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FFD68E3141402F4008BC18B /* nearby-games-icon.png */; };
+		0FFD68EA141402F4008BC18B /* nearby-games-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FFD68E4141402F4008BC18B /* nearby-games-icon@2x.png */; };
 		1D3623260D0F684500981E51 /* MapAttackAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* MapAttackAppDelegate.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
@@ -104,6 +114,8 @@
 		0F12916313F4C809007AAB66 /* FTSynthesizeSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTSynthesizeSingleton.h; sourceTree = "<group>"; };
 		0F12916413F4C809007AAB66 /* RegexKitLite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegexKitLite.h; sourceTree = "<group>"; };
 		0F12916513F4C809007AAB66 /* RegexKitLite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegexKitLite.m; sourceTree = "<group>"; };
+		0F78A729141553E000029E9C /* DebugLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DebugLog.h; sourceTree = "<group>"; };
+		0F78A72A141553E000029E9C /* DebugLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DebugLog.m; sourceTree = "<group>"; };
 		0FFD5EB8140C25D6008BC18B /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		0FFD5EB9140C25D6008BC18B /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		0FFD5EC8140F218D008BC18B /* LQClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LQClient.h; sourceTree = "<group>"; };
@@ -151,6 +163,16 @@
 		0FFD65F91412C718008BC18B /* initialFrame@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "initialFrame@2x.png"; sourceTree = "<group>"; };
 		0FFD66A91412D719008BC18B /* MapAttackAuth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapAttackAuth.h; sourceTree = "<group>"; };
 		0FFD66AA1412D719008BC18B /* MapAttackAuth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapAttackAuth.m; sourceTree = "<group>"; };
+		0FFD68291413F1E5008BC18B /* BlankGame.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = BlankGame.html; sourceTree = "<group>"; };
+		0FFD68551413F3F8008BC18B /* HowToPlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HowToPlay.h; sourceTree = "<group>"; };
+		0FFD68561413F3F8008BC18B /* HowToPlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HowToPlay.m; sourceTree = "<group>"; };
+		0FFD68571413F3F8008BC18B /* HowToPlay.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = HowToPlay.xib; path = Classes/HowToPlay.xib; sourceTree = "<group>"; };
+		0FFD68DF141402F4008BC18B /* how-to-play-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "how-to-play-icon.png"; sourceTree = "<group>"; };
+		0FFD68E0141402F4008BC18B /* how-to-play-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "how-to-play-icon@2x.png"; sourceTree = "<group>"; };
+		0FFD68E1141402F4008BC18B /* map-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map-icon.png"; sourceTree = "<group>"; };
+		0FFD68E2141402F4008BC18B /* map-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map-icon@2x.png"; sourceTree = "<group>"; };
+		0FFD68E3141402F4008BC18B /* nearby-games-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nearby-games-icon.png"; sourceTree = "<group>"; };
+		0FFD68E4141402F4008BC18B /* nearby-games-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nearby-games-icon@2x.png"; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D3623240D0F684500981E51 /* MapAttackAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapAttackAppDelegate.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* MapAttackAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapAttackAppDelegate.m; sourceTree = "<group>"; };
@@ -201,10 +223,10 @@
 				0F007B831401666E00057C53 /* GeoloqiReadClient.m */,
 				0F128FAB13F4A92E007AAB66 /* GeoloqiSocketClient.h */,
 				0F128FAC13F4A92E007AAB66 /* GeoloqiSocketClient.m */,
-				28216C950DB411BC00E5133A /* MapViewController.h */,
-				28216C960DB411BC00E5133A /* MapViewController.m */,
 				0FFD5FA2140F4396008BC18B /* GameListViewController.h */,
 				0FFD5FA3140F4396008BC18B /* GameListViewController.m */,
+				28216C950DB411BC00E5133A /* MapViewController.h */,
+				28216C960DB411BC00E5133A /* MapViewController.m */,
 				0FFD633E1410397D008BC18B /* GameCell.h */,
 				0FFD633F1410397D008BC18B /* GameCell.m */,
 				0FFD634B14103A16008BC18B /* GameCell.xib */,
@@ -212,6 +234,8 @@
 				0FFD6081140FF95B008BC18B /* AuthView.m */,
 				0FFD66A91412D719008BC18B /* MapAttackAuth.h */,
 				0FFD66AA1412D719008BC18B /* MapAttackAuth.m */,
+				0FFD68551413F3F8008BC18B /* HowToPlay.h */,
+				0FFD68561413F3F8008BC18B /* HowToPlay.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -219,6 +243,7 @@
 		0F128D4E13F4A207007AAB66 /* Externals */ = {
 			isa = PBXGroup;
 			children = (
+				0F78A728141553D900029E9C /* DebugLog */,
 				0FFD5F28140F3903008BC18B /* Reachability */,
 				0FFD5F07140F38B3008BC18B /* ASIHTTPRequest */,
 				0F12915F13F4C809007AAB66 /* FTLocationSimulator */,
@@ -285,6 +310,15 @@
 				0F12916513F4C809007AAB66 /* RegexKitLite.m */,
 			);
 			path = FTLocationSimulator;
+			sourceTree = "<group>";
+		};
+		0F78A728141553D900029E9C /* DebugLog */ = {
+			isa = PBXGroup;
+			children = (
+				0F78A729141553E000029E9C /* DebugLog.h */,
+				0F78A72A141553E000029E9C /* DebugLog.m */,
+			);
+			name = DebugLog;
 			sourceTree = "<group>";
 		};
 		0FFD5F07140F38B3008BC18B /* ASIHTTPRequest */ = {
@@ -368,6 +402,12 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				0FFD68DF141402F4008BC18B /* how-to-play-icon.png */,
+				0FFD68E0141402F4008BC18B /* how-to-play-icon@2x.png */,
+				0FFD68E1141402F4008BC18B /* map-icon.png */,
+				0FFD68E2141402F4008BC18B /* map-icon@2x.png */,
+				0FFD68E3141402F4008BC18B /* nearby-games-icon.png */,
+				0FFD68E4141402F4008BC18B /* nearby-games-icon@2x.png */,
 				0FFD5EB8140C25D6008BC18B /* Icon.png */,
 				0FFD5EB9140C25D6008BC18B /* Icon@2x.png */,
 				0FFD65F81412C718008BC18B /* initialFrame.png */,
@@ -377,8 +417,10 @@
 				0FFD6082140FF95B008BC18B /* AuthView.xib */,
 				2840D7CD1179279E00D7F93C /* MapView.xib */,
 				282CCBFD0DB6C98000C4EA27 /* GameList.xib */,
+				0FFD68571413F3F8008BC18B /* HowToPlay.xib */,
 				28AD73870D9D96C1002E5188 /* MainWindow.xib */,
 				8D1107310486CEB800E47090 /* MapAttack-Info.plist */,
+				0FFD68291413F1E5008BC18B /* BlankGame.html */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -460,6 +502,14 @@
 				0FFD634C14103A16008BC18B /* GameCell.xib in Resources */,
 				0FFD65FA1412C718008BC18B /* initialFrame.png in Resources */,
 				0FFD65FB1412C718008BC18B /* initialFrame@2x.png in Resources */,
+				0FFD682A1413F1E5008BC18B /* BlankGame.html in Resources */,
+				0FFD68591413F3F8008BC18B /* HowToPlay.xib in Resources */,
+				0FFD68E5141402F4008BC18B /* how-to-play-icon.png in Resources */,
+				0FFD68E6141402F4008BC18B /* how-to-play-icon@2x.png in Resources */,
+				0FFD68E7141402F4008BC18B /* map-icon.png in Resources */,
+				0FFD68E8141402F4008BC18B /* map-icon@2x.png in Resources */,
+				0FFD68E9141402F4008BC18B /* nearby-games-icon.png in Resources */,
+				0FFD68EA141402F4008BC18B /* nearby-games-icon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -504,6 +554,8 @@
 				0FFD6083140FF95B008BC18B /* AuthView.m in Sources */,
 				0FFD63401410397D008BC18B /* GameCell.m in Sources */,
 				0FFD66AB1412D719008BC18B /* MapAttackAuth.m in Sources */,
+				0FFD68581413F3F8008BC18B /* HowToPlay.m in Sources */,
+				0F78A72B141553E000029E9C /* DebugLog.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -547,6 +599,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = /usr/include/libxml2;
+				OTHER_CFLAGS = "-DDEBUG";
 				OTHER_LDFLAGS = "-lxml2";
 				PREBINDING = NO;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "CF7AE5F7-6348-4BEE-B4CD-499DC0FB6C89";

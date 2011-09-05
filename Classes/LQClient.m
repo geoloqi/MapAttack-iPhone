@@ -18,6 +18,8 @@ static NSString *const LQClientRequestNeedsAuthenticationUserInfoKey = @"LQClien
 
 @implementation LQClient
 
+@synthesize shareToken;
+
 + (LQClient *)single {
 	static LQClient *singleton = nil;
     if(!singleton) {
@@ -31,25 +33,39 @@ static NSString *const LQClientRequestNeedsAuthenticationUserInfoKey = @"LQClien
     self = [super init];
 	if(!self) return nil;
 
-	queue = [[NSMutableArray alloc] init];
-	
+//	queue = [[NSMutableArray alloc] init];
 	return self;
 }
 
 - (void)dealloc {
-	[queue release];
+	// [queue release];
 	[super dealloc];
 }
 
+/**
+ * Getter/setter for accessToken key, uses NSUserDefaults for permanent storage.
+ */
 - (NSString *)accessToken {
 	return [[NSUserDefaults standardUserDefaults] stringForKey:LQAccessTokenKey];
 }
 - (void)setAccessToken:(NSString *)token {
-//	if(token == nil) {
-//		[[NSUserDefaults standardUserDefaults] removeObjectForKey:LQAccessTokenKey];
-//	} else {
-		[[NSUserDefaults standardUserDefaults] setObject:[[token copy] autorelease] forKey:LQAccessTokenKey];
-//	}
+	[[NSUserDefaults standardUserDefaults] setObject:[[token copy] autorelease] forKey:LQAccessTokenKey];
+	[[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (NSString *)emailAddress {
+	return [[NSUserDefaults standardUserDefaults] stringForKey:LQAuthEmailAddressKey];
+}
+- (void)setEmailAddress:(NSString *)email {
+	[[NSUserDefaults standardUserDefaults] setObject:[[email copy] autorelease] forKey:LQAuthEmailAddressKey];
+	[[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (NSString *)userInitials {
+	return [[NSUserDefaults standardUserDefaults] stringForKey:LQAuthInitialsKey];
+}
+- (void)setUserInitials:(NSString *)initials {
+	[[NSUserDefaults standardUserDefaults] setObject:[[initials copy] autorelease] forKey:LQAuthInitialsKey];
 	[[NSUserDefaults standardUserDefaults] synchronize];
 }
 
@@ -61,8 +77,8 @@ static NSString *const LQClientRequestNeedsAuthenticationUserInfoKey = @"LQClien
 	return request;
 }
 
-- (id)appRequestWithURL:(NSURL *)url class:(NSString *)class {
-	id request = [NSClassFromString(class) requestWithURL:url];
+- (ASIHTTPRequest *)appRequestWithURL:(NSURL *)url class:(NSString *)class {
+	ASIHTTPRequest *request = [NSClassFromString(class) requestWithURL:url];
 	[request setAuthenticationScheme:(NSString *)kCFHTTPAuthenticationSchemeBasic];
 	[request setUsername:LQ_OAUTH_CLIENT_ID];
 	[request setPassword:LQ_OAUTH_SECRET];
@@ -72,9 +88,16 @@ static NSString *const LQClientRequestNeedsAuthenticationUserInfoKey = @"LQClien
 - (ASIHTTPRequest *)userRequestWithURL:(NSURL *)url {
 	ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
 	[request addRequestHeader:@"Authorization" value:[NSString stringWithFormat:@"OAuth %@", self.accessToken]];
+	// This was for when we needed to insert the access token later after it was refreshed
 //	NSMutableDictionary *dict = (request.userInfo ? [[NSMutableDictionary alloc] initWithDictionary:request.userInfo] : [[NSMutableDictionary alloc] init]);
 //	request.userInfo = dict;
 //	[dict setObject:[NSNumber numberWithBool:YES] forKey:LQClientRequestNeedsAuthenticationUserInfoKey];
+	return request;
+}
+
+- (ASIHTTPRequest *)userRequestWithURL:(NSURL *)url class:(NSString *)class {
+	ASIHTTPRequest *request = [NSClassFromString(class) requestWithURL:url];
+	[request addRequestHeader:@"Authorization" value:[NSString stringWithFormat:@"OAuth %@", self.accessToken]];
 	return request;
 }
 
@@ -112,6 +135,7 @@ static NSString *const LQClientRequestNeedsAuthenticationUserInfoKey = @"LQClien
 }
 
 /*
+// This was for queuing/dequeuing requests so we could refresh the access token if necessary
 - (void)dequeueUserRequestIfPossible {
 	if(queue.count > 0 && self.accessToken) {
 		ASIHTTPRequest *request = (ASIHTTPRequest *)[queue objectAtIndex:0];
@@ -152,10 +176,20 @@ static NSString *const LQClientRequestNeedsAuthenticationUserInfoKey = @"LQClien
 		callback(nil, [self dictionaryFromResponse:[request responseString]]);
 	}];
 	[request setFailedBlock:^{
-		NSLog(@"Request Failed %@", request);
+		DLog(@"Request Failed %@", request);
 		callback(request.error, nil);
 	}];
 	[request startAsynchronous];
+}
+
+- (void)createShareToken {
+	NSURL *url = [self urlWithPath:@"link/create"];
+	__block ASIFormDataRequest *request = (ASIFormDataRequest *)[self userRequestWithURL:url class:@"ASIFormDataRequest"];
+	[request setPostValue:@"Testing for MapAttack" forKey:@"description"];
+	[self runRequest:request callback:^(NSError *error, NSDictionary *response){
+		self.shareToken = [response objectForKey:@"shortlink"];
+		DLog(@"Token: %@", response);
+	}];
 }
 
 #pragma mark public methods
@@ -171,34 +205,59 @@ static NSString *const LQClientRequestNeedsAuthenticationUserInfoKey = @"LQClien
 }
 */
 
-- (void)sendPushToken:(NSString *)token {
-	// TODO: Send this device token to the Geoloqi API
+- (void)addDeviceInfoToRequest:(ASIFormDataRequest *)request {
+	UIDevice *d = [UIDevice currentDevice];
+	[request setPostValue:[NSString stringWithFormat:@"%@ %@", d.systemName, d.systemVersion] forKey:@"platform"];
+	[request setPostValue:[self hardware] forKey:@"hardware"];
+	const unsigned *tokenBytes = [[MapAttackAppDelegate UUID] bytes];
+	NSString *hexDeviceID = [NSString stringWithFormat:@"%08x%08x%08x%08x",
+							 ntohl(tokenBytes[0]), ntohl(tokenBytes[1]), ntohl(tokenBytes[2]), ntohl(tokenBytes[3])];	
+	[request setPostValue:hexDeviceID forKey:@"device_id"];
 }
 
 - (void)createNewAccountWithEmail:(NSString *)email initials:(NSString *)initials callback:(LQHTTPRequestCallback)callback {
 	NSURL *url = [self urlWithPath:@"user/create_anon"];
-	__block ASIFormDataRequest *request = [self appRequestWithURL:url class:@"ASIFormDataRequest"];
+	__block ASIFormDataRequest *request = (ASIFormDataRequest *)[self appRequestWithURL:url class:@"ASIFormDataRequest"];
 
 	[request setPostValue:initials forKey:@"name"];
 
-	UIDevice *d = [UIDevice currentDevice];
-	[request setPostValue:[NSString stringWithFormat:@"%@ %@", d.systemName, d.systemVersion] forKey:@"platform"];
-	[request setPostValue:[self hardware] forKey:@"hardware"];
-
-	const unsigned *tokenBytes = [[MapAttackAppDelegate UUID] bytes];
-	NSString *hexDeviceID = [NSString stringWithFormat:@"%08x%08x%08x%08x",
-						  ntohl(tokenBytes[0]), ntohl(tokenBytes[1]), ntohl(tokenBytes[2]), ntohl(tokenBytes[3])];	
-	[request setPostValue:hexDeviceID forKey:@"device_id"];
+	[self addDeviceInfoToRequest:request];
 	
 	[request setCompletionBlock:^{
 		NSDictionary *responseDict = [self dictionaryFromResponse:[request responseString]];
 		// [[NSUserDefaults standardUserDefaults] setObject:(NSString *)[responseDict objectForKey:@"refresh_token"] forKey:LQRefreshTokenKey];
-		[[NSUserDefaults standardUserDefaults] setObject:email forKey:LQAuthEmailAddressKey];
-		[[NSUserDefaults standardUserDefaults] setObject:initials forKey:LQAuthInitialsKey];
+		self.emailAddress = email;
+		self.userInitials = initials;
 		self.accessToken = (NSString *)[responseDict objectForKey:@"access_token"];  // this runs synchronize
 		callback(nil, responseDict);
+		
+		[self createShareToken];
 	}];
 	[request startAsynchronous];
+}
+
+- (void)joinGame:(NSString *)layer_id withToken:(NSString *)group_token {
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:MapAttackJoinURLFormat, layer_id]];
+	NSLog(@"Joining game... %@", url);
+	__block ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
+	[request setPostValue:self.userInitials forKey:@"initials"];
+	[request setPostValue:self.emailAddress forKey:@"email"];
+	[request setPostValue:self.accessToken forKey:@"access_token"];
+	[request setCompletionBlock:^{
+//		NSDictionary *responseDict = [self dictionaryFromResponse:[request responseString]];
+		NSLog(@"Response from mapattack.org %@", [request responseString]);
+	}];
+	[request startAsynchronous];
+}
+
+- (void)sendPushToken:(NSString *)token withCallback:(LQHTTPRequestCallback)callback {
+	// TODO: Send this device token to the Geoloqi API
+	NSURL *url = [self urlWithPath:@"account/set_apn_token"];
+	NSLog(@"Sending push token %@ to %@", token, url);
+	__block ASIFormDataRequest *request = (ASIFormDataRequest *)[self userRequestWithURL:url class:@"ASIFormDataRequest"];
+	[self addDeviceInfoToRequest:request];
+	[request setPostValue:token forKey:@"token"];
+	[self runRequest:request callback:callback];
 }
 
 - (void)getNearbyLayers:(LQHTTPRequestCallback)callback {

@@ -16,23 +16,27 @@ static NSString *const LQAccessTokenKey = @"LQAccessToken";
 static NSString *const LQAuthEmailAddressKey = @"LQAuthEmailAddressKey";
 static NSString *const LQAuthInitialsKey = @"LQAuthInitialsKey";
 static NSString *const LQAPIBaseURL = @"https://api.geoloqi.com/1/";
-static NSString *const MapAttackAPIBaseURL = @"http://mapattack.org/";
 
 typedef void (^LQHTTPRequestCallback)(NSError *error, NSDictionary *response);
 
 @interface LQClient : NSObject {
-	NSMutableArray *queue;
+//	NSMutableArray *queue;
 	ASIHTTPRequest *authenticationRequest;
 }
 
 @property (nonatomic, copy) NSString *accessToken;
+@property (nonatomic, copy) NSString *emailAddress;
+@property (nonatomic, copy) NSString *userInitials;
+
+@property (nonatomic, copy) NSString *shareToken;
 
 + (LQClient *)single;
 - (BOOL)isLoggedIn;
 // - (NSString *)refreshToken;
-- (void)sendPushToken:(NSString *)token;
+- (void)sendPushToken:(NSString *)token withCallback:(LQHTTPRequestCallback)callback;
 - (void)getNearbyLayers:(LQHTTPRequestCallback)callback;
 - (void)createNewAccountWithEmail:(NSString *)email initials:(NSString *)initials callback:(LQHTTPRequestCallback)callback;
+- (void)joinGame:(NSString *)layer_id withToken:(NSString *)group_token;
 - (void)logout;
 
 @end

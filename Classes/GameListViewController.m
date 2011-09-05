@@ -13,7 +13,16 @@
 
 @implementation GameListViewController
 
-@synthesize reloadBtn, tableView, gameCell, games;
+@synthesize reloadBtn, tableView, gameCell, games, selectedIndex;
+
+- (void)dealloc {
+	[games release];
+	[gameCell release];
+	[selectedIndex release];
+	[tableView release];
+	[reloadBtn release];
+    [super dealloc];
+}
 
 // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 /*
@@ -51,14 +60,20 @@
 - (void)getNearbyLayers {
 	[[LQClient single] getNearbyLayers:^(NSError *error, NSDictionary *response){
 		self.games = [response objectForKey:@"nearby"];
-		
-		NSLog(@"%@", [self.games objectAtIndex:1]);
 		[self.tableView reloadData];
 	}];
 }
 
 - (NSString *)urlForGameAtIndex:(NSInteger)index {
 	return [[self.games objectAtIndex:index] objectForKey:@"url"];
+}
+
+- (NSString *)layerIDForGameAtIndex:(NSInteger)index {
+	return [[self.games objectAtIndex:index] objectForKey:@"layer_id"];
+}
+
+- (NSString *)groupTokenForGameAtIndex:(NSInteger)index {
+	return [[self.games objectAtIndex:index] objectForKey:@"group_token"];
 }
 
 #pragma mark -
@@ -78,8 +93,6 @@
 - (UITableViewCell *)tableView:(UITableView *)t cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	static NSString *myIdentifier = @"GameCell";
 	
-	NSLog(@"cellForRowAtIndexPath: %@", indexPath);
-	
 	GameCell *cell = (GameCell *)[t dequeueReusableCellWithIdentifier:myIdentifier];
 	
 	if(cell == nil) {
@@ -87,7 +100,6 @@
 		cell = gameCell;
 	}
 
-//	NSLog(@"Game: %@", games);
 	id game = [self.games objectAtIndex:indexPath.row];
 	[cell setNameText:[game objectForKey:@"name"]];
 	[cell setDescriptionText:[game objectForKey:@"description"]];
@@ -95,10 +107,34 @@
 	return cell;
 }
 
+- (void)authenticationDidSucceed:(NSNotificationCenter *)notification {
+	[[LQClient single] joinGame:[self layerIDForGameAtIndex:selectedIndex.row] withToken:[self groupTokenForGameAtIndex:selectedIndex.row]];
+
+	// If they're not logged in, then loadGameWithURL will first pop up a login screen
+	[lqAppDelegate loadGameWithURL:[NSString stringWithFormat:MapAttackGameURLFormat, [self layerIDForGameAtIndex:selectedIndex.row]]];
+
+    [[NSNotificationCenter defaultCenter] removeObserver:self 
+                                                    name:LQAuthenticationSucceededNotification 
+                                                  object:nil];
+}
+
 - (void)tableView:(UITableView *)t didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	NSLog(@"Selected game %d", indexPath.row);
 	[t deselectRowAtIndexPath:indexPath animated:NO];
-	[lqAppDelegate loadGameWithURL:[self urlForGameAtIndex:indexPath.row]];
+	self.selectedIndex = indexPath;
+
+	// If they're not logged in, wait until after the authentication succeed broadcast received, then join the game
+	[[NSNotificationCenter defaultCenter] addObserver:self
+											 selector:@selector(authenticationDidSucceed:)
+												 name:LQAuthenticationSucceededNotification
+											   object:nil];		
+	
+	if([[LQClient single] isLoggedIn]) {
+		// If they're logged in, immediately make a call to the game server to join the game
+		[self authenticationDidSucceed:nil];
+	} else {
+		[lqAppDelegate.tabBarController presentModalViewController:[[AuthView alloc] init] animated:YES];
+	}
 }
 
 #pragma mark -
@@ -114,13 +150,6 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
-}
-
-
-- (void)dealloc {
-	[games release];
-	[gameCell release];
-    [super dealloc];
 }
 
 

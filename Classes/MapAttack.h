@@ -6,8 +6,8 @@
 //  Copyright 2011 Geoloqi.com. All rights reserved.
 //
 
-#define LQMapAttackWebURL @"http://localhost/index2.html"
-// @"http://geoloqi.com/test-js.php"
+static NSString *const MapAttackJoinURLFormat = @"http://mapattack.org/game/%@/join";
+static NSString *const MapAttackGameURLFormat = @"http://mapattack.org/game/%@";
 
 static NSString *const LQMapAttackDataNotification = @"LQMapAttackDataNotification";
 static NSString *const MapAttackAppID = @"R";

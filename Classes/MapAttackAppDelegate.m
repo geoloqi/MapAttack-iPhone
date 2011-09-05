@@ -22,7 +22,9 @@ MapAttackAppDelegate *lqAppDelegate;
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
     
 	lqAppDelegate = self;
-	
+
+	DLog(@"App Launch %@", launchOptions);
+
     // Override point for customization after application launch.
 
     // Add the tab bar controller's view to the window and display.
@@ -37,13 +39,18 @@ MapAttackAppDelegate *lqAppDelegate;
 	if([[LQClient single] isLoggedIn]) {
 		// Start sending location updates
 		[socketClient startMonitoringLocation];
+
+		[[UIApplication sharedApplication]
+		 registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge |
+											 UIRemoteNotificationTypeSound |
+											 UIRemoteNotificationTypeAlert)];
+	} else {
+		[[NSNotificationCenter defaultCenter] addObserver:self
+												 selector:@selector(authenticationDidSucceed:)
+													 name:LQAuthenticationSucceededNotification
+												   object:nil];
 	}
 	
-	[[UIApplication sharedApplication]
-	 registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge |
-										 UIRemoteNotificationTypeSound |
-										 UIRemoteNotificationTypeAlert)];
-
     return YES;
 }
 
@@ -53,9 +60,9 @@ MapAttackAppDelegate *lqAppDelegate;
     [[NSNotificationCenter defaultCenter] removeObserver:self 
                                                     name:LQAuthenticationSucceededNotification 
                                                   object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self 
-                                                    name:LQAuthenticationFailedNotification 
-                                                  object:nil];
+//    [[NSNotificationCenter defaultCenter] removeObserver:self 
+//                                                    name:LQAuthenticationFailedNotification 
+//                                                  object:nil];
 	
     if (tabBarController.modalViewController && [tabBarController.modalViewController isKindOfClass:[authViewController class]])
         [tabBarController dismissModalViewControllerAnimated:YES];
@@ -65,6 +72,8 @@ MapAttackAppDelegate *lqAppDelegate;
 	 registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge |
 										 UIRemoteNotificationTypeSound |
 										 UIRemoteNotificationTypeAlert)];
+	
+	[self.mapController loadURL:@""];
 	
 	// Start sending location updates
 	[socketClient startMonitoringLocation];
@@ -80,7 +89,9 @@ MapAttackAppDelegate *lqAppDelegate;
 	
 	NSLog(@"Device Token: %@", deviceToken);
 	
-	[[LQClient single] sendPushToken:deviceToken];
+	[[LQClient single] sendPushToken:deviceToken withCallback:^(NSError *error, NSDictionary *response){
+		NSLog(@"Sent device token: %@", response);
+	}];
 	
 	if ([application enabledRemoteNotificationTypes] == UIRemoteNotificationTypeNone) {
 		NSLog(@"Notifications are disabled for this application. Not registering.");
@@ -115,6 +126,7 @@ MapAttackAppDelegate *lqAppDelegate;
 
 -(void)loadGameWithURL:(NSString *)url {
 	[tabBarController setSelectedIndex:1];
+	NSLog(@"MapAttackAppDelegate loadGameWithURL:%@", url);
 	[self.mapController loadURL:url];
 }
 

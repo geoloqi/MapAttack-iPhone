@@ -11,6 +11,7 @@
 #import "CJSONSerializer.h"
 #import "MapAttack.h"
 #import "LQConfig.h"
+#import "MapAttackAppDelegate.h"
 
 #define TIMEOUT_SEC 6.0
 #define TAG_DEVICE_ID_SENT 1
@@ -38,36 +39,46 @@
 	NSString *host = LQ_READ_SOCKET_HOST;
     UInt16 port = LQ_READ_SOCKET_PORT;
 	
-    NSLog(@"Connecting to %@:%i", host, port);
+    NSLog(@"[Read] Connecting to %@:%i", host, port);
     
 	if (![asyncSocket connectToHost:host onPort:port withTimeout:1 error:&error])
 	{
-		NSLog(@"Error connecting: %@", error);
+		NSLog(@"[Read] Error connecting: %@", error);
 	}
     else
     {
-		NSData *data = [[UIDevice currentDevice].uniqueIdentifier dataUsingEncoding:NSASCIIStringEncoding];
-		NSLog(@"Writing device id: %@", data);
+		const unsigned *tokenBytes = [[MapAttackAppDelegate UUID] bytes];
+		NSString *hexDeviceID = [NSString stringWithFormat:@"%08x%08x%08x%08x",
+								 ntohl(tokenBytes[0]), ntohl(tokenBytes[1]), ntohl(tokenBytes[2]), ntohl(tokenBytes[3])];	
+
+		NSData *data = [hexDeviceID dataUsingEncoding:NSASCIIStringEncoding];
+		NSLog(@"[Read] Writing device id: %@", data);
 		[asyncSocket writeData:data withTimeout:TIMEOUT_SEC tag:TAG_DEVICE_ID_SENT];
     }	
+}
+
+- (void)reconnect
+{
+	[self disconnect];
+	[self normalConnect];
 }
 
 // After the client finishes writing the UUID, start listening for new data
 - (void)onSocket:(AsyncSocket *)sock didWriteDataWithTag:(long)tag
 {
-	NSLog(@"Did write data with tag %d", tag);
+	NSLog(@"[Read] Did write data with tag %d", tag);
 	[asyncSocket readDataToData:[AsyncSocket CRLFData] withTimeout:-1 tag:TAG_MESSAGE_RECEIVED];
 }
 
 
 - (void)onSocket:(AsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
 {
-	NSLog(@"Did read data with tag %d: %@", tag, data);
+	NSLog(@"[Read] Did read data with tag %d: %@", tag, data);
 	NSError **err;
 	NSDictionary *dict;
 	
 	dict = [[CJSONDeserializer deserializer] deserialize:data error:err];
-	NSLog(@"Message: %@", dict);
+	NSLog(@"[Read] Message: %@", dict);
 	
 	if([dict objectForKey:@"aps"] == nil) {
 		// Custom push data, pass off to the web view
@@ -111,7 +122,7 @@
 
 - (void) socket:(AsyncSocket *)sock didConnectToHost:(NSString *)host port:(UInt16)port
 {
-    NSLog(@"Connected on local host:%@ port:%hu", [sock localHost], [sock localPort]);
+    NSLog(@"[Read] Connected on local host:%@ port:%hu", [sock localHost], [sock localPort]);
 }
 
 

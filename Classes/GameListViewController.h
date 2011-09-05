@@ -18,6 +18,7 @@
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
 @property (nonatomic, retain) IBOutlet GameCell *gameCell;
 @property (nonatomic, retain) NSMutableArray *games;
+@property (nonatomic, retain) NSIndexPath *selectedIndex;
 
 - (IBAction)reloadBtnPressed;
 - (IBAction)logoutBtnPressed;
