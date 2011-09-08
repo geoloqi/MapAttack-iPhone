@@ -54,6 +54,14 @@
 	[self refreshNearbyLayers];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+	if([[LQClient single] isLoggedIn]) {
+		self.logoutBtn.hidden = YES;
+	} else {
+		self.logoutBtn.hidden = NO;
+	}
+}
+
 - (IBAction)reloadBtnPressed {
 	[self refreshNearbyLayers];
 }
@@ -93,6 +101,8 @@
 	didUpdateToLocation:(CLLocation *)newLocation
 		   fromLocation:(CLLocation *)oldLocation {
 
+	NSLog(@"Got location update! %@", newLocation);
+	
 	[[LQClient single] getPlaceContext:newLocation withCallback:^(NSError *error, NSDictionary *response){
 		NSLog(@"Found place context: %@", response);
 		if([response objectForKey:@"best_name"] != nil) {

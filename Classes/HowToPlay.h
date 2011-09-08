@@ -13,6 +13,6 @@
 
 }
 
-@property (nonatomic, retain) IBOutlet UILabel *test;
+@property (nonatomic, retain) IBOutlet UIWebView *webView;
 
 @end
