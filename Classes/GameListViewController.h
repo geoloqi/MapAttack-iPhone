@@ -21,7 +21,10 @@
 }
 
 @property (nonatomic, retain) IBOutlet UIButton *reloadBtn;
+@property (nonatomic, retain) IBOutlet UIButton *logoutBtn;
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
+@property (nonatomic, retain) IBOutlet UIView *loadingView;
+@property (nonatomic, retain) IBOutlet UILabel *loadingStatus;
 @property (nonatomic, retain) IBOutlet GameCell *gameCell;
 @property (nonatomic, retain) NSMutableArray *games;
 @property (nonatomic, retain) NSIndexPath *selectedIndex;

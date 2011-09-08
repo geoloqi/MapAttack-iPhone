@@ -57,7 +57,7 @@
 					<object class="IBUILabel" id="31595835">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{94, 64}, {132, 36}}</string>
+						<string key="NSFrame">{{94, 62}, {132, 36}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
@@ -212,7 +212,7 @@
 					<object class="IBUIButton" id="1026802275">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{88, 87}, {144, 71}}</string>
+						<string key="NSFrame">{{88, 85}, {144, 71}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -231,6 +231,18 @@
 						<object class="NSColor" key="IBUINormalTitleShadowColor">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MC41AA</bytes>
+						</object>
+					</object>
+					<object class="IBUIImageView" id="578300584">
+						<reference key="NSNextResponder" ref="191373211"/>
+						<int key="NSvFlags">292</int>
+						<string key="NSFrame">{{40, 10}, {239, 57}}</string>
+						<reference key="NSSuperview" ref="191373211"/>
+						<bool key="IBUIUserInteractionEnabled">NO</bool>
+						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+						<object class="NSCustomResource" key="IBUIImage">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">MapAttackLogo.png</string>
 						</object>
 					</object>
 				</object>
@@ -341,12 +353,13 @@
 							<reference ref="74747312"/>
 							<reference ref="422711303"/>
 							<reference ref="23769366"/>
-							<reference ref="974021917"/>
 							<reference ref="100780301"/>
 							<reference ref="601000259"/>
 							<reference ref="31595835"/>
 							<reference ref="660485052"/>
 							<reference ref="1026802275"/>
+							<reference ref="578300584"/>
+							<reference ref="974021917"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -411,6 +424,11 @@
 						<reference key="object" ref="1026802275"/>
 						<reference key="parent" ref="191373211"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">34</int>
+						<reference key="object" ref="578300584"/>
+						<reference key="parent" ref="191373211"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -439,6 +457,8 @@
 					<string>26.IBViewBoundsToFrameTransform</string>
 					<string>27.IBPluginDependency</string>
 					<string>27.IBViewBoundsToFrameTransform</string>
+					<string>34.IBPluginDependency</string>
+					<string>34.IBViewBoundsToFrameTransform</string>
 					<string>9.IBPluginDependency</string>
 					<string>9.IBViewBoundsToFrameTransform</string>
 				</object>
@@ -486,6 +506,10 @@
 					</object>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<object class="NSAffineTransform">
+						<bytes key="NSTransformStruct">P4AAAL+AAABC4AAAwr4AAA</bytes>
+					</object>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<object class="NSAffineTransform">
 						<bytes key="NSTransformStruct">P4AAAL+AAAAAAAAAw+UAAA</bytes>
 					</object>
 				</object>
@@ -506,7 +530,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">32</int>
+			<int key="maxID">34</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -834,11 +858,13 @@
 			<bool key="EncodedWithXMLCoder">YES</bool>
 			<object class="NSArray" key="dict.sortedKeys">
 				<bool key="EncodedWithXMLCoder">YES</bool>
+				<string>MapAttackLogo.png</string>
 				<string>bkg.png</string>
 				<string>initialFrame.png</string>
 			</object>
 			<object class="NSMutableArray" key="dict.values">
 				<bool key="EncodedWithXMLCoder">YES</bool>
+				<string>{239, 57}</string>
 				<string>{320, 480}</string>
 				<string>{140, 60}</string>
 			</object>

@@ -13,14 +13,16 @@
 
 @implementation GameListViewController
 
-@synthesize reloadBtn, tableView, gameCell, games, selectedIndex;
+@synthesize reloadBtn, logoutBtn, tableView, gameCell, games, selectedIndex, loadingView, loadingStatus;
 
 - (void)dealloc {
 	[games release];
 	[gameCell release];
 	[selectedIndex release];
 	[tableView release];
+	[loadingView release];
 	[reloadBtn release];
+	[logoutBtn release];
 	[locationManager release];
     [super dealloc];
 }
@@ -59,6 +61,9 @@
 }
 
 - (void)refreshNearbyLayers {
+	self.loadingStatus.text = @"Finding your location...";
+	self.loadingView.alpha = 0.75;
+	
 	if (!locationManager) {
 #ifdef FAKE_CORE_LOCATION
 		locationManager = [[FTLocationSimulator alloc] init];
@@ -77,9 +82,18 @@
 	didUpdateToLocation:(CLLocation *)newLocation
 		   fromLocation:(CLLocation *)oldLocation {
 
+	self.loadingStatus.text = @"Finding nearby games...";
+
 	[[LQClient single] getNearbyLayers:newLocation withCallback:^(NSError *error, NSDictionary *response){
 		self.games = [response objectForKey:@"nearby"];
 		NSLog(@"Found games: %@", self.games);
+		self.loadingStatus.text = @"Reticulating splines...";
+
+		[UIView beginAnimations:@"alpha" context:nil];
+		[UIView setAnimationDuration:0.4];
+		[self.loadingView setAlpha:0.0];
+		[UIView commitAnimations];
+
 		[self.tableView reloadData];
 	}];
 	

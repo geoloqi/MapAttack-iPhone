@@ -27,6 +27,8 @@
 		0F12916613F4C809007AAB66 /* fakeLocations.kml in Resources */ = {isa = PBXBuildFile; fileRef = 0F12916013F4C809007AAB66 /* fakeLocations.kml */; };
 		0F12916713F4C809007AAB66 /* FTLocationSimulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F12916213F4C809007AAB66 /* FTLocationSimulator.m */; };
 		0F12916813F4C809007AAB66 /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F12916513F4C809007AAB66 /* RegexKitLite.m */; };
+		0F5760211419349800C79B48 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F5760201419349800C79B48 /* QuartzCore.framework */; };
+		0F576050141937C100C79B48 /* PoweredByGeoloqi.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F57604F141937C100C79B48 /* PoweredByGeoloqi.png */; };
 		0F78A72B141553E000029E9C /* DebugLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F78A72A141553E000029E9C /* DebugLog.m */; };
 		0FDBA6321416F0C200F5C8A5 /* LQPushHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FDBA6311416F0C200F5C8A5 /* LQPushHandler.m */; };
 		0FEC568E14192F770017CE48 /* MapAttackLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FEC568C14192F770017CE48 /* MapAttackLogo.png */; };
@@ -117,6 +119,8 @@
 		0F12916313F4C809007AAB66 /* FTSynthesizeSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTSynthesizeSingleton.h; sourceTree = "<group>"; };
 		0F12916413F4C809007AAB66 /* RegexKitLite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegexKitLite.h; sourceTree = "<group>"; };
 		0F12916513F4C809007AAB66 /* RegexKitLite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegexKitLite.m; sourceTree = "<group>"; };
+		0F5760201419349800C79B48 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		0F57604F141937C100C79B48 /* PoweredByGeoloqi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = PoweredByGeoloqi.png; path = Resources/PoweredByGeoloqi.png; sourceTree = "<group>"; };
 		0F78A729141553E000029E9C /* DebugLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DebugLog.h; sourceTree = "<group>"; };
 		0F78A72A141553E000029E9C /* DebugLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DebugLog.m; sourceTree = "<group>"; };
 		0FDBA6301416F0C200F5C8A5 /* LQPushHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LQPushHandler.h; sourceTree = "<group>"; };
@@ -211,6 +215,7 @@
 				0FFD5F41140F395F008BC18B /* libz.1.2.3.dylib in Frameworks */,
 				0FFD5F78140F3B77008BC18B /* libxml2.dylib in Frameworks */,
 				0FFD5F7C140F3B95008BC18B /* SystemConfiguration.framework in Frameworks */,
+				0F5760211419349800C79B48 /* QuartzCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -423,6 +428,7 @@
 				0FFD65F91412C718008BC18B /* initialFrame@2x.png */,
 				0FEC568C14192F770017CE48 /* MapAttackLogo.png */,
 				0FEC568D14192F770017CE48 /* MapAttackLogo@2x.png */,
+				0F57604F141937C100C79B48 /* PoweredByGeoloqi.png */,
 				0FEC56901419300F0017CE48 /* bkg.png */,
 				0FEC56911419300F0017CE48 /* bkg@2x.png */,
 				0FFD6082140FF95B008BC18B /* AuthView.xib */,
@@ -447,6 +453,7 @@
 				0F12915113F4C664007AAB66 /* MapKit.framework */,
 				0FFD5F38140F392C008BC18B /* MobileCoreServices.framework */,
 				0FFD5F40140F395F008BC18B /* libz.1.2.3.dylib */,
+				0F5760201419349800C79B48 /* QuartzCore.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -523,6 +530,7 @@
 				0FEC568F14192F770017CE48 /* MapAttackLogo@2x.png in Resources */,
 				0FEC56921419300F0017CE48 /* bkg.png in Resources */,
 				0FEC56931419300F0017CE48 /* bkg@2x.png in Resources */,
+				0F576050141937C100C79B48 /* PoweredByGeoloqi.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
