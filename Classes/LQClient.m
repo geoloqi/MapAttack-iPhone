@@ -272,6 +272,19 @@ static NSString *const LQClientRequestNeedsAuthenticationUserInfoKey = @"LQClien
 	[self runRequest:request callback:callback];
 }
 
+- (void)getPlaceContext:(CLLocation *)location withCallback:(LQHTTPRequestCallback)callback {
+	NSURL *url = [self urlWithPath:[NSString stringWithFormat:@"location/context?latitude=%f&longitude=%f", 
+									//45.5246, -122.6843, MapAttackAppID]];
+									location.coordinate.latitude, location.coordinate.longitude]];
+	__block ASIHTTPRequest *request;
+	if([self isLoggedIn]) {
+		request = [self userRequestWithURL:url];
+	} else {
+		request = [self appRequestWithURL:url];
+	}
+	[self runRequest:request callback:callback];
+}
+
 - (void)logout {
 	[[NSUserDefaults standardUserDefaults] removeObjectForKey:LQAuthEmailAddressKey];
 	[[NSUserDefaults standardUserDefaults] removeObjectForKey:LQAuthInitialsKey];

@@ -13,7 +13,7 @@
 
 @implementation GameListViewController
 
-@synthesize reloadBtn, logoutBtn, tableView, gameCell, games, selectedIndex, loadingView, loadingStatus;
+@synthesize reloadBtn, logoutBtn, tableView, noGamesView, gameCell, games, selectedIndex, loadingView, loadingStatus, spinnerView, gamesNearLabel;
 
 - (void)dealloc {
 	[games release];
@@ -21,6 +21,8 @@
 	[selectedIndex release];
 	[tableView release];
 	[loadingView release];
+	[noGamesView release];
+	[spinnerView release];
 	[reloadBtn release];
 	[logoutBtn release];
 	[locationManager release];
@@ -60,9 +62,18 @@
 	[[LQClient single] logout];
 }
 
+- (IBAction)emailBtnPressed {
+	NSLog(@"email tapped");
+	[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"mailto:games@mapattack.org"]];
+}
+
 - (void)refreshNearbyLayers {
 	self.loadingStatus.text = @"Finding your location...";
-	self.loadingView.alpha = 0.75;
+	self.loadingView.alpha = 0.85;
+	self.noGamesView.hidden = YES;
+	self.spinnerView.hidden = NO;
+	self.loadingStatus.hidden = NO;
+	self.gamesNearLabel.text = @"";
 	
 	if (!locationManager) {
 #ifdef FAKE_CORE_LOCATION
@@ -82,19 +93,42 @@
 	didUpdateToLocation:(CLLocation *)newLocation
 		   fromLocation:(CLLocation *)oldLocation {
 
-	self.loadingStatus.text = @"Finding nearby games...";
+	[[LQClient single] getPlaceContext:newLocation withCallback:^(NSError *error, NSDictionary *response){
+		NSLog(@"Found place context: %@", response);
+		if([response objectForKey:@"best_name"] != nil) {
+			self.gamesNearLabel.text = [NSString stringWithFormat:@"Games near %@", [response objectForKey:@"best_name"]];
+		} else {
+			self.gamesNearLabel.text = @"";
+		}
+										
+		self.loadingStatus.text = @"Finding nearby games...";
 
-	[[LQClient single] getNearbyLayers:newLocation withCallback:^(NSError *error, NSDictionary *response){
-		self.games = [response objectForKey:@"nearby"];
-		NSLog(@"Found games: %@", self.games);
-		self.loadingStatus.text = @"Reticulating splines...";
+		[[LQClient single] getNearbyLayers:newLocation withCallback:^(NSError *error, NSDictionary *response){
+			if([response objectForKey:@"nearby"] != nil)
+				self.games = [response objectForKey:@"nearby"];
+			else
+				self.games = nil;
 
-		[UIView beginAnimations:@"alpha" context:nil];
-		[UIView setAnimationDuration:0.4];
-		[self.loadingView setAlpha:0.0];
-		[UIView commitAnimations];
+			NSLog(@"Found games: %@", self.games);
 
-		[self.tableView reloadData];
+			if(self.games == nil || [self.games count] == 0) {
+				self.noGamesView.hidden = NO;
+				self.spinnerView.hidden = YES;
+				self.loadingStatus.hidden = YES;
+				[UIView beginAnimations:@"alpha" context:nil];
+				[UIView setAnimationDuration:0.3];
+				[self.noGamesView setAlpha:1.0];
+				[UIView commitAnimations];
+			} else {
+				self.loadingStatus.text = @"Reticulating splines...";
+				[UIView beginAnimations:@"alpha" context:nil];
+				[UIView setAnimationDuration:0.4];
+				[self.loadingView setAlpha:0.0];
+				[UIView commitAnimations];
+			}
+
+			[self.tableView reloadData];
+		}];
 	}];
 	
 	[locationManager stopUpdatingLocation];

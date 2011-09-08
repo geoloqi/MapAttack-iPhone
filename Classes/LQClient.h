@@ -36,6 +36,7 @@ typedef void (^LQHTTPRequestCallback)(NSError *error, NSDictionary *response);
 // - (NSString *)refreshToken;
 - (void)sendPushToken:(NSString *)token withCallback:(LQHTTPRequestCallback)callback;
 - (void)getNearbyLayers:(CLLocation *)location withCallback:(LQHTTPRequestCallback)callback;
+- (void)getPlaceContext:(CLLocation *)location withCallback:(LQHTTPRequestCallback)callback;
 - (void)createNewAccountWithEmail:(NSString *)email initials:(NSString *)initials callback:(LQHTTPRequestCallback)callback;
 - (void)joinGame:(NSString *)layer_id withToken:(NSString *)group_token;
 - (void)logout;
