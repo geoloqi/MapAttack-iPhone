@@ -8,10 +8,16 @@
 
 #import <UIKit/UIKit.h>
 #import "GameCell.h"
+#import <CoreLocation/CoreLocation.h>
 
-@interface GameListViewController : UIViewController <UITableViewDelegate> {
+@interface GameListViewController : UIViewController <UITableViewDelegate, CLLocationManagerDelegate> {
 	IBOutlet GameCell *gameCell;
 	NSMutableArray *games;
+#ifdef FAKE_CORE_LOCATION
+	FTLocationSimulator *locationManager;
+#else
+	CLLocationManager *locationManager;
+#endif
 }
 
 @property (nonatomic, retain) IBOutlet UIButton *reloadBtn;
@@ -22,6 +28,6 @@
 
 - (IBAction)reloadBtnPressed;
 - (IBAction)logoutBtnPressed;
-- (void)getNearbyLayers;
+- (void)refreshNearbyLayers;
 
 @end

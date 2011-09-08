@@ -40,6 +40,7 @@
 		[lqAppDelegate.tabBarController presentModalViewController:[[AuthView alloc] init] animated:YES];
 	} else {
 		DLog(@"Loading URL in game view %@", url);
+		[read reconnect];
 		[webView loadRequest:[NSMutableURLRequest requestWithURL:[NSURL URLWithString:[url stringByAppendingFormat:@"?access_token=%@", [[LQClient single] accessToken]]]]];
 	}
 }

@@ -17,6 +17,7 @@
 #define TAG_DEVICE_ID_SENT 1
 #define TAG_MESSAGE_RECEIVED 2
 
+#define VERBOSE 0
 
 @implementation GeoloqiReadClient
 
@@ -66,16 +67,28 @@
 // After the client finishes writing the UUID, start listening for new data
 - (void)onSocket:(AsyncSocket *)sock didWriteDataWithTag:(long)tag
 {
-	DLog(@"[Read] Did write data with tag %d", tag);
+	if(VERBOSE)
+		DLog(@"[Read] Did write data with tag %d", tag);
 	[asyncSocket readDataToData:[AsyncSocket CRLFData] withTimeout:-1 tag:TAG_MESSAGE_RECEIVED];
 }
 
 
 - (void)onSocket:(AsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
 {
-	DLog(@"[Read] Did read data with tag %d: %@", tag, data);
+	if(VERBOSE)
+		DLog(@"[Read] Did read data with tag %d: %@", tag, data);
+	
+	if([data isEqualToData:[@"ok\r\n" dataUsingEncoding:NSUTF8StringEncoding]]) {
+		if(VERBOSE)
+			DLog(@"[Read] Got 'ok' response");
+		[asyncSocket readDataToData:[AsyncSocket CRLFData] withTimeout:-1 tag:TAG_MESSAGE_RECEIVED];
+		return;
+	}
+	
 	NSError **err;
 	NSDictionary *dict;
+	
+	// DLog(@"[Read] String: %@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
 	
 	dict = [[CJSONDeserializer deserializer] deserialize:data error:err];
 	DLog(@"[Read] Message: %@", dict);

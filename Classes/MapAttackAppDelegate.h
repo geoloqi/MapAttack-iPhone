@@ -23,6 +23,7 @@ static NSString *const LQUUIDKey = @"LQUUID";
 	NSString *deviceToken;
 }
 
+@property (nonatomic, retain) GeoloqiSocketClient *socketClient;
 @property (nonatomic, retain) IBOutlet UIWindow *window;
 @property (nonatomic, retain) IBOutlet AuthView *authViewController;
 @property (nonatomic, retain) IBOutlet UITabBarController *tabBarController;

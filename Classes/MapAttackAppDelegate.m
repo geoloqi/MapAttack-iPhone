@@ -17,6 +17,7 @@ MapAttackAppDelegate *lqAppDelegate;
 @synthesize tabBarController, authViewController;
 @synthesize geoloqi;
 @synthesize mapController;
+@synthesize socketClient;
 
 #pragma mark Application launched
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    

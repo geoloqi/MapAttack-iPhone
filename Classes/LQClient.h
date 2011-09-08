@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreLocation/CoreLocation.h>
 #import "ASIHTTPRequest.h"
 #import "ASIFormDataRequest.h"
 
@@ -21,7 +22,7 @@ typedef void (^LQHTTPRequestCallback)(NSError *error, NSDictionary *response);
 
 @interface LQClient : NSObject {
 //	NSMutableArray *queue;
-	ASIHTTPRequest *authenticationRequest;
+//	ASIHTTPRequest *authenticationRequest;
 }
 
 @property (nonatomic, copy) NSString *accessToken;
@@ -34,7 +35,7 @@ typedef void (^LQHTTPRequestCallback)(NSError *error, NSDictionary *response);
 - (BOOL)isLoggedIn;
 // - (NSString *)refreshToken;
 - (void)sendPushToken:(NSString *)token withCallback:(LQHTTPRequestCallback)callback;
-- (void)getNearbyLayers:(LQHTTPRequestCallback)callback;
+- (void)getNearbyLayers:(CLLocation *)location withCallback:(LQHTTPRequestCallback)callback;
 - (void)createNewAccountWithEmail:(NSString *)email initials:(NSString *)initials callback:(LQHTTPRequestCallback)callback;
 - (void)joinGame:(NSString *)layer_id withToken:(NSString *)group_token;
 - (void)logout;

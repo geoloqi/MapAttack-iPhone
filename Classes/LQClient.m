@@ -38,7 +38,6 @@ static NSString *const LQClientRequestNeedsAuthenticationUserInfoKey = @"LQClien
 }
 
 - (void)dealloc {
-	// [queue release];
 	[super dealloc];
 }
 
@@ -260,8 +259,10 @@ static NSString *const LQClientRequestNeedsAuthenticationUserInfoKey = @"LQClien
 	[self runRequest:request callback:callback];
 }
 
-- (void)getNearbyLayers:(LQHTTPRequestCallback)callback {
-	NSURL *url = [self urlWithPath:[NSString stringWithFormat:@"layer/nearby?latitude=45.5246&longitude=-122.6843&application_id=%@", MapAttackAppID]];
+- (void)getNearbyLayers:(CLLocation *)location withCallback:(LQHTTPRequestCallback)callback {
+	NSURL *url = [self urlWithPath:[NSString stringWithFormat:@"layer/nearby?latitude=%f&longitude=%f&application_id=%@", 
+									//45.5246, -122.6843, MapAttackAppID]];
+									location.coordinate.latitude, location.coordinate.longitude, MapAttackAppID]];
 	__block ASIHTTPRequest *request;
 	if([self isLoggedIn]) {
 		request = [self userRequestWithURL:url];

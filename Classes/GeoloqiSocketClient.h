@@ -32,8 +32,6 @@
 - (NSData *)dataFromLocation:(CLLocation *)location;
 - (void)startMonitoringLocation;
 - (void)stopMonitoringLocation;
-
-// TODO: Make a delegate protocol.
-// TODO: Send CLLocation to server.
+- (BOOL)locationUpdateState;
 
 @end

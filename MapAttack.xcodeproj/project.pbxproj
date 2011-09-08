@@ -28,6 +28,11 @@
 		0F12916713F4C809007AAB66 /* FTLocationSimulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F12916213F4C809007AAB66 /* FTLocationSimulator.m */; };
 		0F12916813F4C809007AAB66 /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F12916513F4C809007AAB66 /* RegexKitLite.m */; };
 		0F78A72B141553E000029E9C /* DebugLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F78A72A141553E000029E9C /* DebugLog.m */; };
+		0FDBA6321416F0C200F5C8A5 /* LQPushHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FDBA6311416F0C200F5C8A5 /* LQPushHandler.m */; };
+		0FEC568E14192F770017CE48 /* MapAttackLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FEC568C14192F770017CE48 /* MapAttackLogo.png */; };
+		0FEC568F14192F770017CE48 /* MapAttackLogo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FEC568D14192F770017CE48 /* MapAttackLogo@2x.png */; };
+		0FEC56921419300F0017CE48 /* bkg.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FEC56901419300F0017CE48 /* bkg.png */; };
+		0FEC56931419300F0017CE48 /* bkg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FEC56911419300F0017CE48 /* bkg@2x.png */; };
 		0FFD5EBA140C25D6008BC18B /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FFD5EB8140C25D6008BC18B /* Icon.png */; };
 		0FFD5EBB140C25D6008BC18B /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FFD5EB9140C25D6008BC18B /* Icon@2x.png */; };
 		0FFD5ECA140F218D008BC18B /* LQClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FFD5EC9140F218D008BC18B /* LQClient.m */; };
@@ -48,8 +53,6 @@
 		0FFD5FA4140F4396008BC18B /* GameListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FFD5FA3140F4396008BC18B /* GameListViewController.m */; };
 		0FFD6083140FF95B008BC18B /* AuthView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FFD6081140FF95B008BC18B /* AuthView.m */; };
 		0FFD6084140FF95B008BC18B /* AuthView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0FFD6082140FF95B008BC18B /* AuthView.xib */; };
-		0FFD615514100C17008BC18B /* bkg.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FFD615314100C17008BC18B /* bkg.png */; };
-		0FFD615614100C17008BC18B /* bkg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FFD615414100C17008BC18B /* bkg@2x.png */; };
 		0FFD63401410397D008BC18B /* GameCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FFD633F1410397D008BC18B /* GameCell.m */; };
 		0FFD634C14103A16008BC18B /* GameCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0FFD634B14103A16008BC18B /* GameCell.xib */; };
 		0FFD65FA1412C718008BC18B /* initialFrame.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FFD65F81412C718008BC18B /* initialFrame.png */; };
@@ -116,6 +119,12 @@
 		0F12916513F4C809007AAB66 /* RegexKitLite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegexKitLite.m; sourceTree = "<group>"; };
 		0F78A729141553E000029E9C /* DebugLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DebugLog.h; sourceTree = "<group>"; };
 		0F78A72A141553E000029E9C /* DebugLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DebugLog.m; sourceTree = "<group>"; };
+		0FDBA6301416F0C200F5C8A5 /* LQPushHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LQPushHandler.h; sourceTree = "<group>"; };
+		0FDBA6311416F0C200F5C8A5 /* LQPushHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LQPushHandler.m; sourceTree = "<group>"; };
+		0FEC568C14192F770017CE48 /* MapAttackLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = MapAttackLogo.png; path = Resources/MapAttackLogo.png; sourceTree = "<group>"; };
+		0FEC568D14192F770017CE48 /* MapAttackLogo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "MapAttackLogo@2x.png"; path = "Resources/MapAttackLogo@2x.png"; sourceTree = "<group>"; };
+		0FEC56901419300F0017CE48 /* bkg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bkg.png; path = Resources/bkg.png; sourceTree = "<group>"; };
+		0FEC56911419300F0017CE48 /* bkg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "bkg@2x.png"; path = "Resources/bkg@2x.png"; sourceTree = "<group>"; };
 		0FFD5EB8140C25D6008BC18B /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		0FFD5EB9140C25D6008BC18B /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		0FFD5EC8140F218D008BC18B /* LQClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LQClient.h; sourceTree = "<group>"; };
@@ -154,8 +163,6 @@
 		0FFD6080140FF95B008BC18B /* AuthView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthView.h; sourceTree = "<group>"; };
 		0FFD6081140FF95B008BC18B /* AuthView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthView.m; sourceTree = "<group>"; };
 		0FFD6082140FF95B008BC18B /* AuthView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = AuthView.xib; path = Classes/AuthView.xib; sourceTree = "<group>"; };
-		0FFD615314100C17008BC18B /* bkg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bkg.png; sourceTree = "<group>"; };
-		0FFD615414100C17008BC18B /* bkg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bkg@2x.png"; sourceTree = "<group>"; };
 		0FFD633E1410397D008BC18B /* GameCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameCell.h; sourceTree = "<group>"; };
 		0FFD633F1410397D008BC18B /* GameCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameCell.m; sourceTree = "<group>"; };
 		0FFD634B14103A16008BC18B /* GameCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GameCell.xib; sourceTree = "<group>"; };
@@ -236,6 +243,8 @@
 				0FFD66AA1412D719008BC18B /* MapAttackAuth.m */,
 				0FFD68551413F3F8008BC18B /* HowToPlay.h */,
 				0FFD68561413F3F8008BC18B /* HowToPlay.m */,
+				0FDBA6301416F0C200F5C8A5 /* LQPushHandler.h */,
+				0FDBA6311416F0C200F5C8A5 /* LQPushHandler.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -412,8 +421,10 @@
 				0FFD5EB9140C25D6008BC18B /* Icon@2x.png */,
 				0FFD65F81412C718008BC18B /* initialFrame.png */,
 				0FFD65F91412C718008BC18B /* initialFrame@2x.png */,
-				0FFD615314100C17008BC18B /* bkg.png */,
-				0FFD615414100C17008BC18B /* bkg@2x.png */,
+				0FEC568C14192F770017CE48 /* MapAttackLogo.png */,
+				0FEC568D14192F770017CE48 /* MapAttackLogo@2x.png */,
+				0FEC56901419300F0017CE48 /* bkg.png */,
+				0FEC56911419300F0017CE48 /* bkg@2x.png */,
 				0FFD6082140FF95B008BC18B /* AuthView.xib */,
 				2840D7CD1179279E00D7F93C /* MapView.xib */,
 				282CCBFD0DB6C98000C4EA27 /* GameList.xib */,
@@ -497,8 +508,6 @@
 				0FFD5EBA140C25D6008BC18B /* Icon.png in Resources */,
 				0FFD5EBB140C25D6008BC18B /* Icon@2x.png in Resources */,
 				0FFD6084140FF95B008BC18B /* AuthView.xib in Resources */,
-				0FFD615514100C17008BC18B /* bkg.png in Resources */,
-				0FFD615614100C17008BC18B /* bkg@2x.png in Resources */,
 				0FFD634C14103A16008BC18B /* GameCell.xib in Resources */,
 				0FFD65FA1412C718008BC18B /* initialFrame.png in Resources */,
 				0FFD65FB1412C718008BC18B /* initialFrame@2x.png in Resources */,
@@ -510,6 +519,10 @@
 				0FFD68E8141402F4008BC18B /* map-icon@2x.png in Resources */,
 				0FFD68E9141402F4008BC18B /* nearby-games-icon.png in Resources */,
 				0FFD68EA141402F4008BC18B /* nearby-games-icon@2x.png in Resources */,
+				0FEC568E14192F770017CE48 /* MapAttackLogo.png in Resources */,
+				0FEC568F14192F770017CE48 /* MapAttackLogo@2x.png in Resources */,
+				0FEC56921419300F0017CE48 /* bkg.png in Resources */,
+				0FEC56931419300F0017CE48 /* bkg@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -556,6 +569,7 @@
 				0FFD66AB1412D719008BC18B /* MapAttackAuth.m in Sources */,
 				0FFD68581413F3F8008BC18B /* HowToPlay.m in Sources */,
 				0F78A72B141553E000029E9C /* DebugLog.m in Sources */,
+				0FDBA6321416F0C200F5C8A5 /* LQPushHandler.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -602,7 +616,7 @@
 				OTHER_CFLAGS = "-DDEBUG";
 				OTHER_LDFLAGS = "-lxml2";
 				PREBINDING = NO;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "CF7AE5F7-6348-4BEE-B4CD-499DC0FB6C89";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "2101AEA6-D7CA-4374-B845-BE08FF4C67C1";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;

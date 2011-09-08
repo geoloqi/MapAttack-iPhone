@@ -21,6 +21,7 @@
 	[selectedIndex release];
 	[tableView release];
 	[reloadBtn release];
+	[locationManager release];
     [super dealloc];
 }
 
@@ -46,22 +47,43 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	games = [[NSMutableArray alloc] init];
-	[self getNearbyLayers];
+	[self refreshNearbyLayers];
 }
 
 - (IBAction)reloadBtnPressed {
-	[self getNearbyLayers];
+	[self refreshNearbyLayers];
 }
 
 - (IBAction)logoutBtnPressed {
 	[[LQClient single] logout];
 }
 
-- (void)getNearbyLayers {
-	[[LQClient single] getNearbyLayers:^(NSError *error, NSDictionary *response){
+- (void)refreshNearbyLayers {
+	if (!locationManager) {
+#ifdef FAKE_CORE_LOCATION
+		locationManager = [[FTLocationSimulator alloc] init];
+#else
+		locationManager = [[CLLocationManager alloc] init];
+#endif
+		locationManager.distanceFilter = 1.0;
+		locationManager.delegate = self;
+	}
+	
+	[locationManager startUpdatingLocation];
+	
+}
+
+- (void)locationManager:(CLLocationManager *)manager
+	didUpdateToLocation:(CLLocation *)newLocation
+		   fromLocation:(CLLocation *)oldLocation {
+
+	[[LQClient single] getNearbyLayers:newLocation withCallback:^(NSError *error, NSDictionary *response){
 		self.games = [response objectForKey:@"nearby"];
+		NSLog(@"Found games: %@", self.games);
 		[self.tableView reloadData];
 	}];
+	
+	[locationManager stopUpdatingLocation];
 }
 
 - (NSString *)urlForGameAtIndex:(NSInteger)index {
