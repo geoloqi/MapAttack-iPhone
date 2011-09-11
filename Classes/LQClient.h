@@ -16,6 +16,8 @@ static NSString *const LQAuthenticationFailedNotification = @"LQAuthenticationFa
 static NSString *const LQAccessTokenKey = @"LQAccessToken";
 static NSString *const LQAuthEmailAddressKey = @"LQAuthEmailAddressKey";
 static NSString *const LQAuthInitialsKey = @"LQAuthInitialsKey";
+static NSString *const LQAuthUserIDKey = @"LQAuthUserIDKey";
+static NSString *const LQAuthTeamKey = @"LQAuthTeamKey";
 static NSString *const LQAPIBaseURL = @"https://api.geoloqi.com/1/";
 
 typedef void (^LQHTTPRequestCallback)(NSError *error, NSDictionary *response);
@@ -28,6 +30,8 @@ typedef void (^LQHTTPRequestCallback)(NSError *error, NSDictionary *response);
 @property (nonatomic, copy) NSString *accessToken;
 @property (nonatomic, copy) NSString *emailAddress;
 @property (nonatomic, copy) NSString *userInitials;
+@property (nonatomic, copy) NSString *userID;
+@property (nonatomic, copy) NSString *team;
 
 @property (nonatomic, copy) NSString *shareToken;
 
@@ -38,7 +42,7 @@ typedef void (^LQHTTPRequestCallback)(NSError *error, NSDictionary *response);
 - (void)getNearbyLayers:(CLLocation *)location withCallback:(LQHTTPRequestCallback)callback;
 - (void)getPlaceContext:(CLLocation *)location withCallback:(LQHTTPRequestCallback)callback;
 - (void)createNewAccountWithEmail:(NSString *)email initials:(NSString *)initials callback:(LQHTTPRequestCallback)callback;
-- (void)joinGame:(NSString *)layer_id withToken:(NSString *)group_token;
+- (void)joinGame:(NSString *)layer_id withToken:(NSString *)group_token withCallback:(LQHTTPRequestCallback)callback;
 - (void)logout;
 
 @end

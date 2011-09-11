@@ -68,6 +68,22 @@ static NSString *const LQClientRequestNeedsAuthenticationUserInfoKey = @"LQClien
 	[[NSUserDefaults standardUserDefaults] synchronize];
 }
 
+- (NSString *)userID {
+	return [[NSUserDefaults standardUserDefaults] stringForKey:LQAuthUserIDKey];
+}
+- (void)setUserID:(NSString *)uid {
+	[[NSUserDefaults standardUserDefaults] setObject:[[uid copy] autorelease] forKey:LQAuthUserIDKey];
+	[[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (NSString *)team {
+	return [[NSUserDefaults standardUserDefaults] stringForKey:LQAuthTeamKey];
+}
+- (void)setTeam:(NSString *)team_name {
+	[[NSUserDefaults standardUserDefaults] setObject:[[team_name copy] autorelease] forKey:LQAuthTeamKey];
+	[[NSUserDefaults standardUserDefaults] synchronize];
+}
+
 - (ASIHTTPRequest *)appRequestWithURL:(NSURL *)url {
 	ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
 	[request setAuthenticationScheme:(NSString *)kCFHTTPAuthenticationSchemeBasic];
@@ -182,13 +198,13 @@ static NSString *const LQClientRequestNeedsAuthenticationUserInfoKey = @"LQClien
 }
 
 - (void)createShareToken {
-	NSURL *url = [self urlWithPath:@"link/create"];
-	__block ASIFormDataRequest *request = (ASIFormDataRequest *)[self userRequestWithURL:url class:@"ASIFormDataRequest"];
-	[request setPostValue:@"Testing for MapAttack" forKey:@"description"];
-	[self runRequest:request callback:^(NSError *error, NSDictionary *response){
-		self.shareToken = [response objectForKey:@"shortlink"];
-		DLog(@"Token: %@", response);
-	}];
+//	NSURL *url = [self urlWithPath:@"link/create"];
+//	__block ASIFormDataRequest *request = (ASIFormDataRequest *)[self userRequestWithURL:url class:@"ASIFormDataRequest"];
+//	[request setPostValue:@"Testing for MapAttack" forKey:@"description"];
+//	[self runRequest:request callback:^(NSError *error, NSDictionary *response){
+//		self.shareToken = [response objectForKey:@"shortlink"];
+//		DLog(@"Token: %@", response);
+//	}];
 }
 
 #pragma mark public methods
@@ -227,6 +243,7 @@ static NSString *const LQClientRequestNeedsAuthenticationUserInfoKey = @"LQClien
 		// [[NSUserDefaults standardUserDefaults] setObject:(NSString *)[responseDict objectForKey:@"refresh_token"] forKey:LQRefreshTokenKey];
 		self.emailAddress = email;
 		self.userInitials = initials;
+		self.userID = (NSString *)[responseDict objectForKey:@"user_id"];
 		self.accessToken = (NSString *)[responseDict objectForKey:@"access_token"];  // this runs synchronize
 		callback(nil, responseDict);
 		
@@ -235,7 +252,7 @@ static NSString *const LQClientRequestNeedsAuthenticationUserInfoKey = @"LQClien
 	[request startAsynchronous];
 }
 
-- (void)joinGame:(NSString *)layer_id withToken:(NSString *)group_token {
+- (void)joinGame:(NSString *)layer_id withToken:(NSString *)group_token withCallback:(LQHTTPRequestCallback)callback {
 	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:MapAttackJoinURLFormat, layer_id]];
 	DLog(@"Joining game... %@", url);
 	__block ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
@@ -243,8 +260,10 @@ static NSString *const LQClientRequestNeedsAuthenticationUserInfoKey = @"LQClien
 	[request setPostValue:self.emailAddress forKey:@"email"];
 	[request setPostValue:self.accessToken forKey:@"access_token"];
 	[request setCompletionBlock:^{
-//		NSDictionary *responseDict = [self dictionaryFromResponse:[request responseString]];
+		NSDictionary *responseDict = [self dictionaryFromResponse:[request responseString]];
 		DLog(@"Response from mapattack.org %@", [request responseString]);
+		self.team = (NSString *)[responseDict objectForKey:@"team_name"];
+		callback(nil, responseDict);
 	}];
 	[request startAsynchronous];
 }
@@ -288,6 +307,9 @@ static NSString *const LQClientRequestNeedsAuthenticationUserInfoKey = @"LQClien
 - (void)logout {
 	[[NSUserDefaults standardUserDefaults] removeObjectForKey:LQAuthEmailAddressKey];
 	[[NSUserDefaults standardUserDefaults] removeObjectForKey:LQAuthInitialsKey];
+	[[NSUserDefaults standardUserDefaults] removeObjectForKey:LQAuthTeamKey];
+	[[NSUserDefaults standardUserDefaults] removeObjectForKey:LQAuthUserIDKey];
+	[[NSUserDefaults standardUserDefaults] removeObjectForKey:LQAccessTokenKey];
 	self.accessToken = nil;
 }
 

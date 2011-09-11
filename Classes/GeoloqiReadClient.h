@@ -7,12 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <AudioToolbox/AudioToolbox.h>
 #import "AsyncSocket.h"
 
 @interface GeoloqiReadClient : NSObject {
 	AsyncSocket *asyncSocket;
-
+	SystemSoundID ding;
 }
+
 
 - (void)normalConnect;
 - (void)disconnect;

@@ -30,6 +30,8 @@
 		0F5760211419349800C79B48 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F5760201419349800C79B48 /* QuartzCore.framework */; };
 		0F576050141937C100C79B48 /* PoweredByGeoloqi.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F57604F141937C100C79B48 /* PoweredByGeoloqi.png */; };
 		0F646E841419488B00FE7ABE /* HowToPlay.html in Resources */ = {isa = PBXBuildFile; fileRef = 0F646E831419488B00FE7ABE /* HowToPlay.html */; };
+		0F6471A0141BF23500FE7ABE /* Pop.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 0F64719F141BF23500FE7ABE /* Pop.aiff */; };
+		0F6471B6141BF35400FE7ABE /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F6471B5141BF35400FE7ABE /* AudioToolbox.framework */; };
 		0F78A72B141553E000029E9C /* DebugLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F78A72A141553E000029E9C /* DebugLog.m */; };
 		0FDBA6321416F0C200F5C8A5 /* LQPushHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FDBA6311416F0C200F5C8A5 /* LQPushHandler.m */; };
 		0FEC568E14192F770017CE48 /* MapAttackLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FEC568C14192F770017CE48 /* MapAttackLogo.png */; };
@@ -123,6 +125,8 @@
 		0F5760201419349800C79B48 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		0F57604F141937C100C79B48 /* PoweredByGeoloqi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = PoweredByGeoloqi.png; path = Resources/PoweredByGeoloqi.png; sourceTree = "<group>"; };
 		0F646E831419488B00FE7ABE /* HowToPlay.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = HowToPlay.html; sourceTree = "<group>"; };
+		0F64719F141BF23500FE7ABE /* Pop.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = Pop.aiff; sourceTree = "<group>"; };
+		0F6471B5141BF35400FE7ABE /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		0F78A729141553E000029E9C /* DebugLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DebugLog.h; sourceTree = "<group>"; };
 		0F78A72A141553E000029E9C /* DebugLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DebugLog.m; sourceTree = "<group>"; };
 		0FDBA6301416F0C200F5C8A5 /* LQPushHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LQPushHandler.h; sourceTree = "<group>"; };
@@ -218,6 +222,7 @@
 				0FFD5F78140F3B77008BC18B /* libxml2.dylib in Frameworks */,
 				0FFD5F7C140F3B95008BC18B /* SystemConfiguration.framework in Frameworks */,
 				0F5760211419349800C79B48 /* QuartzCore.framework in Frameworks */,
+				0F6471B6141BF35400FE7ABE /* AudioToolbox.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -402,6 +407,7 @@
 				19C28FACFE9D520D11CA2CBB /* Products */,
 				0FFD5F77140F3B77008BC18B /* libxml2.dylib */,
 				0FFD5F7B140F3B95008BC18B /* SystemConfiguration.framework */,
+				0F6471B5141BF35400FE7ABE /* AudioToolbox.framework */,
 			);
 			name = MapAttack;
 			sourceTree = "<group>";
@@ -418,6 +424,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				0F64719F141BF23500FE7ABE /* Pop.aiff */,
 				0FFD68DF141402F4008BC18B /* how-to-play-icon.png */,
 				0FFD68E0141402F4008BC18B /* how-to-play-icon@2x.png */,
 				0FFD68E1141402F4008BC18B /* map-icon.png */,
@@ -535,6 +542,7 @@
 				0FEC56931419300F0017CE48 /* bkg@2x.png in Resources */,
 				0F576050141937C100C79B48 /* PoweredByGeoloqi.png in Resources */,
 				0F646E841419488B00FE7ABE /* HowToPlay.html in Resources */,
+				0F6471A0141BF23500FE7ABE /* Pop.aiff in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

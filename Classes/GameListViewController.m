@@ -56,9 +56,9 @@
 
 - (void)viewWillAppear:(BOOL)animated {
 	if([[LQClient single] isLoggedIn]) {
-		self.logoutBtn.hidden = YES;
-	} else {
 		self.logoutBtn.hidden = NO;
+	} else {
+		self.logoutBtn.hidden = YES;
 	}
 }
 
@@ -84,11 +84,7 @@
 	self.gamesNearLabel.text = @"";
 	
 	if (!locationManager) {
-#ifdef FAKE_CORE_LOCATION
-		locationManager = [[FTLocationSimulator alloc] init];
-#else
 		locationManager = [[CLLocationManager alloc] init];
-#endif
 		locationManager.distanceFilter = 1.0;
 		locationManager.delegate = self;
 	}
@@ -188,10 +184,28 @@
 }
 
 - (void)authenticationDidSucceed:(NSNotificationCenter *)notification {
-	[[LQClient single] joinGame:[self layerIDForGameAtIndex:selectedIndex.row] withToken:[self groupTokenForGameAtIndex:selectedIndex.row]];
 
-	// If they're not logged in, then loadGameWithURL will first pop up a login screen
-	[lqAppDelegate loadGameWithURL:[NSString stringWithFormat:MapAttackGameURLFormat, [self layerIDForGameAtIndex:selectedIndex.row]]];
+	self.loadingStatus.text = @"Joining game...";
+	[UIView beginAnimations:@"alpha" context:nil];
+	[UIView setAnimationDuration:0.4];
+	[self.loadingView setAlpha:0.85];
+	[UIView commitAnimations];
+
+	[[LQClient single] joinGame:[self layerIDForGameAtIndex:selectedIndex.row] 
+					  withToken:[self groupTokenForGameAtIndex:self.selectedIndex.row] 
+				   withCallback:^(NSError *error, NSDictionary *response){
+		DLog(@"Joined game: %@", response);
+
+	   self.loadingStatus.text = @"Reticulating splines...";
+	   [UIView beginAnimations:@"alpha" context:nil];
+	   [UIView setAnimationDuration:0.4];
+	   [self.loadingView setAlpha:0.0];
+	   [UIView commitAnimations];
+					   
+	   // If they're not logged in, then loadGameWithURL will have already popped up a login screen
+	   [lqAppDelegate loadGameWithURL:[NSString stringWithFormat:MapAttackGameURLFormat, [self layerIDForGameAtIndex:self.selectedIndex.row]]];
+	}];
+
 
     [[NSNotificationCenter defaultCenter] removeObserver:self 
                                                     name:LQAuthenticationSucceededNotification 

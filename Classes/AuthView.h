@@ -17,6 +17,7 @@
 @property (nonatomic, retain) IBOutlet UILabel *initial1;
 @property (nonatomic, retain) IBOutlet UILabel *initial2;
 @property (nonatomic, retain) IBOutlet UITextField *emailField;
+@property (nonatomic, retain) IBOutlet UIView *activityIndicator;
 
 - (IBAction)tappedInitials;
 - (IBAction)signIn;

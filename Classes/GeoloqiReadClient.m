@@ -60,6 +60,7 @@
 
 - (void)reconnect
 {
+	DLog(@"[Read] Reconnecting to socket...");
 	[self disconnect];
 	[self normalConnect];
 }
@@ -72,6 +73,14 @@
 	[asyncSocket readDataToData:[AsyncSocket CRLFData] withTimeout:-1 tag:TAG_MESSAGE_RECEIVED];
 }
 
+- (void)playCoinSound {
+	if(!ding) {
+		AudioServicesCreateSystemSoundID((CFURLRef)[NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"Pop" ofType:@"aiff"]], &ding);
+	}
+	AudioServicesPlaySystemSound(ding);
+	AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+	DLog(@"DING!");
+}
 
 - (void)onSocket:(AsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
 {
@@ -93,12 +102,44 @@
 	dict = [[CJSONDeserializer deserializer] deserialize:data error:err];
 	DLog(@"[Read] Message: %@", dict);
 	
-	if([dict objectForKey:@"aps"] == nil) {
+	if([dict objectForKey:@"mapattack"] != nil && [[dict objectForKey:@"mapattack"] objectForKey:@"scores"] != nil) {
+		/*
+		// Find this user's scores in the array
+		NSDictionary *scores = [[dict objectForKey:@"mapattack"] objectForKey:@"scores"];
+		if([scores objectForKey:[[LQClient single] userID]] != nil) {
+			NSLog(@"Score: %@", [scores objectForKey:[[LQClient single] userID]]);
+			UITabBarItem *tbi = (UITabBarItem *)[lqAppDelegate.tabBarController.tabBar.items objectAtIndex:1];
+			tbi.badgeValue = [NSString stringWithFormat:@"%@", [scores objectForKey:[[LQClient single] userID]]];
+		} else {
+			DLog(@"Didn't find score for user %@", [[LQClient single] userID]);
+		}
+		 */
+		
+	} else if([dict objectForKey:@"aps"] == nil) {
 		// Custom push data, pass off to the web view
 		NSDictionary *json = [NSDictionary dictionaryWithObject:[[CJSONSerializer serializer] serializeObject:dict] forKey:@"json"];
 		[[NSNotificationCenter defaultCenter] postNotificationName:LQMapAttackDataNotification
 															object:self
 														  userInfo:json];
+
+		// Player captured a coin!
+		if([dict objectForKey:@"mapattack"] != nil && [[[dict objectForKey:@"mapattack"] objectForKey:@"triggered_user_id"] isEqualToString:[[LQClient single] userID]]) {
+			[self playCoinSound];
+		}
+		// Game is over. Shut down sockets. Javascript will handle redirecting to a "game over" screen.
+		if([dict objectForKey:@"mapattack"] != nil && [[[dict objectForKey:@"mapattack"] objectForKey:@"gamestate"] isEqualToString:@"done"]) {
+			// Game over! Stop tracking, close socket.
+			[lqAppDelegate.socketClient stopMonitoringLocation];
+			[self disconnect];
+			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"MapAttack!"
+															message:@"Game Over!"
+														   delegate:self
+												  cancelButtonTitle:@"Ok"
+												  otherButtonTitles:nil];
+			[alert show];
+			[alert release];
+		}
+
 	} else {
 		// Push notification, create an alert!
 		NSString *message = nil;

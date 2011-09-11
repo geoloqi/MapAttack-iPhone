@@ -13,7 +13,7 @@
 
 @implementation AuthView
 
-@synthesize initialPicker, initial1, initial2, emailField;
+@synthesize initialPicker, initial1, initial2, emailField, activityIndicator;
 
 // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 /*
@@ -46,6 +46,7 @@
 
 - (IBAction)signIn {
 	NSString *initials = [NSString stringWithFormat:@"%@%@", self.initial1.text, self.initial2.text];
+	self.activityIndicator.alpha = 1.0;
 	[[LQClient single] createNewAccountWithEmail:self.emailField.text initials:initials callback:^(NSError *error, NSDictionary *response){
 		[[NSNotificationCenter defaultCenter] postNotificationName:LQAuthenticationSucceededNotification
 															object:nil
@@ -97,6 +98,11 @@
 
 
 - (void)dealloc {
+	[initial1 release];
+	[initial2 release];
+	[initialPicker release];
+	[emailField release];
+	[activityIndicator release];
     [super dealloc];
 }
 

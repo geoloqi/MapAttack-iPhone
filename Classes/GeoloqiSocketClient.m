@@ -134,7 +134,7 @@ typedef union {
 	didUpdateToLocation:(CLLocation *)newLocation
 		   fromLocation:(CLLocation *)oldLocation {
 
-//	DLog(@"Updated to location %@ from %@", newLocation, oldLocation);
+	DLog(@"Updated to location %@ from %@", newLocation, oldLocation);
 	
 	// horizontalAccuracy is negative when the location is invalid, so completely ignore it in this case
 	if(newLocation.horizontalAccuracy < 0){
