@@ -6,12 +6,15 @@
 //  Copyright 2011 Geoloqi.com. All rights reserved.
 //
 
-#import "FirstViewController.h"
+#import "MapViewController.h"
 #import "CJSONSerializer.h"
+#import "LQClient.h"
+#import "AuthView.h"
+#import "MapAttackAppDelegate.h"
 
-@implementation FirstViewController
+@implementation MapViewController
 
-@synthesize webView;
+@synthesize webView, activityIndicator;
 
 /*
 // The designated initializer. Override to perform setup that is required before the view is loaded.
@@ -30,11 +33,22 @@
 }
 */
 
+- (void)loadURL:(NSString *)url {
+	// If we don't have authentication tokens here, then pop up the login page to get their email and initials
+	if(![[LQClient single] isLoggedIn]) {
+		[lqAppDelegate.tabBarController presentModalViewController:[[AuthView alloc] init] animated:YES];
+	} else {
+		[webView loadRequest:[NSMutableURLRequest requestWithURL:[NSURL URLWithString:[url stringByAppendingFormat:@"?access_token=%@&user_id=%@&team=%@", [[LQClient single] accessToken], [[LQClient single] userID], [[LQClient single] team]]]]];
+		[read reconnect];
+		DLog(@"Loading URL in game view %@", [url stringByAppendingFormat:@"?access_token=%@&user_id=%@&team=%@", [[LQClient single] accessToken], [[LQClient single] userID], [[LQClient single] team]]);
+	}
+}
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
     [super viewDidLoad];
-	[webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:LQMapAttackWebURL]]];
+	[webView loadRequest:[NSURLRequest requestWithURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"BlankGame" ofType:@"html"]isDirectory:NO]]];
+//	[webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:LQMapAttackWebURL]]];
 
 	read = [[GeoloqiReadClient alloc] init];
 
@@ -45,17 +59,17 @@
 }
 
 - (void)mapAttackDataBroadcastReceived:(NSNotification *)notification {
-	NSLog(@"got data broadcast");
+	DLog(@"got data broadcast");
 	
 //	[[CJSONSerializer serializer] serializeDictionary:[notification userInfo]];
 
-	NSLog(@"%@", [NSString stringWithFormat:@"if(typeof LQHandlePushData != \"undefined\") { "
+	DLog(@"%@", [NSString stringWithFormat:@"if(typeof LQHandlePushData != \"undefined\") { "
 				  "LQHandlePushData(%@); }", [[notification userInfo] objectForKey:@"json"]]);
 	[webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"if(typeof LQHandlePushData != \"undefined\") { "
 													 "LQHandlePushData(%@); }", [[notification userInfo] objectForKey:@"json"]]];
 	
 	
-//	NSLog(@"%@", [NSString stringWithFormat:@"if(typeof LQHandlePushData != \"undefined\") { "
+//	DLog(@"%@", [NSString stringWithFormat:@"if(typeof LQHandlePushData != \"undefined\") { "
 //		   "LQHandlePushData(%@); }", [[CJSONSerializer serializer] serializeDictionary:[notification userInfo]]]);
 //	[webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"if(typeof LQHandlePushData != \"undefined\") { "
 //													 "LQHandlePushData(%@); }", [[CJSONSerializer serializer] serializeDictionary:[notification userInfo]]]];
@@ -101,6 +115,15 @@
 	//    }
 }
 */
+
+- (void)webViewDidFinishLoad:(UIWebView *)w {
+	self.activityIndicator.alpha = 0.0;
+}
+
+- (void)webViewDidStartLoad:(UIWebView *)webView {     
+	self.activityIndicator.alpha = 1.0;
+}
+
 
 - (void)didReceiveMemoryWarning {
 	// Releases the view if it doesn't have a superview.

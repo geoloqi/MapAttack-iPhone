@@ -11,9 +11,6 @@
 //#import "Database.h"
 #import "sqlite3.h"            // Import SQLITE3 header file
 
-#define LQ_SOCKET_HOST @"loki.geoloqi.com"
-#define LQ_SOCKET_PORT 40000
-
 @class AsyncUdpSocket;
 // class GeoloqiSocketClient extends NSObject implements CLLocationManagerDelegate
 @interface GeoloqiSocketClient : NSObject <CLLocationManagerDelegate>
@@ -32,14 +29,13 @@
 	CLLocationDistance distanceFilterDistance;
 	NSTimeInterval trackingFrequency;
 	NSTimeInterval sendingFrequency;
+	NSData *uuid;
 }
 
 - (void)normalConnect;
 - (NSData *)dataFromLocation:(CLLocation *)location;
 - (void)startMonitoringLocation;
 - (void)stopMonitoringLocation;
-
-// TODO: Make a delegate protocol.
-// TODO: Send CLLocation to server.
+- (BOOL)locationUpdateState;
 
 @end

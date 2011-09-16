@@ -9,15 +9,19 @@
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
 #import "MapAttack.h"
+#import "LQConfig.h"
 #import "GeoloqiReadClient.h"
 #import "sqlite3.h"            // Import SQLITE3 header file
 
 
-@interface FirstViewController : UIViewController {
+@interface MapViewController : UIViewController <UIWebViewDelegate> {
 	UIWebView *webView;
 	GeoloqiReadClient *read;
 }
 
 @property (nonatomic, retain) IBOutlet UIWebView *webView;
+@property (nonatomic, retain) IBOutlet UIView *activityIndicator;
+
+- (void)loadURL:(NSString *)url;
 
 @end

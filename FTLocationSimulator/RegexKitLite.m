@@ -208,7 +208,7 @@ typedef uint32_t RKLLookasideCache_t;
 // We need to safely unlock before throwing any of these exceptions.
 // @try {} @finally {} significantly slows things down so it's not used.
 
-#define RKLCHardAbortAssert(c) do { int _c=(c); if(RKL_EXPECTED(!_c, 0L)) { NSLog(@"%@:%ld: Invalid parameter not satisfying: %s\n", [NSString stringWithUTF8String:__FILE__], (long)__LINE__, #c); abort(); } } while(0)
+#define RKLCHardAbortAssert(c) do { int _c=(c); if(RKL_EXPECTED(!_c, 0L)) { DLog(@"%@:%ld: Invalid parameter not satisfying: %s\n", [NSString stringWithUTF8String:__FILE__], (long)__LINE__, #c); abort(); } } while(0)
 #define RKLCAssertDictionary(d, ...) rkl_makeAssertDictionary(__PRETTY_FUNCTION__, __FILE__, __LINE__, (d), ##__VA_ARGS__)
 #define RKLCDelayedHardAssert(c, e, g) do { id *_e=(e); int _c=(c); if(RKL_EXPECTED(_e == NULL, 0L) || RKL_EXPECTED(*_e != NULL, 0L)) { goto g; } if(RKL_EXPECTED(!_c, 0L)) { *_e = RKLCAssertDictionary(@"Invalid parameter not satisfying: %s", #c); goto g; } } while(0)
 
@@ -1046,11 +1046,11 @@ static void rkl_cleanup_cacheSpinLockStatus(volatile NSUInteger *rkl_cacheSpinLo
   
   if(RKL_EXPECTED((rkl_cacheSpinLockStatus & RKLUnlockedCacheSpinLock) == 0UL, 0L) && RKL_EXPECTED((rkl_cacheSpinLockStatus & RKLLockedCacheSpinLock) != 0UL, 1L)) {
     if(rkl_cacheSpinLock != (OSSpinLock)0) {
-      if(didPrintForcedUnlockWarning == 0UL) { didPrintForcedUnlockWarning = 1UL; NSLog(@"[RegexKitLite] Unusual condition detected: Recorded that rkl_cacheSpinLock was locked, but for some reason it was not unlocked.  Forcibly unlocking rkl_cacheSpinLock. Set a breakpoint at rkl_debugCacheSpinLock to debug. This warning is only printed once."); }
+      if(didPrintForcedUnlockWarning == 0UL) { didPrintForcedUnlockWarning = 1UL; DLog(@"[RegexKitLite] Unusual condition detected: Recorded that rkl_cacheSpinLock was locked, but for some reason it was not unlocked.  Forcibly unlocking rkl_cacheSpinLock. Set a breakpoint at rkl_debugCacheSpinLock to debug. This warning is only printed once."); }
       rkl_debugCacheSpinLock(); // Since this is an unusual condition, offer an attempt to catch it before we unlock.
       OSSpinLockUnlock(&rkl_cacheSpinLock);
     } else {
-      if(didPrintNotLockedWarning    == 0UL) { didPrintNotLockedWarning    = 1UL; NSLog(@"[RegexKitLite] Unusual condition detected: Recorded that rkl_cacheSpinLock was locked, but for some reason it was not unlocked, yet rkl_cacheSpinLock is currently not locked? Set a breakpoint at rkl_debugCacheSpinLock to debug. This warning is only printed once."); }
+      if(didPrintNotLockedWarning    == 0UL) { didPrintNotLockedWarning    = 1UL; DLog(@"[RegexKitLite] Unusual condition detected: Recorded that rkl_cacheSpinLock was locked, but for some reason it was not unlocked, yet rkl_cacheSpinLock is currently not locked? Set a breakpoint at rkl_debugCacheSpinLock to debug. This warning is only printed once."); }
       rkl_debugCacheSpinLock();
     }
   }

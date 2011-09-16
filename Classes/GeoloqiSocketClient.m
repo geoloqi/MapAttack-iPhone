@@ -7,13 +7,16 @@
 
 #import "GeoloqiSocketClient.h"
 #import "CJSONDeserializer.h"
-#import "LQConstants.h"
+#import "LQConfig.h"
 #import "AsyncUdpSocket.h"
 #import "Reachability.h"
 #import "Database.h"
+#import "MapAttackAppDelegate.h"
 
 #define TIMEOUT_SEC 6.0
 #define TAG_DEVICE_ID_SENT 1
+
+#define VERBOSE 0
 
 #if LITTLE_ENDIAN
 
@@ -48,34 +51,46 @@ typedef union {
     {
 		// Change to use UDP
         asyncSocket = [[AsyncUdpSocket alloc] initWithDelegate:self];
-        distanceFilterDistance = 1.0;
+        distanceFilterDistance = 0.5;
 		trackingFrequency = 1;
 		sendingFrequency = 1;
-        // [self normalConnect];    
-		[self startMonitoringLocation];
-		
+		uuid = [[MapAttackAppDelegate UUID] retain];
+        // [self normalConnect];
     }
     
     return self;
+}
+
+- (void) dealloc
+{
+	[uuid release];
+	[asyncSocket release];
+	[locationManager release];
+	[geoloqiClient release];
+	[super dealloc];
 }
 
 - (void) normalConnect
 {
 	NSError *error = nil;
 	
-	NSString *host = LQ_SOCKET_HOST;
-    UInt16 port = LQ_SOCKET_PORT;
+	NSString *host = LQ_WRITE_SOCKET_HOST;
+    UInt16 port = LQ_WRITE_SOCKET_PORT;
+
+	DLog(@"[Write] Connecting to %@:%i", host, port);
 	
-    NSLog(@"Connecting to %@:%i", host, port);
-    
 	// Change to use UDP
-	if (![asyncSocket connectToHost:LQ_SOCKET_HOST onPort:LQ_SOCKET_PORT error:&error])
+	if (![asyncSocket connectToHost:LQ_WRITE_SOCKET_HOST onPort:LQ_WRITE_SOCKET_PORT error:&error])
 	{
-		NSLog(@"Error connecting: %@", error);
+		DLog(@"[Write] Error connecting: %@", error);
 	}
 }
 
 #pragma mark  -
+
+- (BOOL)locationUpdateState {
+	return locationUpdatesOn;
+}
 
 - (void)startMonitoringLocation {
 	if (!locationManager) {
@@ -98,10 +113,10 @@ typedef union {
 	/*
 	 [locationManager startMonitoringSignificantLocationChanges];
 	 if (significantUpdatesOnly) {
-	 NSLog(@"Significant updates on.");
+	 DLog(@"Significant updates on.");
 	 [locationManager stopUpdatingLocation];
 	 } else {
-	 NSLog(@"Starting location updates");
+	 DLog(@"Starting location updates");
 	 [locationManager startUpdatingLocation];
 	 }
 	 */
@@ -123,8 +138,8 @@ typedef union {
 		   fromLocation:(CLLocation *)oldLocation {
     
     NSData *raw;
-    
-    //	NSLog(@"Updated to location %@ from %@", newLocation, oldLocation);
+	DLog(@"Updated to location %@ from %@", newLocation, oldLocation);
+
 	// horizontalAccuracy is negative when the location is invalid, so completely ignore it in this case
 	if(newLocation.horizontalAccuracy < 0){
 		return;
@@ -134,6 +149,7 @@ typedef union {
 	// These checks are done against the last saved location (currentLocation)
 	if (YES || !oldLocation || // first update
 		([newLocation distanceFromLocation:currentLocation] > distanceFilterDistance && // check min. distance
+<<<<<<< HEAD
 		 [newLocation.timestamp timeIntervalSinceDate:currentLocation.timestamp] > trackingFrequency)) 
     {
         // currentLocation is always the point that was last accepted into the queue.
@@ -208,34 +224,40 @@ typedef union {
             }
         }
     } else {
+        
 #if LQ_LOCMAN_DEBUG
-			NSLog(@"Location update (to %@; from %@) rejected", newLocation, oldLocation);
+			if(VERBOSE)
+				DLog(@"[Write] Location update (to %@; from %@) rejected", newLocation, oldLocation);
 #endif
 		}
 }
 
 - (void)onUdpSocket:(AsyncUdpSocket *)sock didSendDataWithTag:(long)tag;
 {
-	NSLog(@"did send");
+	if(VERBOSE)
+		DLog(@"[Write] did send");
 }
 
 - (void)onUdpSocket:(AsyncUdpSocket *)sock didNotSendDataWithTag:(long)tag dueToError:(NSError *)error;
 {
-	NSLog(@"did not get ack back");
+	if(VERBOSE)
+		DLog(@"[Write] did not get ack back");
 }
 
 - (BOOL)onUdpSocket:(AsyncUdpSocket *)sock didReceiveData:(NSData *)data withTag:(long)tag fromHost:(NSString *)host port:(UInt16)port;
 {
 	//TODO: determine if this is a valid packet
-	NSLog(@"Recieved packet back from server: %@", data);
+	if(VERBOSE)
+		DLog(@"[Write] Recieved packet back from server: %@", data);
 	
 	if (data.length == sizeof(uint32_t)) {
-		//uint32_t time = OSSwapBigToHostInt32(*(uint32_t *)data.bytes);
         uint32_t time = (*(uint32_t *)data.bytes);
-		NSLog(@"Accepted packet with timestamp: %u", time);
+		if(VERBOSE)
+			DLog(@"[Write] Accepted packet with timestamp: %u", time);
 		return YES;
 	} else {
-		NSLog(@"packet invalid size: %d", data.length);
+		if(VERBOSE)
+			DLog(@"[Write] packet invalid size: %d", data.length);
 		return NO;
 	}
 }
@@ -263,14 +285,23 @@ typedef union {
 	//battery percent
 	update.f.batteryPercent = (uint16_t)(round(MAX(0.0f, [UIDevice currentDevice].batteryLevel) * 100.0));
 	
-	memset(update.f.uuid, 0x0, sizeof(update.f.uuid));
-	
-//	NSLog(@"Size of packet: %lu", sizeof(LQUpdatePacket));
-//	NSLog(@"Offset of command: %lu", offsetof(LQUpdatePacket, f.command));
-//	NSLog(@"Offset of date: %lu", offsetof(LQUpdatePacket, f.date));
-    NSLog(@"The time stamp is %d\n", update.f.date);
+	// memset(update.f.uuid, 0x0, sizeof(update.f.uuid));
+	if(uuid.length == 16)
+		memcpy(update.f.uuid, [uuid bytes], 16);
+	else
+		memset(update.f.uuid, 0x0, sizeof(update.f.uuid));
+
 		
-	//Swap endianness of each 16 bit int 
+//	DLog(@"Size of packet: %lu", sizeof(LQUpdatePacket));
+//	DLog(@"Offset of command: %lu", offsetof(LQUpdatePacket, f.command));
+//	DLog(@"Offset of date: %lu", offsetof(LQUpdatePacket, f.date));
+    Dlog(@"The time stamp is %d\n", update.f.date);
+	
+	// if(VERBOSE)
+		DLog(@"[Write] Sending location update %@", [NSData dataWithBytes:update.bytes length:sizeof(update.bytes)]);
+	
+	//Swap endianness of each 16 bit int
+	update.f.date           = OSSwapHostToBigInt32(update.f.date); // Check for issues if any with this line. Think it's needed. -- dbhan
 	update.f.lat            = OSSwapHostToBigInt32(update.f.lat);
 	update.f.lon            = OSSwapHostToBigInt32(update.f.lon);
 	update.f.speed          = OSSwapHostToBigInt16(update.f.speed);

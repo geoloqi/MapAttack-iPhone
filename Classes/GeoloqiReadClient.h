@@ -7,17 +7,17 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <AudioToolbox/AudioToolbox.h>
 #import "AsyncSocket.h"
-
-#define LQ_READ_SOCKET_HOST @"localhost"
-#define LQ_READ_SOCKET_PORT 40001
 
 @interface GeoloqiReadClient : NSObject {
 	AsyncSocket *asyncSocket;
-
+	SystemSoundID ding;
 }
+
 
 - (void)normalConnect;
 - (void)disconnect;
+- (void)reconnect;
 
 @end

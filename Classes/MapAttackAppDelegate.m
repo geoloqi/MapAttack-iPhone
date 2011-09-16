@@ -9,43 +9,107 @@
 #import "MapAttackAppDelegate.h"
 #import "CJSONSerializer.h"
 
+MapAttackAppDelegate *lqAppDelegate;
+
 @implementation MapAttackAppDelegate
 
 @synthesize window;
-@synthesize tabBarController;
+@synthesize tabBarController, authViewController;
+@synthesize geoloqi;
+@synthesize mapController;
+@synthesize socketClient;
 
-
-#pragma mark -
-#pragma mark Application lifecycle
-
+#pragma mark Application launched
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
     
+	lqAppDelegate = self;
+
+	DLog(@"App Launch %@", launchOptions);
+
     // Override point for customization after application launch.
 
     // Add the tab bar controller's view to the window and display.
     [self.window addSubview:tabBarController.view];
     [self.window makeKeyAndVisible];
 
-	[MapAttackAppDelegate getUUID];
+	[MapAttackAppDelegate UUID];
+	
+	socketClient = [[GeoloqiSocketClient alloc] init];
+	self.geoloqi = [[LQClient alloc] init];
+
+	if([[LQClient single] isLoggedIn]) {
+		// Start sending location updates
+		[socketClient startMonitoringLocation];
+
+		[[UIApplication sharedApplication]
+		 registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge |
+											 UIRemoteNotificationTypeSound |
+											 UIRemoteNotificationTypeAlert)];
+	} else {
+		[[NSNotificationCenter defaultCenter] addObserver:self
+												 selector:@selector(authenticationDidSucceed:)
+													 name:LQAuthenticationSucceededNotification
+												   object:nil];
+	}
+	
+    return YES;
+}
+
+#pragma mark Logged in Successfully
+- (void)authenticationDidSucceed:(NSNotificationCenter *)notification
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self 
+                                                    name:LQAuthenticationSucceededNotification 
+                                                  object:nil];
+//    [[NSNotificationCenter defaultCenter] removeObserver:self 
+//                                                    name:LQAuthenticationFailedNotification 
+//                                                  object:nil];
 	
 	geoloqi = [[GeoloqiSocketClient alloc] init];
+    if (tabBarController.modalViewController && [tabBarController.modalViewController isKindOfClass:[authViewController class]])
+        [tabBarController dismissModalViewControllerAnimated:YES];
 	
+	// Register for push notifications after logging in successfully
 	[[UIApplication sharedApplication]
 	 registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge |
 										 UIRemoteNotificationTypeSound |
 										 UIRemoteNotificationTypeAlert)];
-
-    return YES;
+	
+	[self.mapController loadURL:@""];
+	
+	// Start sending location updates
+	[socketClient startMonitoringLocation];
 }
 
+#pragma mark Push token registered
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)_deviceToken {
+    // Get a hex string from the device token with no spaces or < >
+    deviceToken = [[[[_deviceToken description]
+					 stringByReplacingOccurrencesOfString: @"<" withString: @""] 
+					stringByReplacingOccurrencesOfString: @">" withString: @""] 
+				   stringByReplacingOccurrencesOfString: @" " withString: @""];
+	
+	DLog(@"Device Token: %@", deviceToken);
+	
+	[[LQClient single] sendPushToken:deviceToken withCallback:^(NSError *error, NSDictionary *response){
+		DLog(@"Sent device token: %@", response);
+	}];
+	
+	if ([application enabledRemoteNotificationTypes] == UIRemoteNotificationTypeNone) {
+		DLog(@"Notifications are disabled for this application. Not registering.");
+		return;
+	}
+}
+
+#pragma mark Received push notification
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
-	NSLog(@"Received Push! %@", userInfo);
+	DLog(@"Received Push! %@", userInfo);
 	
 	// Push was received while the app was in the foreground
 	if(application.applicationState == UIApplicationStateActive) {
 		NSDictionary *data = [userInfo valueForKeyPath:@"mapattack"];
 		if(data) {
-			NSLog(@"Got some location data! Yeah!!");
+			DLog(@"Got some location data! Yeah!!");
 			
 			// The data in the push notification is already an NSDictionary, we need to serialize it to JSON
 			// format to pass to the web view.
@@ -60,35 +124,16 @@
 	
 }
 
-- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)_deviceToken {
-    // Get a hex string from the device token with no spaces or < >
-    deviceToken = [[[[_deviceToken description]
-						  stringByReplacingOccurrencesOfString: @"<" withString: @""] 
-						 stringByReplacingOccurrencesOfString: @">" withString: @""] 
-						stringByReplacingOccurrencesOfString: @" " withString: @""];
-	
-	NSLog(@"Device Token: %@", deviceToken);
-	
-	if ([application enabledRemoteNotificationTypes] == UIRemoteNotificationTypeNone) {
-		NSLog(@"Notifications are disabled for this application. Not registering.");
-		return;
-	}
+#pragma mark -
+
+-(void)loadGameWithURL:(NSString *)url {
+	[tabBarController setSelectedIndex:1];
+	DLog(@"MapAttackAppDelegate loadGameWithURL:%@", url);
+	[self.mapController loadURL:url];
 }
 
-+ (NSString *)getUUID {
-	if([[NSUserDefaults standardUserDefaults] stringForKey:@"uuid"] == nil) {
-		CFUUIDRef theUUID = CFUUIDCreate(NULL);
-		CFStringRef string = CFUUIDCreateString(NULL, theUUID);
-		CFRelease(theUUID);
-		[[NSUserDefaults standardUserDefaults] setObject:(NSString *)string forKey:@"uuid"];
-		[[NSUserDefaults standardUserDefaults] synchronize];
-		NSLog(@"Generating new UUID: %@", string);
-		return [(NSString *)string autorelease];
-	} else {
-		NSLog(@"Returning existing UUID: %@", [[NSUserDefaults standardUserDefaults] stringForKey:@"uuid"]);
-		return [[NSUserDefaults standardUserDefaults] stringForKey:@"uuid"];
-	}
-}
+#pragma mark -
+#pragma mark Application lifecycle
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     /*
@@ -153,9 +198,28 @@
      */
 }
 
+#pragma mark -
+
+
++ (NSData *)UUID {
+	if([[NSUserDefaults standardUserDefaults] dataForKey:LQUUIDKey] == nil) {
+		CFUUIDRef theUUID = CFUUIDCreate(NULL);
+		CFUUIDBytes bytes = CFUUIDGetUUIDBytes(theUUID);
+		NSData *dataUUID = [NSData dataWithBytes:&bytes length:sizeof(CFUUIDBytes)];
+		CFRelease(theUUID);
+		[[NSUserDefaults standardUserDefaults] setObject:dataUUID forKey:LQUUIDKey];
+		[[NSUserDefaults standardUserDefaults] synchronize];
+		DLog(@"Generating new UUID: %@", dataUUID);
+		return dataUUID;
+	} else {
+		DLog(@"Returning existing UUID: %@", [[NSUserDefaults standardUserDefaults] dataForKey:LQUUIDKey]);
+		return [[NSUserDefaults standardUserDefaults] dataForKey:LQUUIDKey];
+	}
+}
 
 - (void)dealloc {
 	[geoloqi release];
+	[socketClient release];
     [tabBarController release];
     [window release];
     [super dealloc];
