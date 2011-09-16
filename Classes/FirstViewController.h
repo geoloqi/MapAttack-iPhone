@@ -10,6 +10,7 @@
 #import <MapKit/MapKit.h>
 #import "MapAttack.h"
 #import "GeoloqiReadClient.h"
+#import "sqlite3.h"            // Import SQLITE3 header file
 
 
 @interface FirstViewController : UIViewController {

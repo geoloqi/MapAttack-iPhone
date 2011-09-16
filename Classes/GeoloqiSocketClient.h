@@ -8,6 +8,8 @@
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 #include "FTLocationSimulator.h"
+//#import "Database.h"
+#import "sqlite3.h"            // Import SQLITE3 header file
 
 #define LQ_SOCKET_HOST @"loki.geoloqi.com"
 #define LQ_SOCKET_PORT 40000
@@ -18,6 +20,8 @@
 {
 	AsyncUdpSocket *asyncSocket;
     GeoloqiSocketClient *geoloqiClient;
+   sqlite3 *db;        // Create an object of the type sqlite3d
+
 #ifdef FAKE_CORE_LOCATION
 	FTLocationSimulator *locationManager;
 #else

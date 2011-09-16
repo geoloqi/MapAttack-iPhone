@@ -28,7 +28,7 @@
 
 	[MapAttackAppDelegate getUUID];
 	
-	// geoloqi = [[GeoloqiSocketClient alloc] init];
+	geoloqi = [[GeoloqiSocketClient alloc] init];
 	
 	[[UIApplication sharedApplication]
 	 registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge |

@@ -9,6 +9,8 @@
 #import "CJSONDeserializer.h"
 #import "LQConstants.h"
 #import "AsyncUdpSocket.h"
+#import "Reachability.h"
+#import "Database.h"
 
 #define TIMEOUT_SEC 6.0
 #define TAG_DEVICE_ID_SENT 1
@@ -34,7 +36,7 @@ typedef union {
 	char bytes[39];
 } LQUpdatePacket;
 
-#pragma pack(pop)  /* push current alignment to stack */
+//#pragma pack(pop)  /* push current alignment to stack */
 
 #endif
 
@@ -75,8 +77,6 @@ typedef union {
 
 #pragma mark  -
 
-
-
 - (void)startMonitoringLocation {
 	if (!locationManager) {
 #ifdef FAKE_CORE_LOCATION
@@ -113,6 +113,7 @@ typedef union {
 	[locationManager release];
 	locationManager = nil;
 	locationUpdatesOn = NO;
+    sqlite3_close(db);                      // since we are stopping the location updates the databse can be closed
 	//[[NSNotificationCenter defaultCenter] postNotificationName:LQTrackingStoppedNotification object:self];
 }
 
@@ -120,35 +121,93 @@ typedef union {
 - (void)locationManager:(CLLocationManager *)manager
 	didUpdateToLocation:(CLLocation *)newLocation
 		   fromLocation:(CLLocation *)oldLocation {
-
-//	NSLog(@"Updated to location %@ from %@", newLocation, oldLocation);
-	
+    
+    NSData *raw;
+    
+    //	NSLog(@"Updated to location %@ from %@", newLocation, oldLocation);
 	// horizontalAccuracy is negative when the location is invalid, so completely ignore it in this case
 	if(newLocation.horizontalAccuracy < 0){
 		return;
 	}
-	
-	// Only capture points as frequently as the min. tracking interval
+    
+    // Only capture points as frequently as the min. tracking interval
 	// These checks are done against the last saved location (currentLocation)
 	if (YES || !oldLocation || // first update
 		([newLocation distanceFromLocation:currentLocation] > distanceFilterDistance && // check min. distance
-		 [newLocation.timestamp timeIntervalSinceDate:currentLocation.timestamp] > trackingFrequency)) {
-			
-			// currentLocation is always the point that was last accepted into the queue.
-			currentLocation = newLocation;
-			
-			// Notify observers about the location change
-//			[[NSNotificationCenter defaultCenter]
-//			 postNotificationName:LQLocationUpdateManagerDidUpdateLocationNotification
-//			 object:self];
+		 [newLocation.timestamp timeIntervalSinceDate:currentLocation.timestamp] > trackingFrequency)) 
+    {
+        // currentLocation is always the point that was last accepted into the queue.
+        currentLocation = newLocation;
+        // Notify observers about the location change
+		//[[NSNotificationCenter defaultCenter]
+		//postNotificationName:LQLocationUpdateManagerDidUpdateLocationNotification
+		//object:self];
+        NSData *data = [self dataFromLocation:newLocation];
+        NSLog(@"Storing location data: %@", data);
 
-			NSData *data = [self dataFromLocation:newLocation];
-			NSLog(@"Sending location data: %@", data);
-			[asyncSocket sendData:data toHost:LQ_SOCKET_HOST port:LQ_SOCKET_PORT withTimeout:10.0 tag:TAG_DEVICE_ID_SENT];
-			//Look for ack back
-			[asyncSocket receiveWithTimeout:30.0 tag:TAG_DEVICE_ID_SENT];
-			
-		} else {
+        
+        Database *LqDatabase = [Database new];                    // Init Database class
+        
+        // Trying to extract the timestamp from NSData
+        LQUpdatePacket *packet = (LQUpdatePacket *)[data bytes];
+        
+        // Open the LQDatabase
+        [LqDatabase openDB:&db];
+        
+        [LqDatabase createTableNamed: @"LQ_DATA" withField1:@"TIME_STAMP" andField2:@"DATA_PACKET" database:db];
+        [LqDatabase insertRecordIntoTableNamed:@"LQ_DATA"
+                                    withField1:@"TIME_STAMP"
+                                   field1Value:packet->f.date 
+                                     andField2:@"DATA_PACKET" field2Value:data database:db];
+       
+        //Network Connectivity check -- dhan
+        [[NSNotificationCenter defaultCenter] addObserver:self 
+                                                selector:@selector(handleNetworkChange:) 
+                                                name:kReachabilityChangedNotification 
+                                                object:nil];
+        // Init Reachablility class and ask the notifications to start
+        reachability = [Reachability reachabilityForInternetConnection];
+        [reachability startNotifier];
+        
+        // What is the current connectivity status?
+        NetworkStatus remoteHostStatus = [reachability currentReachabilityStatus];
+        
+        if(remoteHostStatus == NotReachable) { NSLog(@"No Network Connectivity");}
+        else if (remoteHostStatus == ReachableViaWiFi) { NSLog(@"Local Network (WiFi) detected");}
+        else if (remoteHostStatus == ReachableViaWWAN) { NSLog(@"Carrier Network Connectivity detected");}
+        
+        if (remoteHostStatus == ReachableViaWiFi || remoteHostStatus == ReachableViaWWAN)
+        {
+            // Try to retrieve data from the database
+            NSString *qsql = @"SELECT * FROM LQ_DATA ORDER BY ROWID";
+            sqlite3_stmt *getStatement;
+            if (sqlite3_prepare_v2(db, [qsql UTF8String], -1, &getStatement, nil) == SQLITE_OK)
+            {
+                while (sqlite3_step(getStatement) == SQLITE_ROW)
+                {
+                    //Loop through all the returned rows
+                    int rowId = sqlite3_column_int(getStatement,0);
+                    raw = [[NSData alloc] initWithBytes:sqlite3_column_blob(getStatement, 2)
+                                                 length:sqlite3_column_bytes(getStatement,2)];
+                    NSLog(@"Retrieved location data: %@", raw);
+                    NSLog(@"Sending location data now..");
+                    // Send out data
+                    [asyncSocket sendData:raw toHost:LQ_SOCKET_HOST 
+                                     port:LQ_SOCKET_PORT withTimeout:10.0
+                                      tag:TAG_DEVICE_ID_SENT];
+                    [asyncSocket receiveWithTimeout:30.0 tag:TAG_DEVICE_ID_SENT];
+                    [raw release];  // release the allocated memory
+                    
+                    // Delete rows from the sqlite3 table that you just retrieved
+                    NSString *query = [NSString stringWithFormat:@"DELETE FROM LQ_DATA WHERE ROWID = '%i'", rowId]; 
+                    if (sqlite3_exec(db, [query UTF8String], NULL, NULL, NULL) != SQLITE_OK)
+                    {
+                        NSAssert(0, @"Deletion not successful");
+                    }
+                }
+            }
+        }
+    } else {
 #if LQ_LOCMAN_DEBUG
 			NSLog(@"Location update (to %@; from %@) rejected", newLocation, oldLocation);
 #endif
@@ -171,7 +230,8 @@ typedef union {
 	NSLog(@"Recieved packet back from server: %@", data);
 	
 	if (data.length == sizeof(uint32_t)) {
-		uint32_t time = OSSwapBigToHostInt32(*(uint32_t *)data.bytes);
+		//uint32_t time = OSSwapBigToHostInt32(*(uint32_t *)data.bytes);
+        uint32_t time = (*(uint32_t *)data.bytes);
 		NSLog(@"Accepted packet with timestamp: %u", time);
 		return YES;
 	} else {
@@ -208,11 +268,9 @@ typedef union {
 //	NSLog(@"Size of packet: %lu", sizeof(LQUpdatePacket));
 //	NSLog(@"Offset of command: %lu", offsetof(LQUpdatePacket, f.command));
 //	NSLog(@"Offset of date: %lu", offsetof(LQUpdatePacket, f.date));
-	
-	NSLog(@"Sending timestamp: %d", update.f.date);
-	
-	//Swap endianness of each 16 bit int
-	update.f.date           = OSSwapHostToBigInt32(update.f.date);
+    NSLog(@"The time stamp is %d\n", update.f.date);
+		
+	//Swap endianness of each 16 bit int 
 	update.f.lat            = OSSwapHostToBigInt32(update.f.lat);
 	update.f.lon            = OSSwapHostToBigInt32(update.f.lon);
 	update.f.speed          = OSSwapHostToBigInt16(update.f.speed);
@@ -220,8 +278,6 @@ typedef union {
 	update.f.altitude       = OSSwapHostToBigInt16(update.f.altitude);
 	update.f.accuracy       = OSSwapHostToBigInt16(update.f.accuracy);
 	update.f.batteryPercent = OSSwapHostToBigInt16(update.f.batteryPercent);	
-
 	return [NSData dataWithBytes:update.bytes length:sizeof(update.bytes)];
 }
-
 @end
