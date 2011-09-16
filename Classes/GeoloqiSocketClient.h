@@ -10,6 +10,7 @@
 #include "FTLocationSimulator.h"
 //#import "Database.h"
 #import "sqlite3.h"            // Import SQLITE3 header file
+#import "Reachability.h"
 
 @class AsyncUdpSocket;
 // class GeoloqiSocketClient extends NSObject implements CLLocationManagerDelegate
@@ -30,6 +31,7 @@
 	NSTimeInterval trackingFrequency;
 	NSTimeInterval sendingFrequency;
 	NSData *uuid;
+    Reachability *reachability;
 }
 
 - (void)normalConnect;

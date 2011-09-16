@@ -9,7 +9,6 @@
 #import "CJSONDeserializer.h"
 #import "LQConfig.h"
 #import "AsyncUdpSocket.h"
-#import "Reachability.h"
 #import "Database.h"
 #import "MapAttackAppDelegate.h"
 
@@ -149,7 +148,6 @@ typedef union {
 	// These checks are done against the last saved location (currentLocation)
 	if (YES || !oldLocation || // first update
 		([newLocation distanceFromLocation:currentLocation] > distanceFilterDistance && // check min. distance
-<<<<<<< HEAD
 		 [newLocation.timestamp timeIntervalSinceDate:currentLocation.timestamp] > trackingFrequency)) 
     {
         // currentLocation is always the point that was last accepted into the queue.
@@ -208,8 +206,8 @@ typedef union {
                     NSLog(@"Retrieved location data: %@", raw);
                     NSLog(@"Sending location data now..");
                     // Send out data
-                    [asyncSocket sendData:raw toHost:LQ_SOCKET_HOST 
-                                     port:LQ_SOCKET_PORT withTimeout:10.0
+                    [asyncSocket sendData:raw toHost:LQ_WRITE_SOCKET_HOST 
+                                     port:LQ_WRITE_SOCKET_PORT withTimeout:10.0
                                       tag:TAG_DEVICE_ID_SENT];
                     [asyncSocket receiveWithTimeout:30.0 tag:TAG_DEVICE_ID_SENT];
                     [raw release];  // release the allocated memory
@@ -256,8 +254,8 @@ typedef union {
 			DLog(@"[Write] Accepted packet with timestamp: %u", time);
 		return YES;
 	} else {
-		if(VERBOSE)
-			DLog(@"[Write] packet invalid size: %d", data.length);
+		//if(VERBOSE)
+		//	DLog(@"[Write] packet invalid size: %d", data.length);
 		return NO;
 	}
 }
@@ -295,7 +293,7 @@ typedef union {
 //	DLog(@"Size of packet: %lu", sizeof(LQUpdatePacket));
 //	DLog(@"Offset of command: %lu", offsetof(LQUpdatePacket, f.command));
 //	DLog(@"Offset of date: %lu", offsetof(LQUpdatePacket, f.date));
-    Dlog(@"The time stamp is %d\n", update.f.date);
+    //Dlog(@"The time stamp is %d\n", update.f.date);
 	
 	// if(VERBOSE)
 		DLog(@"[Write] Sending location update %@", [NSData dataWithBytes:update.bytes length:sizeof(update.bytes)]);
