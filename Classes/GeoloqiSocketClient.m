@@ -15,7 +15,7 @@
 #define TIMEOUT_SEC 6.0
 #define TAG_DEVICE_ID_SENT 1
 
-#define VERBOSE 0
+#define VERBOSE 1
 
 #if LITTLE_ENDIAN
 
@@ -101,6 +101,8 @@ typedef union {
 		locationManager.distanceFilter = distanceFilterDistance;
 		locationManager.delegate = self;
 	}
+
+    DLog(@"Starting location updates");
 	
 	[locationManager startUpdatingLocation];
 	
@@ -144,7 +146,7 @@ typedef union {
 		return;
 	}
     
-    // Only capture points as frequently as the min. tracking interval
+    // Only capture points as frequently as the min. tracking inter
 	// These checks are done against the last saved location (currentLocation)
 	if (YES || !oldLocation || // first update
 		([newLocation distanceFromLocation:currentLocation] > distanceFilterDistance && // check min. distance

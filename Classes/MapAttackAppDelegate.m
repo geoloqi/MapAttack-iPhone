@@ -39,7 +39,7 @@ MapAttackAppDelegate *lqAppDelegate;
 
 	if([[LQClient single] isLoggedIn]) {
 		// Start sending location updates
-		[socketClient startMonitoringLocation];
+		// [socketClient startMonitoringLocation];
 
 		[[UIApplication sharedApplication]
 		 registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge |
@@ -129,6 +129,7 @@ MapAttackAppDelegate *lqAppDelegate;
 -(void)loadGameWithURL:(NSString *)url {
 	[tabBarController setSelectedIndex:1];
 	DLog(@"MapAttackAppDelegate loadGameWithURL:%@", url);
+    [socketClient startMonitoringLocation];
 	[self.mapController loadURL:url];
 }
 

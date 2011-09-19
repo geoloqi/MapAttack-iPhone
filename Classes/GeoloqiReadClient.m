@@ -17,7 +17,7 @@
 #define TAG_DEVICE_ID_SENT 1
 #define TAG_MESSAGE_RECEIVED 2
 
-#define VERBOSE 0
+#define VERBOSE 1
 
 @implementation GeoloqiReadClient
 
