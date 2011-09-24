@@ -32,6 +32,11 @@
 		0F646E841419488B00FE7ABE /* HowToPlay.html in Resources */ = {isa = PBXBuildFile; fileRef = 0F646E831419488B00FE7ABE /* HowToPlay.html */; };
 		0F6471A0141BF23500FE7ABE /* Pop.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 0F64719F141BF23500FE7ABE /* Pop.aiff */; };
 		0F6471B6141BF35400FE7ABE /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F6471B5141BF35400FE7ABE /* AudioToolbox.framework */; };
+		0F6476FE1420196500FE7ABE /* header-text.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F6476FA1420196500FE7ABE /* header-text.png */; };
+		0F6476FF1420196500FE7ABE /* header-text@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F6476FB1420196500FE7ABE /* header-text@2x.png */; };
+		0F6477001420196500FE7ABE /* iPhone-background-blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F6476FC1420196500FE7ABE /* iPhone-background-blue.png */; };
+		0F6477011420196500FE7ABE /* iPhone-background-blue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F6476FD1420196500FE7ABE /* iPhone-background-blue@2x.png */; };
+		0F6477071420219F00FE7ABE /* augmented-eventlogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F6477061420219F00FE7ABE /* augmented-eventlogo.png */; };
 		0F78A72B141553E000029E9C /* DebugLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F78A72A141553E000029E9C /* DebugLog.m */; };
 		0FDBA6321416F0C200F5C8A5 /* LQPushHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FDBA6311416F0C200F5C8A5 /* LQPushHandler.m */; };
 		0FEC568E14192F770017CE48 /* MapAttackLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FEC568C14192F770017CE48 /* MapAttackLogo.png */; };
@@ -129,6 +134,11 @@
 		0F646E831419488B00FE7ABE /* HowToPlay.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = HowToPlay.html; sourceTree = "<group>"; };
 		0F64719F141BF23500FE7ABE /* Pop.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = Pop.aiff; sourceTree = "<group>"; };
 		0F6471B5141BF35400FE7ABE /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		0F6476FA1420196500FE7ABE /* header-text.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "header-text.png"; sourceTree = "<group>"; };
+		0F6476FB1420196500FE7ABE /* header-text@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "header-text@2x.png"; sourceTree = "<group>"; };
+		0F6476FC1420196500FE7ABE /* iPhone-background-blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPhone-background-blue.png"; sourceTree = "<group>"; };
+		0F6476FD1420196500FE7ABE /* iPhone-background-blue@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPhone-background-blue@2x.png"; sourceTree = "<group>"; };
+		0F6477061420219F00FE7ABE /* augmented-eventlogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "augmented-eventlogo.png"; sourceTree = "<group>"; };
 		0F78A729141553E000029E9C /* DebugLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DebugLog.h; sourceTree = "<group>"; };
 		0F78A72A141553E000029E9C /* DebugLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DebugLog.m; sourceTree = "<group>"; };
 		0FDBA6301416F0C200F5C8A5 /* LQPushHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LQPushHandler.h; sourceTree = "<group>"; };
@@ -434,6 +444,11 @@
 			isa = PBXGroup;
 			children = (
 				0F64719F141BF23500FE7ABE /* Pop.aiff */,
+				0F6477061420219F00FE7ABE /* augmented-eventlogo.png */,
+				0F6476FA1420196500FE7ABE /* header-text.png */,
+				0F6476FB1420196500FE7ABE /* header-text@2x.png */,
+				0F6476FC1420196500FE7ABE /* iPhone-background-blue.png */,
+				0F6476FD1420196500FE7ABE /* iPhone-background-blue@2x.png */,
 				0FFD68DF141402F4008BC18B /* how-to-play-icon.png */,
 				0FFD68E0141402F4008BC18B /* how-to-play-icon@2x.png */,
 				0FFD68E1141402F4008BC18B /* map-icon.png */,
@@ -557,6 +572,11 @@
 				0F576050141937C100C79B48 /* PoweredByGeoloqi.png in Resources */,
 				0F646E841419488B00FE7ABE /* HowToPlay.html in Resources */,
 				0F6471A0141BF23500FE7ABE /* Pop.aiff in Resources */,
+				0F6476FE1420196500FE7ABE /* header-text.png in Resources */,
+				0F6476FF1420196500FE7ABE /* header-text@2x.png in Resources */,
+				0F6477001420196500FE7ABE /* iPhone-background-blue.png in Resources */,
+				0F6477011420196500FE7ABE /* iPhone-background-blue@2x.png in Resources */,
+				0F6477071420219F00FE7ABE /* augmented-eventlogo.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -660,7 +680,7 @@
 				OTHER_CFLAGS = "-DDEBUG";
 				OTHER_LDFLAGS = "-lxml2";
 				PREBINDING = NO;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "2101AEA6-D7CA-4374-B845-BE08FF4C67C1";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "A7D89920-DFFF-4300-8931-3A7ABB801588";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -669,7 +689,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Aaron Parecki (UR6C55S2E6)";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
@@ -677,6 +697,7 @@
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				OTHER_LDFLAGS = "-lxml2";
 				PREBINDING = NO;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "A7D89920-DFFF-4300-8931-3A7ABB801588";
 				SDKROOT = iphoneos;
 			};
 			name = Release;

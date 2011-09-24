@@ -14,7 +14,7 @@
 
 @implementation GameListViewController
 
-@synthesize reloadBtn, logoutBtn, tableView, noGamesView, gameCell, games, selectedIndex, loadingView, loadingStatus, spinnerView, gamesNearLabel;
+@synthesize reloadBtn, tableView, noGamesView, gameCell, games, selectedIndex, loadingView, loadingStatus, spinnerView, gamesNearLabel;
 
 - (void)dealloc {
 	[games release];
@@ -25,7 +25,7 @@
 	[noGamesView release];
 	[spinnerView release];
 	[reloadBtn release];
-	[logoutBtn release];
+	//[logoutBtn release];
 	[locationManager release];
     [super dealloc];
 }
@@ -56,11 +56,11 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-	if([[LQClient single] isLoggedIn]) {
-		self.logoutBtn.hidden = NO;
-	} else {
-		self.logoutBtn.hidden = YES;
-	}
+//	if([[LQClient single] isLoggedIn]) {
+//		self.logoutBtn.hidden = NO;
+//	} else {
+//		self.logoutBtn.hidden = YES;
+//	}
 }
 
 - (IBAction)reloadBtnPressed {

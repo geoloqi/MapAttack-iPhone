@@ -13,6 +13,7 @@
 @interface GeoloqiReadClient : NSObject {
 	AsyncSocket *asyncSocket;
 	SystemSoundID ding;
+//	NSDate *
 }
 
 
