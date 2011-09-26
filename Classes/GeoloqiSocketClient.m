@@ -38,6 +38,9 @@ typedef union {
 	char bytes[39];
 } LQUpdatePacket;
 
+Database *LqDatabase;                  // Database class object declaration
+
+
 //#pragma pack(pop)  /* push current alignment to stack */
 
 #endif
@@ -107,6 +110,11 @@ typedef union {
 	[locationManager startUpdatingLocation];
 	
 	locationUpdatesOn = YES;
+    
+    LqDatabase = [Database new];                    // Init Database class
+    
+    // Open the GeoLoqi database => LQDatabase
+    [LqDatabase openDB:&db];
 	
 	//[[NSNotificationCenter defaultCenter] postNotificationName:LQTrackingStartedNotification object:self];
 	
@@ -161,14 +169,10 @@ typedef union {
         NSData *data = [self dataFromLocation:newLocation];
         NSLog(@"Storing location data: %@", data);
 
-        
-        Database *LqDatabase = [Database new];                    // Init Database class
-        
+                
         // Trying to extract the timestamp from NSData
         LQUpdatePacket *packet = (LQUpdatePacket *)[data bytes];
         
-        // Open the LQDatabase
-        [LqDatabase openDB:&db];
         
         [LqDatabase createTableNamed: @"LQ_DATA" withField1:@"TIME_STAMP" andField2:@"DATA_PACKET" database:db];
         [LqDatabase insertRecordIntoTableNamed:@"LQ_DATA"
@@ -177,10 +181,10 @@ typedef union {
                                      andField2:@"DATA_PACKET" field2Value:data database:db];
        
         //Network Connectivity check -- dhan
-        [[NSNotificationCenter defaultCenter] addObserver:self 
-                                                selector:@selector(handleNetworkChange:) 
-                                                name:kReachabilityChangedNotification 
-                                                object:nil];
+        //[[NSNotificationCenter defaultCenter] addObserver:self // observer
+          //                                      selector:@selector(handleNetworkChange:) // selector
+            //                                    name:kReachabilityChangedNotification // notification name
+              //                                  object:nil]; // sender - not specified
         // Init Reachablility class and ask the notifications to start
         reachability = [Reachability reachabilityForInternetConnection];
         [reachability startNotifier];
@@ -301,7 +305,7 @@ typedef union {
 		DLog(@"[Write] Sending location update %@", [NSData dataWithBytes:update.bytes length:sizeof(update.bytes)]);
 	
 	//Swap endianness of each 16 bit int
-	update.f.date           = OSSwapHostToBigInt32(update.f.date); // Check for issues if any with this line. Think it's needed. -- dbhan
+	update.f.date           = OSSwapHostToBigInt32(update.f.date); 
 	update.f.lat            = OSSwapHostToBigInt32(update.f.lat);
 	update.f.lon            = OSSwapHostToBigInt32(update.f.lon);
 	update.f.speed          = OSSwapHostToBigInt16(update.f.speed);

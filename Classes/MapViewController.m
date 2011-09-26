@@ -39,7 +39,7 @@
 		[lqAppDelegate.tabBarController presentModalViewController:[[AuthView alloc] init] animated:YES];
 	} else {
 		[webView loadRequest:[NSMutableURLRequest requestWithURL:[NSURL URLWithString:[url stringByAppendingFormat:@"?access_token=%@&user_id=%@&team=%@", [[LQClient single] accessToken], [[LQClient single] userID], [[LQClient single] team]]]]];
-		[read reconnect];
+		[lqAppDelegate.read reconnect];
 		DLog(@"Loading URL in game view %@", [url stringByAppendingFormat:@"?access_token=%@&user_id=%@&team=%@", [[LQClient single] accessToken], [[LQClient single] userID], [[LQClient single] team]]);
 	}
 }
@@ -48,10 +48,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	[webView loadRequest:[NSURLRequest requestWithURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"BlankGame" ofType:@"html"]isDirectory:NO]]];
-//	[webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:LQMapAttackWebURL]]];
 
-	read = [[GeoloqiReadClient alloc] init];
-
+    //	[webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:LQMapAttackWebURL]]];
+    
 	[[NSNotificationCenter defaultCenter] addObserver:self
 											 selector:@selector(mapAttackDataBroadcastReceived:)
 												 name:LQMapAttackDataNotification
@@ -63,7 +62,7 @@
 	
 //	[[CJSONSerializer serializer] serializeDictionary:[notification userInfo]];
 
-	DLog(@"%@", [NSString stringWithFormat:@"if(typeof LQHandlePushData != \"undefined\") { "
+    DLog(@"%@", [NSString stringWithFormat:@"if(typeof LQHandlePushData != \"undefined\") { "
 				  "LQHandlePushData(%@); }", [[notification userInfo] objectForKey:@"json"]]);
 	[webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"if(typeof LQHandlePushData != \"undefined\") { "
 													 "LQHandlePushData(%@); }", [[notification userInfo] objectForKey:@"json"]]];
@@ -135,13 +134,12 @@
 - (void)viewDidUnload {
 	// Release any retained subviews of the main view.
 	// e.g. self.myOutlet = nil;
-	[read disconnect];
+	//[read disconnect];
 }
 
 
 - (void)dealloc {
 	[webView release];
-	[read release];
     [super dealloc];
 }
 

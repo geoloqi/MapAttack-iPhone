@@ -18,6 +18,7 @@ MapAttackAppDelegate *lqAppDelegate;
 @synthesize geoloqi;
 @synthesize mapController;
 @synthesize socketClient;
+@synthesize read;
 
 #pragma mark Application launched
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
@@ -35,6 +36,7 @@ MapAttackAppDelegate *lqAppDelegate;
 	[MapAttackAppDelegate UUID];
 	
 	socketClient = [[GeoloqiSocketClient alloc] init];
+    read = [[GeoloqiReadClient alloc] init];
 	self.geoloqi = [[LQClient alloc] init];
 
 	if([[LQClient single] isLoggedIn]) {
@@ -51,8 +53,29 @@ MapAttackAppDelegate *lqAppDelegate;
 													 name:LQAuthenticationSucceededNotification
 												   object:nil];
 	}
-	
+    // Reachability notification for network connectivity   
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(handleNetworkChange:)
+                                                 name:kReachabilityChangedNotification 
+                                               object:nil];
+    socketReadReachability = [[Reachability reachabilityForInternetConnection] retain];
+    [socketReadReachability startNotifier];
     return YES;
+}
+
+-(void)handleNetworkChange:(NSNotification *) notice
+{
+    Reachability *r = [notice object];
+    NetworkStatus remoteHostStatus = r.currentReachabilityStatus;
+    if(remoteHostStatus == NotReachable) 
+    {
+        DLog(@"No Network Connectivity (printed from file MapViewController.m)");
+    }
+    else if(remoteHostStatus == ReachableViaWiFi || remoteHostStatus == ReachableViaWWAN)
+    {
+        DLog(@"Network connectivity detected"); 
+        [read reconnect];
+    }
 }
 
 #pragma mark Logged in Successfully
@@ -223,6 +246,8 @@ MapAttackAppDelegate *lqAppDelegate;
 	[socketClient release];
     [tabBarController release];
     [window release];
+    [read release];
+    [socketReadReachability release];
     [super dealloc];
 }
 

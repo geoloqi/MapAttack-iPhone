@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import <AudioToolbox/AudioToolbox.h>
 #import "AsyncSocket.h"
+#import "Reachability.h"
+
 
 @interface GeoloqiReadClient : NSObject {
 	AsyncSocket *asyncSocket;

@@ -12,6 +12,8 @@
 #import "LQClient.h"
 #import "AuthView.h"
 #import "MapViewController.h"
+#import "Reachability.h"
+
 
 static NSString *const LQUUIDKey = @"LQUUID";
 
@@ -21,9 +23,12 @@ static NSString *const LQUUIDKey = @"LQUUID";
 	GeoloqiSocketClient *socketClient;
 	LQClient *geoloqi;
 	NSString *deviceToken;
+    GeoloqiReadClient *read;
+    Reachability *socketReadReachability;
 }
 
 @property (nonatomic, retain) GeoloqiSocketClient *socketClient;
+@property (nonatomic, retain) GeoloqiReadClient *read;
 @property (nonatomic, retain) IBOutlet UIWindow *window;
 @property (nonatomic, retain) IBOutlet AuthView *authViewController;
 @property (nonatomic, retain) IBOutlet UITabBarController *tabBarController;
