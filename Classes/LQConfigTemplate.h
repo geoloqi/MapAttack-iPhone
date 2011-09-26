@@ -6,9 +6,11 @@
 //  Copyright 2011 Geoloqi.com. All rights reserved.
 //
 
-#define LQ_OAUTH_CLIENT_ID	@"7bcd478f26bd14b1fed18e9fe59e506f"
-#define LQ_OAUTH_SECRET		@"8bf6952f46f325311a67d5a3ed90c9a0"
-#define LQ_USER_AGENT		@"mapattack-11.247"
+// Get a client ID and secret from https://developers.geoloqi.com
+
+#define LQ_OAUTH_CLIENT_ID	@""
+#define LQ_OAUTH_SECRET		@""
+#define LQ_USER_AGENT		@"mapattack-11.267"
 
 #define LQ_WRITE_SOCKET_HOST @"loki.geoloqi.com"
 #define LQ_WRITE_SOCKET_PORT 40000
