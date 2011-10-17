@@ -52,7 +52,6 @@
 		0FFD5F27140F38B3008BC18B /* ASIWebPageRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FFD5F1E140F38B3008BC18B /* ASIWebPageRequest.m */; };
 		0FFD5F2B140F3903008BC18B /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FFD5F2A140F3903008BC18B /* Reachability.m */; };
 		0FFD5F39140F392C008BC18B /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FFD5F38140F392C008BC18B /* MobileCoreServices.framework */; };
-		0FFD5F41140F395F008BC18B /* libz.1.2.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FFD5F40140F395F008BC18B /* libz.1.2.3.dylib */; };
 		0FFD5F78140F3B77008BC18B /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FFD5F77140F3B77008BC18B /* libxml2.dylib */; };
 		0FFD5F7C140F3B95008BC18B /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FFD5F7B140F3B95008BC18B /* SystemConfiguration.framework */; };
 		0FFD5FA4140F4396008BC18B /* GameListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FFD5FA3140F4396008BC18B /* GameListViewController.m */; };
@@ -83,6 +82,7 @@
 		28AD73880D9D96C1002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD73870D9D96C1002E5188 /* MainWindow.xib */; };
 		DA4C146D142409A300FFBFDE /* Database.m in Sources */ = {isa = PBXBuildFile; fileRef = DA4C146C142409A300FFBFDE /* Database.m */; };
 		DA67E9CD1424059F00017C46 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DA67E9CC1424059F00017C46 /* libsqlite3.dylib */; };
+		DA8094E01448E3770088F5CD /* libz.1.2.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DA8094DF1448E3770088F5CD /* libz.1.2.5.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -166,7 +166,6 @@
 		0FFD5F29140F3903008BC18B /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		0FFD5F2A140F3903008BC18B /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		0FFD5F38140F392C008BC18B /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
-		0FFD5F40140F395F008BC18B /* libz.1.2.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.3.dylib; path = usr/lib/libz.1.2.3.dylib; sourceTree = SDKROOT; };
 		0FFD5F77140F3B77008BC18B /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		0FFD5F7B140F3B95008BC18B /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		0FFD5FA2140F4396008BC18B /* GameListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameListViewController.h; sourceTree = "<group>"; };
@@ -210,6 +209,7 @@
 		DA4C146C142409A300FFBFDE /* Database.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Database.m; sourceTree = "<group>"; };
 		DA67E9C7142403DA00017C46 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		DA67E9CC1424059F00017C46 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		DA8094DF1448E3770088F5CD /* libz.1.2.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.5.dylib; path = usr/lib/libz.1.2.5.dylib; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -217,6 +217,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA8094E01448E3770088F5CD /* libz.1.2.5.dylib in Frameworks */,
 				DA67E9CD1424059F00017C46 /* libsqlite3.dylib in Frameworks */,
 				0FFD5F7C140F3B95008BC18B /* SystemConfiguration.framework in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
@@ -226,7 +227,6 @@
 				0F1290E113F4C2EB007AAB66 /* CoreLocation.framework in Frameworks */,
 				0F12915213F4C664007AAB66 /* MapKit.framework in Frameworks */,
 				0FFD5F39140F392C008BC18B /* MobileCoreServices.framework in Frameworks */,
-				0FFD5F41140F395F008BC18B /* libz.1.2.3.dylib in Frameworks */,
 				0FFD5F78140F3B77008BC18B /* libxml2.dylib in Frameworks */,
 				0F5760211419349800C79B48 /* QuartzCore.framework in Frameworks */,
 				0F6471B6141BF35400FE7ABE /* AudioToolbox.framework in Frameworks */,
@@ -408,6 +408,7 @@
 		29B97314FDCFA39411CA2CEA /* MapAttack */ = {
 			isa = PBXGroup;
 			children = (
+				DA8094DF1448E3770088F5CD /* libz.1.2.5.dylib */,
 				0F128D4E13F4A207007AAB66 /* Externals */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
@@ -473,7 +474,6 @@
 				0F1290E013F4C2EB007AAB66 /* CoreLocation.framework */,
 				0F12915113F4C664007AAB66 /* MapKit.framework */,
 				0FFD5F38140F392C008BC18B /* MobileCoreServices.framework */,
-				0FFD5F40140F395F008BC18B /* libz.1.2.3.dylib */,
 				0F5760201419349800C79B48 /* QuartzCore.framework */,
 			);
 			name = Frameworks;
