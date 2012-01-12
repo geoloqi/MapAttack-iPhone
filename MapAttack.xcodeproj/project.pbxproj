@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0F007A6313F9A8DA00057C53 /* AsyncUdpSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F007A6213F9A8DA00057C53 /* AsyncUdpSocket.m */; };
 		0F007B841401666E00057C53 /* GeoloqiReadClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F007B831401666E00057C53 /* GeoloqiReadClient.m */; };
+		0F07AE05146616AB00E6C854 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F07AE04146616AB00E6C854 /* libz.dylib */; };
 		0F128EF813F4A29D007AAB66 /* AsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F128EF713F4A29D007AAB66 /* AsyncSocket.m */; };
 		0F128EFE13F4A2BB007AAB66 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F128EFD13F4A2BB007AAB66 /* CFNetwork.framework */; };
 		0F128FAD13F4A92E007AAB66 /* GeoloqiSocketClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F128FAC13F4A92E007AAB66 /* GeoloqiSocketClient.m */; };
@@ -27,12 +28,12 @@
 		0F12916613F4C809007AAB66 /* fakeLocations.kml in Resources */ = {isa = PBXBuildFile; fileRef = 0F12916013F4C809007AAB66 /* fakeLocations.kml */; };
 		0F12916713F4C809007AAB66 /* FTLocationSimulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F12916213F4C809007AAB66 /* FTLocationSimulator.m */; };
 		0F12916813F4C809007AAB66 /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F12916513F4C809007AAB66 /* RegexKitLite.m */; };
-		0F5760211419349800C79B48 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F5760201419349800C79B48 /* QuartzCore.framework */; };
 		0F576050141937C100C79B48 /* PoweredByGeoloqi.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F57604F141937C100C79B48 /* PoweredByGeoloqi.png */; };
 		0F646E841419488B00FE7ABE /* HowToPlay.html in Resources */ = {isa = PBXBuildFile; fileRef = 0F646E831419488B00FE7ABE /* HowToPlay.html */; };
 		0F6471A0141BF23500FE7ABE /* Pop.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 0F64719F141BF23500FE7ABE /* Pop.aiff */; };
 		0F6471B6141BF35400FE7ABE /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F6471B5141BF35400FE7ABE /* AudioToolbox.framework */; };
 		0F78A72B141553E000029E9C /* DebugLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F78A72A141553E000029E9C /* DebugLog.m */; };
+		0FB2A53114321A11002C1660 /* iTunesArtwork.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FB2A53014321A11002C1660 /* iTunesArtwork.png */; };
 		0FDBA6321416F0C200F5C8A5 /* LQPushHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FDBA6311416F0C200F5C8A5 /* LQPushHandler.m */; };
 		0FEC568E14192F770017CE48 /* MapAttackLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FEC568C14192F770017CE48 /* MapAttackLogo.png */; };
 		0FEC568F14192F770017CE48 /* MapAttackLogo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FEC568D14192F770017CE48 /* MapAttackLogo@2x.png */; };
@@ -52,8 +53,6 @@
 		0FFD5F27140F38B3008BC18B /* ASIWebPageRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FFD5F1E140F38B3008BC18B /* ASIWebPageRequest.m */; };
 		0FFD5F2B140F3903008BC18B /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FFD5F2A140F3903008BC18B /* Reachability.m */; };
 		0FFD5F39140F392C008BC18B /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FFD5F38140F392C008BC18B /* MobileCoreServices.framework */; };
-		0FFD5F41140F395F008BC18B /* libz.1.2.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FFD5F40140F395F008BC18B /* libz.1.2.3.dylib */; };
-		0FFD5F78140F3B77008BC18B /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FFD5F77140F3B77008BC18B /* libxml2.dylib */; };
 		0FFD5F7C140F3B95008BC18B /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FFD5F7B140F3B95008BC18B /* SystemConfiguration.framework */; };
 		0FFD5FA4140F4396008BC18B /* GameListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FFD5FA3140F4396008BC18B /* GameListViewController.m */; };
 		0FFD6083140FF95B008BC18B /* AuthView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FFD6081140FF95B008BC18B /* AuthView.m */; };
@@ -91,6 +90,7 @@
 		0F007B2913FEED6B00057C53 /* MapAttack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapAttack.h; sourceTree = "<group>"; };
 		0F007B821401666E00057C53 /* GeoloqiReadClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeoloqiReadClient.h; sourceTree = "<group>"; };
 		0F007B831401666E00057C53 /* GeoloqiReadClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeoloqiReadClient.m; sourceTree = "<group>"; };
+		0F07AE04146616AB00E6C854 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		0F128EF613F4A29D007AAB66 /* AsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncSocket.h; sourceTree = "<group>"; };
 		0F128EF713F4A29D007AAB66 /* AsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsyncSocket.m; sourceTree = "<group>"; };
 		0F128EFD13F4A2BB007AAB66 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -124,13 +124,13 @@
 		0F12916313F4C809007AAB66 /* FTSynthesizeSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTSynthesizeSingleton.h; sourceTree = "<group>"; };
 		0F12916413F4C809007AAB66 /* RegexKitLite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegexKitLite.h; sourceTree = "<group>"; };
 		0F12916513F4C809007AAB66 /* RegexKitLite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegexKitLite.m; sourceTree = "<group>"; };
-		0F5760201419349800C79B48 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		0F57604F141937C100C79B48 /* PoweredByGeoloqi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = PoweredByGeoloqi.png; path = Resources/PoweredByGeoloqi.png; sourceTree = "<group>"; };
 		0F646E831419488B00FE7ABE /* HowToPlay.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = HowToPlay.html; sourceTree = "<group>"; };
 		0F64719F141BF23500FE7ABE /* Pop.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = Pop.aiff; sourceTree = "<group>"; };
 		0F6471B5141BF35400FE7ABE /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		0F78A729141553E000029E9C /* DebugLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DebugLog.h; sourceTree = "<group>"; };
 		0F78A72A141553E000029E9C /* DebugLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DebugLog.m; sourceTree = "<group>"; };
+		0FB2A53014321A11002C1660 /* iTunesArtwork.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iTunesArtwork.png; sourceTree = "<group>"; };
 		0FDBA6301416F0C200F5C8A5 /* LQPushHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LQPushHandler.h; sourceTree = "<group>"; };
 		0FDBA6311416F0C200F5C8A5 /* LQPushHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LQPushHandler.m; sourceTree = "<group>"; };
 		0FEC568C14192F770017CE48 /* MapAttackLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = MapAttackLogo.png; path = Resources/MapAttackLogo.png; sourceTree = "<group>"; };
@@ -166,8 +166,6 @@
 		0FFD5F29140F3903008BC18B /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		0FFD5F2A140F3903008BC18B /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		0FFD5F38140F392C008BC18B /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
-		0FFD5F40140F395F008BC18B /* libz.1.2.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.3.dylib; path = usr/lib/libz.1.2.3.dylib; sourceTree = SDKROOT; };
-		0FFD5F77140F3B77008BC18B /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		0FFD5F7B140F3B95008BC18B /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		0FFD5FA2140F4396008BC18B /* GameListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameListViewController.h; sourceTree = "<group>"; };
 		0FFD5FA3140F4396008BC18B /* GameListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameListViewController.m; sourceTree = "<group>"; };
@@ -208,7 +206,6 @@
 		8D1107310486CEB800E47090 /* MapAttack-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MapAttack-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		DA4C146B142409A300FFBFDE /* Database.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Database.h; sourceTree = "<group>"; };
 		DA4C146C142409A300FFBFDE /* Database.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Database.m; sourceTree = "<group>"; };
-		DA67E9C7142403DA00017C46 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		DA67E9CC1424059F00017C46 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -226,10 +223,8 @@
 				0F1290E113F4C2EB007AAB66 /* CoreLocation.framework in Frameworks */,
 				0F12915213F4C664007AAB66 /* MapKit.framework in Frameworks */,
 				0FFD5F39140F392C008BC18B /* MobileCoreServices.framework in Frameworks */,
-				0FFD5F41140F395F008BC18B /* libz.1.2.3.dylib in Frameworks */,
-				0FFD5F78140F3B77008BC18B /* libxml2.dylib in Frameworks */,
-				0F5760211419349800C79B48 /* QuartzCore.framework in Frameworks */,
 				0F6471B6141BF35400FE7ABE /* AudioToolbox.framework in Frameworks */,
+				0F07AE05146616AB00E6C854 /* libz.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -414,9 +409,6 @@
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
-				0FFD5F77140F3B77008BC18B /* libxml2.dylib */,
-				0FFD5F7B140F3B95008BC18B /* SystemConfiguration.framework */,
-				0F6471B5141BF35400FE7ABE /* AudioToolbox.framework */,
 			);
 			name = MapAttack;
 			sourceTree = "<group>";
@@ -440,6 +432,7 @@
 				0FFD68E2141402F4008BC18B /* map-icon@2x.png */,
 				0FFD68E3141402F4008BC18B /* nearby-games-icon.png */,
 				0FFD68E4141402F4008BC18B /* nearby-games-icon@2x.png */,
+				0FB2A53014321A11002C1660 /* iTunesArtwork.png */,
 				0FFD5EB8140C25D6008BC18B /* Icon.png */,
 				0FFD5EB9140C25D6008BC18B /* Icon@2x.png */,
 				0FFD65F81412C718008BC18B /* initialFrame.png */,
@@ -464,17 +457,17 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				DA67E9CC1424059F00017C46 /* libsqlite3.dylib */,
-				DA67E9C7142403DA00017C46 /* SystemConfiguration.framework */,
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 				288765070DF74369002DB57D /* CoreGraphics.framework */,
 				0F128EFD13F4A2BB007AAB66 /* CFNetwork.framework */,
-				0F1290E013F4C2EB007AAB66 /* CoreLocation.framework */,
-				0F12915113F4C664007AAB66 /* MapKit.framework */,
 				0FFD5F38140F392C008BC18B /* MobileCoreServices.framework */,
-				0FFD5F40140F395F008BC18B /* libz.1.2.3.dylib */,
-				0F5760201419349800C79B48 /* QuartzCore.framework */,
+				0F12915113F4C664007AAB66 /* MapKit.framework */,
+				DA67E9CC1424059F00017C46 /* libsqlite3.dylib */,
+				0F07AE04146616AB00E6C854 /* libz.dylib */,
+				0F1290E013F4C2EB007AAB66 /* CoreLocation.framework */,
+				0FFD5F7B140F3B95008BC18B /* SystemConfiguration.framework */,
+				0F6471B5141BF35400FE7ABE /* AudioToolbox.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -557,6 +550,7 @@
 				0F576050141937C100C79B48 /* PoweredByGeoloqi.png in Resources */,
 				0F646E841419488B00FE7ABE /* HowToPlay.html in Resources */,
 				0F6471A0141BF23500FE7ABE /* Pop.aiff in Resources */,
+				0FB2A53114321A11002C1660 /* iTunesArtwork.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -669,7 +663,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Geoloqi.com";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
@@ -677,6 +671,7 @@
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				OTHER_LDFLAGS = "-lxml2";
 				PREBINDING = NO;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "3C00E58F-6F8D-4CD2-BDB2-8F4AA063A623";
 				SDKROOT = iphoneos;
 			};
 			name = Release;
