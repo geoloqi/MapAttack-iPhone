@@ -88,7 +88,9 @@ MapAttackAppDelegate *lqAppDelegate;
 //                                                    name:LQAuthenticationFailedNotification 
 //                                                  object:nil];
 	
-	geoloqi = [[GeoloqiSocketClient alloc] init];
+	// geoloqi = [[GeoloqiSocketClient alloc] init]; wtf?
+	
+	
     if (tabBarController.modalViewController && [tabBarController.modalViewController isKindOfClass:[authViewController class]])
         [tabBarController dismissModalViewControllerAnimated:YES];
 	

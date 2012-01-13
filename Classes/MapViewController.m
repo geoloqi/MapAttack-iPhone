@@ -12,9 +12,13 @@
 #import "AuthView.h"
 #import "MapAttackAppDelegate.h"
 
+
+#define MAX_ICON_SIZE 32
+#define DEFAULT_ICON_SIZE 72
+
 @implementation MapViewController
 
-@synthesize webView, activityIndicator;
+@synthesize webView, activityIndicator; //, mSlider;
 
 /*
 // The designated initializer. Override to perform setup that is required before the view is loaded.
@@ -32,6 +36,13 @@
 - (void)loadView {
 }
 */
+
+//- (void)awakeFromNib {
+//    [mSlider setMaxValue: MAX_ICON_SIZE];
+//    [mSlider setDoubleValue: DEFAULT_ICON_SIZE];
+//}
+
+
 
 - (void)loadURL:(NSString *)url {
 	// If we don't have authentication tokens here, then pop up the login page to get their email and initials

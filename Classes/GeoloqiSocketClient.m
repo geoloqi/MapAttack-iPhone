@@ -115,20 +115,18 @@ Database *LqDatabase;                  // Database class object declaration
     
     // Open the GeoLoqi database => LQDatabase
     [LqDatabase openDB:&db];
+
+    [LqDatabase createTableNamed: @"LQ_DATA" withField1:@"TIME_STAMP" andField2:@"DATA_PACKET" database:db];
+
+    //Network Connectivity check -- dbhan
+    //[[NSNotificationCenter defaultCenter] addObserver:self // observer
+    //                                      selector:@selector(handleNetworkChange:) // selector
+    //                                    name:kReachabilityChangedNotification // notification name
+    //                                  object:nil]; // sender - not specified
+    // Init Reachablility class and ask the notifications to start
+    reachability = [Reachability reachabilityForInternetConnection];
+    [reachability startNotifier];    
 	
-	//[[NSNotificationCenter defaultCenter] postNotificationName:LQTrackingStartedNotification object:self];
-	
-	// Disabling significant location changes. 12/8/10 -ap
-	/*
-	 [locationManager startMonitoringSignificantLocationChanges];
-	 if (significantUpdatesOnly) {
-	 DLog(@"Significant updates on.");
-	 [locationManager stopUpdatingLocation];
-	 } else {
-	 DLog(@"Starting location updates");
-	 [locationManager startUpdatingLocation];
-	 }
-	 */
 }
 
 - (void)stopMonitoringLocation {
@@ -149,8 +147,9 @@ Database *LqDatabase;                  // Database class object declaration
     NSData *raw;
 	DLog(@"Updated to location %@ from %@", newLocation, oldLocation);
 
-	// horizontalAccuracy is negative when the location is invalid, so completely ignore it in this case
-	if(newLocation.horizontalAccuracy < 0){
+	// horizontalAccuracy is negative when the location is invalid, so completely ignore it in this case.
+    // Also ignore bad positions because they aren't useful.
+	if(newLocation.horizontalAccuracy < 0 || newLocation.horizontalAccuracy > 500){
 		return;
 	}
     
@@ -174,21 +173,11 @@ Database *LqDatabase;                  // Database class object declaration
         LQUpdatePacket *packet = (LQUpdatePacket *)[data bytes];
         
         
-        [LqDatabase createTableNamed: @"LQ_DATA" withField1:@"TIME_STAMP" andField2:@"DATA_PACKET" database:db];
         [LqDatabase insertRecordIntoTableNamed:@"LQ_DATA"
                                     withField1:@"TIME_STAMP"
                                    field1Value:packet->f.date 
                                      andField2:@"DATA_PACKET" field2Value:data database:db];
        
-        //Network Connectivity check -- dhan
-        //[[NSNotificationCenter defaultCenter] addObserver:self // observer
-          //                                      selector:@selector(handleNetworkChange:) // selector
-            //                                    name:kReachabilityChangedNotification // notification name
-              //                                  object:nil]; // sender - not specified
-        // Init Reachablility class and ask the notifications to start
-        reachability = [Reachability reachabilityForInternetConnection];
-        [reachability startNotifier];
-        
         // What is the current connectivity status?
         NetworkStatus remoteHostStatus = [reachability currentReachabilityStatus];
         
