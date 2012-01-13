@@ -206,7 +206,7 @@ Database *LqDatabase;                  // Database class object declaration
                 while (sqlite3_step(getStatement) == SQLITE_ROW)
                 {
                     //Loop through all the returned rows
-                    int rowId = sqlite3_column_int(getStatement,0);
+                    sqlite3_column_int(getStatement,0);
                     raw = [[NSData alloc] initWithBytes:sqlite3_column_blob(getStatement, 2)
                                                  length:sqlite3_column_bytes(getStatement,2)];
                     NSLog(@"Retrieved location data: %@", raw);
@@ -217,15 +217,16 @@ Database *LqDatabase;                  // Database class object declaration
                                       tag:TAG_DEVICE_ID_SENT];
                     [asyncSocket receiveWithTimeout:30.0 tag:TAG_DEVICE_ID_SENT];
                     [raw release];  // release the allocated memory
-                    
+                    /*
                     // Delete rows from the sqlite3 table that you just retrieved
                     NSString *query = [NSString stringWithFormat:@"DELETE FROM LQ_DATA WHERE ROWID = '%i'", rowId]; 
                     if (sqlite3_exec(db, [query UTF8String], NULL, NULL, NULL) != SQLITE_OK)
                     {
                         NSAssert(0, @"Deletion not successful");
-                    }
+                    } */
                 }
             }
+            sqlite3_finalize(getStatement);  //__dbhan: Remove the sqlite3 prepared statement as otherwise it will be a memory leak
         }
     } else {
         
@@ -258,6 +259,14 @@ Database *LqDatabase;                  // Database class object declaration
         uint32_t time = (*(uint32_t *)data.bytes);
 		if(VERBOSE)
 			DLog(@"[Write] Accepted packet with timestamp: %u", time);
+        
+        // __dbhan: Delete rows from the sqlite3 table that recieve an ack from the server
+        //          Make the key for row removal from the database to be the timestamp
+        NSString *query =[NSString stringWithFormat:@"DELETE FROM LQ_DATA WHERE TIME_STAMP = '%i'", time];
+        if (sqlite3_exec(db, [query UTF8String], NULL, NULL, NULL) != SQLITE_OK)
+        {
+            NSAssert(0, @"Deletion not successful");
+        }
 		return YES;
 	} else {
 		//if(VERBOSE)
