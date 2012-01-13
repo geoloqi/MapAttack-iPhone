@@ -149,6 +149,18 @@ static NSString *const LQClientRequestNeedsAuthenticationUserInfoKey = @"LQClien
 	return machine;
 }
 
+- (void)addAnalyticsHeaders:(ASIHTTPRequest *)request {
+    UIDevice *d = [UIDevice currentDevice];
+    NSDictionary *bundleInfo = [[NSBundle mainBundle] infoDictionary];
+    [request addRequestHeader:@"X-LQ-Device-Manufacturer" value:@"Apple"];
+    [request addRequestHeader:@"X-LQ-Device-Hardware" value:[self hardware]];
+    [request addRequestHeader:@"X-LQ-Device-OS" value:d.systemName];
+    [request addRequestHeader:@"X-LQ-Device-Version" value:d.systemVersion];
+    [request addRequestHeader:@"X-LQ-Package-Name" value:[bundleInfo objectForKey:@"CFBundleIdentifier"]];
+    [request addRequestHeader:@"X-LQ-Package-Version" value:[bundleInfo objectForKey:@"CFBundleVersion"]];
+}
+
+
 /*
 // This was for queuing/dequeuing requests so we could refresh the access token if necessary
 - (void)dequeueUserRequestIfPossible {
