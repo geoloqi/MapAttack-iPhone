@@ -102,7 +102,9 @@
 	didUpdateToLocation:(CLLocation *)newLocation
 		   fromLocation:(CLLocation *)oldLocation {
 
-    //[locationManager stopUpdatingLocation];
+    if(newLocation.horizontalAccuracy < 300){
+        [locationManager stopUpdatingLocation];
+    }
 
 	NSLog(@"Got location update! %@", newLocation);
 	
