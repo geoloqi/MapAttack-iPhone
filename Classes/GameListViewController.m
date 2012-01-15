@@ -10,7 +10,6 @@
 #import "LQClient.h"
 #import "LQConfig.h"
 #import "MapAttackAppDelegate.h"
-#import "FTLocationSimulator.h"
 
 @implementation GameListViewController
 
@@ -84,18 +83,12 @@
 	self.loadingStatus.hidden = NO;
 	self.gamesNearLabel.text = @"";
 	
-#ifdef FAKE_CORE_LOCATION
-    [self locationManager:locationManager 
-      didUpdateToLocation:[[CLLocation alloc] initWithLatitude:37.33095 longitude:-122.03066] fromLocation:nil];
-#else
 	if (!locationManager) {
 		locationManager = [[CLLocationManager alloc] init];
 		locationManager.distanceFilter = 1.0;
 		locationManager.delegate = self;
         [locationManager startUpdatingLocation];
 	}
-#endif
-	
 }
 
 - (void)locationManager:(CLLocationManager *)manager

@@ -15,11 +15,17 @@
 @interface GeoloqiReadClient : NSObject {
 	AsyncSocket *asyncSocket;
 	SystemSoundID ding;
+	NSTimer *keepaliveTimer;
+    NSDate *lastMessageReceivedDate;
+    int messagesReceived;
 }
 
 
 - (void)normalConnect;
 - (void)disconnect;
 - (void)reconnect;
+
+- (void)stopKeepalive;
+- (void)startKeepalive;
 
 @end

@@ -177,6 +177,9 @@
 /* Begin PBXProject section */
 		DC5778A213DBBF2E007881FC /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+			};
 			buildConfigurationList = DC5778A513DBBF2E007881FC /* Build configuration list for PBXProject "ConnectTest" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
@@ -360,6 +363,7 @@
 				DC5778CB13DBBF2E007881FC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

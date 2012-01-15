@@ -7,7 +7,6 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
-#include "FTLocationSimulator.h"
 //#import "Database.h"
 #import "sqlite3.h"            // Import SQLITE3 header file
 #import "Reachability.h"
@@ -20,11 +19,7 @@
     GeoloqiSocketClient *geoloqiClient;
    sqlite3 *db;        // Create an object of the type sqlite3d
 
-#ifdef FAKE_CORE_LOCATION
-	FTLocationSimulator *locationManager;
-#else
 	CLLocationManager *locationManager;
-#endif
 	CLLocation *currentLocation;
 	BOOL locationUpdatesOn;
 	CLLocationDistance distanceFilterDistance;

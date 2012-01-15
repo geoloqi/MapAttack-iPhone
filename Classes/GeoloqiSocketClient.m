@@ -58,6 +58,15 @@ Database *LqDatabase;                  // Database class object declaration
 		sendingFrequency = 1;
 		uuid = [[MapAttackAppDelegate UUID] retain];
         // [self normalConnect];
+
+        //Network Connectivity check -- dbhan
+        //[[NSNotificationCenter defaultCenter] addObserver:self // observer
+        //                                      selector:@selector(handleNetworkChange:) // selector
+        //                                    name:kReachabilityChangedNotification // notification name
+        //                                  object:nil]; // sender - not specified
+        // Init Reachablility class and ask the notifications to start
+        reachability = [Reachability reachabilityForInternetConnection];
+        [reachability startNotifier];    
     }
     
     return self;
@@ -96,11 +105,7 @@ Database *LqDatabase;                  // Database class object declaration
 
 - (void)startMonitoringLocation {
 	if (!locationManager) {
-#ifdef FAKE_CORE_LOCATION
-		locationManager = [[FTLocationSimulator alloc] init];
-#else
 		locationManager = [[CLLocationManager alloc] init];
-#endif
 		locationManager.distanceFilter = distanceFilterDistance;
 		locationManager.delegate = self;
 	}
@@ -117,16 +122,6 @@ Database *LqDatabase;                  // Database class object declaration
     [LqDatabase openDB:&db];
 
     [LqDatabase createTableNamed: @"LQ_DATA" withField1:@"TIME_STAMP" andField2:@"DATA_PACKET" database:db];
-
-    //Network Connectivity check -- dbhan
-    //[[NSNotificationCenter defaultCenter] addObserver:self // observer
-    //                                      selector:@selector(handleNetworkChange:) // selector
-    //                                    name:kReachabilityChangedNotification // notification name
-    //                                  object:nil]; // sender - not specified
-    // Init Reachablility class and ask the notifications to start
-    reachability = [Reachability reachabilityForInternetConnection];
-    [reachability startNotifier];    
-	
 }
 
 - (void)stopMonitoringLocation {
@@ -179,13 +174,14 @@ Database *LqDatabase;                  // Database class object declaration
                                      andField2:@"DATA_PACKET" field2Value:data database:db];
        
         // What is the current connectivity status?
-        NetworkStatus remoteHostStatus = [reachability currentReachabilityStatus];
+//        NSLog(@"Reachability: %@", reachability);
+//        NetworkStatus remoteHostStatus = [reachability currentReachabilityStatus];
+//        
+//        if(remoteHostStatus == NotReachable) { NSLog(@"No Network Connectivity");}
+//        else if (remoteHostStatus == ReachableViaWiFi) { NSLog(@"Local Network (WiFi) detected");}
+//        else if (remoteHostStatus == ReachableViaWWAN) { NSLog(@"Carrier Network Connectivity detected");}
         
-        if(remoteHostStatus == NotReachable) { NSLog(@"No Network Connectivity");}
-        else if (remoteHostStatus == ReachableViaWiFi) { NSLog(@"Local Network (WiFi) detected");}
-        else if (remoteHostStatus == ReachableViaWWAN) { NSLog(@"Carrier Network Connectivity detected");}
-        
-        if (remoteHostStatus == ReachableViaWiFi || remoteHostStatus == ReachableViaWWAN)
+        if (YES) // remoteHostStatus == ReachableViaWiFi || remoteHostStatus == ReachableViaWWAN)
         {
             // Try to retrieve data from the database
             NSString *qsql = @"SELECT * FROM LQ_DATA ORDER BY ROWID";

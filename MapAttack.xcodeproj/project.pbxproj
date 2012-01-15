@@ -25,9 +25,6 @@
 		0F128FD013F4A9C1007AAB66 /* CSerializedJSONData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F128FC613F4A9C1007AAB66 /* CSerializedJSONData.m */; };
 		0F1290E113F4C2EB007AAB66 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F1290E013F4C2EB007AAB66 /* CoreLocation.framework */; };
 		0F12915213F4C664007AAB66 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F12915113F4C664007AAB66 /* MapKit.framework */; };
-		0F12916613F4C809007AAB66 /* fakeLocations.kml in Resources */ = {isa = PBXBuildFile; fileRef = 0F12916013F4C809007AAB66 /* fakeLocations.kml */; };
-		0F12916713F4C809007AAB66 /* FTLocationSimulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F12916213F4C809007AAB66 /* FTLocationSimulator.m */; };
-		0F12916813F4C809007AAB66 /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F12916513F4C809007AAB66 /* RegexKitLite.m */; };
 		0F576050141937C100C79B48 /* PoweredByGeoloqi.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F57604F141937C100C79B48 /* PoweredByGeoloqi.png */; };
 		0F646E841419488B00FE7ABE /* HowToPlay.html in Resources */ = {isa = PBXBuildFile; fileRef = 0F646E831419488B00FE7ABE /* HowToPlay.html */; };
 		0F6471A0141BF23500FE7ABE /* Pop.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 0F64719F141BF23500FE7ABE /* Pop.aiff */; };
@@ -119,12 +116,6 @@
 		0F128FC613F4A9C1007AAB66 /* CSerializedJSONData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSerializedJSONData.m; sourceTree = "<group>"; };
 		0F1290E013F4C2EB007AAB66 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		0F12915113F4C664007AAB66 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		0F12916013F4C809007AAB66 /* fakeLocations.kml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = fakeLocations.kml; sourceTree = "<group>"; };
-		0F12916113F4C809007AAB66 /* FTLocationSimulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTLocationSimulator.h; sourceTree = "<group>"; };
-		0F12916213F4C809007AAB66 /* FTLocationSimulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTLocationSimulator.m; sourceTree = "<group>"; };
-		0F12916313F4C809007AAB66 /* FTSynthesizeSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTSynthesizeSingleton.h; sourceTree = "<group>"; };
-		0F12916413F4C809007AAB66 /* RegexKitLite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegexKitLite.h; sourceTree = "<group>"; };
-		0F12916513F4C809007AAB66 /* RegexKitLite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegexKitLite.m; sourceTree = "<group>"; };
 		0F57604F141937C100C79B48 /* PoweredByGeoloqi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = PoweredByGeoloqi.png; path = Resources/PoweredByGeoloqi.png; sourceTree = "<group>"; };
 		0F646E831419488B00FE7ABE /* HowToPlay.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = HowToPlay.html; sourceTree = "<group>"; };
 		0F64719F141BF23500FE7ABE /* Pop.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = Pop.aiff; sourceTree = "<group>"; };
@@ -274,7 +265,6 @@
 				0F78A728141553D900029E9C /* DebugLog */,
 				0FFD5F28140F3903008BC18B /* Reachability */,
 				0FFD5F07140F38B3008BC18B /* ASIHTTPRequest */,
-				0F12915F13F4C809007AAB66 /* FTLocationSimulator */,
 				0F128FB013F4A9C1007AAB66 /* TouchJSON */,
 				0F128EF613F4A29D007AAB66 /* AsyncSocket.h */,
 				0F128EF713F4A29D007AAB66 /* AsyncSocket.m */,
@@ -325,19 +315,6 @@
 				0F128FC613F4A9C1007AAB66 /* CSerializedJSONData.m */,
 			);
 			path = JSON;
-			sourceTree = "<group>";
-		};
-		0F12915F13F4C809007AAB66 /* FTLocationSimulator */ = {
-			isa = PBXGroup;
-			children = (
-				0F12916013F4C809007AAB66 /* fakeLocations.kml */,
-				0F12916113F4C809007AAB66 /* FTLocationSimulator.h */,
-				0F12916213F4C809007AAB66 /* FTLocationSimulator.m */,
-				0F12916313F4C809007AAB66 /* FTSynthesizeSingleton.h */,
-				0F12916413F4C809007AAB66 /* RegexKitLite.h */,
-				0F12916513F4C809007AAB66 /* RegexKitLite.m */,
-			);
-			path = FTLocationSimulator;
 			sourceTree = "<group>";
 		};
 		0F78A728141553D900029E9C /* DebugLog */ = {
@@ -532,7 +509,6 @@
 				28AD73880D9D96C1002E5188 /* MainWindow.xib in Resources */,
 				282CCBFE0DB6C98000C4EA27 /* GameList.xib in Resources */,
 				2840D7CE1179279E00D7F93C /* MapView.xib in Resources */,
-				0F12916613F4C809007AAB66 /* fakeLocations.kml in Resources */,
 				0FFD5EBA140C25D6008BC18B /* Icon.png in Resources */,
 				0FFD5EBB140C25D6008BC18B /* Icon@2x.png in Resources */,
 				0FFD6084140FF95B008BC18B /* AuthView.xib in Resources */,
@@ -580,8 +556,6 @@
 				0F128FCE13F4A9C1007AAB66 /* CJSONScanner.m in Sources */,
 				0F128FCF13F4A9C1007AAB66 /* CJSONSerializer.m in Sources */,
 				0F128FD013F4A9C1007AAB66 /* CSerializedJSONData.m in Sources */,
-				0F12916713F4C809007AAB66 /* FTLocationSimulator.m in Sources */,
-				0F12916813F4C809007AAB66 /* RegexKitLite.m in Sources */,
 				0F007A6313F9A8DA00057C53 /* AsyncUdpSocket.m in Sources */,
 				0F007B841401666E00057C53 /* GeoloqiReadClient.m in Sources */,
 				0FFD5ECA140F218D008BC18B /* LQClient.m in Sources */,
@@ -614,7 +588,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Aaron Parecki (UR6C55S2E6)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -626,7 +600,7 @@
 					"-lxml2",
 				);
 				PRODUCT_NAME = MapAttack;
-				PROVISIONING_PROFILE = "C00E2949-5BFA-43B4-8B4B-A4A880578555";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;

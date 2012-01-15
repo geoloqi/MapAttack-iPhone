@@ -55,6 +55,8 @@
 		NSData *data = [hexDeviceID dataUsingEncoding:NSASCIIStringEncoding];
 		DLog(@"[Read] Writing device id: %@", data);
 		[asyncSocket writeData:data withTimeout:TIMEOUT_SEC tag:TAG_DEVICE_ID_SENT];
+        messagesReceived = 0;
+        [self startKeepalive];
     }	
 }
 
@@ -90,10 +92,17 @@
 	if([data isEqualToData:[@"ok\r\n" dataUsingEncoding:NSUTF8StringEncoding]]) {
 		if(VERBOSE)
 			DLog(@"[Read] Got 'ok' response");
+        // Set up a timer to reconnect the socket if we haven't received any data in some time
 		[asyncSocket readDataToData:[AsyncSocket CRLFData] withTimeout:-1 tag:TAG_MESSAGE_RECEIVED];
 		return;
 	}
 	
+    messagesReceived++;
+    if(lastMessageReceivedDate){
+        [lastMessageReceivedDate release];
+    }
+    lastMessageReceivedDate = [[NSDate date] retain];
+    
 	NSError **err;
 	NSDictionary *dict;
 	
@@ -166,18 +175,49 @@
 	[asyncSocket readDataToData:[AsyncSocket CRLFData] withTimeout:-1 tag:TAG_MESSAGE_RECEIVED];
 }
 
-- (void)disconnect 
-{
-	[asyncSocket disconnect];
-}
 
 
 #pragma mark  -
 
-- (void) socket:(AsyncSocket *)sock didConnectToHost:(NSString *)host port:(UInt16)port
+
+- (void)socket:(AsyncSocket *)sock didConnectToHost:(NSString *)host port:(UInt16)port
 {
-    DLog(@"[Read] Connected on local host:%@ port:%hu", [sock localHost], [sock localPort]);
+    DLog(@"[Read] Connected on local host:%@ port:%hu", [sock localHost], [sock localPort]);    
 }
+
+- (void)disconnect 
+{
+	[asyncSocket disconnect];
+    [self stopKeepalive];
+}
+
+- (void)keepaliveTimerDidFire:(NSTimer *)timer {
+    NSLog(@"====================================");
+	NSLog(@"Keepalive: Last message received %@ ago. Total messages: %d (%@)", [NSNumber numberWithInteger:[lastMessageReceivedDate timeIntervalSinceNow]], messagesReceived, lastMessageReceivedDate);
+    
+    if([[NSNumber numberWithInteger:[lastMessageReceivedDate timeIntervalSinceNow]] intValue] < -30 && messagesReceived > 0) {
+        [self reconnect];
+    }
+    
+}
+
+- (void)startKeepalive {
+    NSLog(@"====================================");
+    NSLog(@"Starting keepalive timer");
+	keepaliveTimer = [[NSTimer scheduledTimerWithTimeInterval:20.0
+                                                       target:self
+                                                     selector:@selector(keepaliveTimerDidFire:)
+                                                     userInfo:nil
+                                                      repeats:YES] retain];
+	[self keepaliveTimerDidFire:keepaliveTimer];
+}
+
+- (void)stopKeepalive {
+	[keepaliveTimer invalidate];
+	[keepaliveTimer release];
+	keepaliveTimer = nil;
+}
+
 
 
 @end
