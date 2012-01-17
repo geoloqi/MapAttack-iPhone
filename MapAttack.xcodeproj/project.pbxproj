@@ -25,6 +25,8 @@
 		0F128FD013F4A9C1007AAB66 /* CSerializedJSONData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F128FC613F4A9C1007AAB66 /* CSerializedJSONData.m */; };
 		0F1290E113F4C2EB007AAB66 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F1290E013F4C2EB007AAB66 /* CoreLocation.framework */; };
 		0F12915213F4C664007AAB66 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F12915113F4C664007AAB66 /* MapKit.framework */; };
+		0F13280214C53EA1007C99ED /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F13280114C53EA1007C99ED /* Default.png */; };
+		0F13280414C53EAB007C99ED /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F13280314C53EAA007C99ED /* Default@2x.png */; };
 		0F576050141937C100C79B48 /* PoweredByGeoloqi.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F57604F141937C100C79B48 /* PoweredByGeoloqi.png */; };
 		0F646E841419488B00FE7ABE /* HowToPlay.html in Resources */ = {isa = PBXBuildFile; fileRef = 0F646E831419488B00FE7ABE /* HowToPlay.html */; };
 		0F6471A0141BF23500FE7ABE /* Pop.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 0F64719F141BF23500FE7ABE /* Pop.aiff */; };
@@ -116,6 +118,8 @@
 		0F128FC613F4A9C1007AAB66 /* CSerializedJSONData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSerializedJSONData.m; sourceTree = "<group>"; };
 		0F1290E013F4C2EB007AAB66 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		0F12915113F4C664007AAB66 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		0F13280114C53EA1007C99ED /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		0F13280314C53EAA007C99ED /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		0F57604F141937C100C79B48 /* PoweredByGeoloqi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = PoweredByGeoloqi.png; path = Resources/PoweredByGeoloqi.png; sourceTree = "<group>"; };
 		0F646E831419488B00FE7ABE /* HowToPlay.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = HowToPlay.html; sourceTree = "<group>"; };
 		0F64719F141BF23500FE7ABE /* Pop.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = Pop.aiff; sourceTree = "<group>"; };
@@ -383,6 +387,8 @@
 		29B97314FDCFA39411CA2CEA /* MapAttack */ = {
 			isa = PBXGroup;
 			children = (
+				0F13280314C53EAA007C99ED /* Default@2x.png */,
+				0F13280114C53EA1007C99ED /* Default.png */,
 				DA8094DF1448E3770088F5CD /* libz.1.2.5.dylib */,
 				0F128D4E13F4A207007AAB66 /* Externals */,
 				080E96DDFE201D6D7F000001 /* Classes */,
@@ -531,6 +537,8 @@
 				0F646E841419488B00FE7ABE /* HowToPlay.html in Resources */,
 				0F6471A0141BF23500FE7ABE /* Pop.aiff in Resources */,
 				0FB2A53114321A11002C1660 /* iTunesArtwork.png in Resources */,
+				0F13280214C53EA1007C99ED /* Default.png in Resources */,
+				0F13280414C53EAB007C99ED /* Default@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -610,11 +618,13 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = MapAttack_Prefix.pch;
 				INFOPLIST_FILE = "MapAttack-Info.plist";
 				PRODUCT_NAME = MapAttack;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_PRODUCT = YES;
 			};
